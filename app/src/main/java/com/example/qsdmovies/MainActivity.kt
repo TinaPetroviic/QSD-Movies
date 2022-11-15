@@ -11,5 +11,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("MainActivity", "onCreate")
         Log.d("MainActivity", "Test Log, commit")
+        Log.d("MainActivity", "Create Login, commit")
+
+
     }
 }
