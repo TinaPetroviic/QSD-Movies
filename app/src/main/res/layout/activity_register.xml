@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/backgroundcolor">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,10 +17,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BACK"
-            android:textSize="18dp"/>
-
+            android:textSize="18dp" />
     </androidx.appcompat.widget.Toolbar>
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="155dp"
+        android:layout_height="155dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="MissingConstraints">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="250dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="center"
+                android:src="@drawable/user_2" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Add profile picture"
+
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/firstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
         android:id="@+id/firstName"
@@ -34,10 +74,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="120dp" />
+        tools:layout_editor_absoluteY="283dp" />
 
     <EditText
-        android:id="@+id/firstNameHre"
+        android:id="@+id/firstNameHere"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -59,14 +99,14 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:text="LAST NAME"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstNameHre"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameHere"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -93,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:text="EMAIL"
         android:textStyle="bold"
@@ -126,7 +166,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:text="PASSWORD"
         android:textStyle="bold"
@@ -160,7 +200,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:text="CONFIRM PASSWORD"
         android:textStyle="bold"
@@ -188,19 +228,21 @@
         app:layout_constraintTop_toBottomOf="@+id/confirmPassword"
         tools:ignore="MissingConstraints" />
 
-    <EditText
+    <Button
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/button_selector"
         android:backgroundTint="@color/primarycolor"
         android:text="REGISTER"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
