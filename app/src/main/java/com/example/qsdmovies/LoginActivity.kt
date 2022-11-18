@@ -18,9 +18,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailHere : EditText
     private lateinit var passwordHere : EditText
     private lateinit var loginButton : Button
-
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +37,13 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             login()
         }
-
         register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this,ForgotActivity::class.java)
             startActivity(intent)
             finish()
         }
