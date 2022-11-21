@@ -1,6 +1,8 @@
 package com.example.qsdmovies
 
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,23 +17,24 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var firstNameHere : EditText
     private lateinit var lastNameHere : EditText
-    private lateinit var emailHere : EditText
-    private lateinit var registerPasswordHere : EditText
-    private lateinit var confirmPasswordHere : EditText
+    private lateinit var emailRegister : EditText
+    private lateinit var passwordRegister : EditText
+    private lateinit var confirmPasswordRegister : EditText
     private lateinit var registerButton : Button
 
     private lateinit var auth: FirebaseAuth
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         firstNameHere = findViewById(R.id.firstNameHere)
         lastNameHere = findViewById(R.id.lastNameHere)
-        emailHere = findViewById(R.id.emailHere)
-        registerPasswordHere = findViewById(R.id.registerPasswordHere)
-        confirmPasswordHere = findViewById(R.id.confirmPasswordHere)
+        emailRegister = findViewById(R.id.emailRegister)
+        passwordRegister = findViewById(R.id.passwordRegister)
+        confirmPasswordRegister = findViewById(R.id.confirmPasswordRegister)
         registerButton = findViewById(R.id.registerButton)
 
         auth = Firebase.auth
@@ -40,14 +43,15 @@ class RegisterActivity : AppCompatActivity() {
             signUpUser()
         }
 
+
     }
 
     private fun signUpUser() {
         val firstName = firstNameHere.text.toString()
         val lastName = lastNameHere.text.toString()
-        val email = emailHere.text.toString()
-        val pass = registerPasswordHere.text.toString()
-        val confirmPassword = confirmPasswordHere.text.toString()
+        val email = emailRegister.text.toString()
+        val pass = passwordRegister.text.toString()
+        val confirmPassword = confirmPasswordRegister.text.toString()
 
 
         if (email.isBlank() || pass.isBlank() || confirmPassword.isBlank() || lastName.isBlank() || firstName.isBlank()) {
@@ -63,12 +67,13 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
+                val intent = Intent (this, HomeActivity::class.java)
+                startActivity(intent)
                 Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
                 Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 }

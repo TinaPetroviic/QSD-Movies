@@ -14,6 +14,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
+            android:id="@+id/backTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BACK"
@@ -144,7 +145,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/emailHere"
+        android:id="@+id/emailRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -162,7 +163,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/registerPassword"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
@@ -173,11 +174,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailHere"
+        app:layout_constraintTop_toBottomOf="@+id/emailRegister"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/registerPasswordHere"
+        android:id="@+id/passwordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -191,7 +192,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPassword"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         tools:ignore="MissingConstraints" />
 
 
@@ -207,11 +208,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPasswordHere"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/confirmPasswordHere"
+        android:id="@+id/confirmPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -246,7 +247,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordHere"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordRegister"
         tools:ignore="MissingConstraints" />
 
 
