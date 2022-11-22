@@ -1,6 +1,5 @@
 package com.example.qsdmovies
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -10,7 +9,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
-@Suppress("UNUSED_EXPRESSION")
 class ForgotActivity : AppCompatActivity() {
 
     private lateinit var emailForgot: EditText
@@ -18,8 +16,6 @@ class ForgotActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot)
@@ -29,11 +25,15 @@ class ForgotActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        auth.sendPasswordResetEmail(emailForgot.toString()).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                "successful!" }
-            else { "failed!"}
-            }
-        }
-    }
+        val actionbar = supportActionBar
+        actionbar!!.title = "BACK"
 
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
+        }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+}
