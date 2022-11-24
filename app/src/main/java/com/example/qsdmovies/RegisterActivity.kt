@@ -1,22 +1,23 @@
 package com.example.qsdmovies
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
+import com.google.firebase.storage.StorageReference
+import de.hdodenhof.circleimageview.CircleImageView
+import java.io.IOException
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var firstNameHere: EditText
@@ -25,12 +26,13 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var passwordRegister: EditText
     private lateinit var confirmPasswordRegister: EditText
     private lateinit var registerButton : Button
-    private lateinit var imageProfilePicture : ImageView
+    private lateinit var profileImage : CircleImageView
     private lateinit var addProfilePicture : TextView
+    private val PICK_IMAGE_REQUEST = 71
+    private var filePath: Uri? = null
+    private var firebaseStore: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
 
-    private  var storageRef = Firebase.storage
-
-    private lateinit var uri: Uri
     private lateinit var auth: FirebaseAuth
 
 
@@ -39,7 +41,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        storageRef = FirebaseStorage.getInstance()
+        firebaseStore = FirebaseStorage.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
+
 
         val actionbar = supportActionBar
         actionbar!!.title = "BACK"
@@ -53,45 +57,37 @@ class RegisterActivity : AppCompatActivity() {
         passwordRegister = findViewById(R.id.passwordRegister)
         confirmPasswordRegister = findViewById(R.id.confirmPasswordRegister)
         registerButton = findViewById(R.id.registerButton)
-        imageProfilePicture = findViewById(R.id.imageProfilePicture)
+        profileImage = findViewById(R.id.profileImage)
         addProfilePicture = findViewById(R.id.addProfilePicture)
-
-        val galleryImage = registerForActivityResult(
-            ActivityResultContracts.GetContent(),
-            ActivityResultCallback {
-                imageProfilePicture.setImageURI(it)
-                uri = it
-            })
-
-        addProfilePicture.setOnClickListener {
-            galleryImage.launch("image/*")
-            storageRef.getReference("images").child(System.currentTimeMillis().toString())
-                .putFile(uri)
-                .addOnSuccessListener { task ->
-                    task.metadata!!.reference!!.downloadUrl
-                        .addOnSuccessListener {
-                            val userId = FirebaseAuth.getInstance().currentUser!!.uid
-                            val mapImage = mapOf(
-                                "url" to it.toString()
-                            )
-
-                            val databaseReference = FirebaseDatabase.getInstance().getReference("user Images")
-                            databaseReference.child(userId).setValue(mapImage)
-                                .addOnSuccessListener {
-                                    Toast.makeText(this,"Successful", Toast.LENGTH_SHORT).show()
-                                }
-                                .addOnFailureListener {
-                                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-                                }
-                        }
-                }
-        }
 
 
         auth = Firebase.auth
 
         registerButton.setOnClickListener {
             signUpUser()
+        }
+
+        addProfilePicture.setOnClickListener {
+            uploadImage()
+        }
+        addProfilePicture.setOnClickListener {
+            launchGallery() }
+    }
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+
+    private fun uploadImage() {
+        if(filePath != null){
+            val ref = storageReference?.child("myImages/" + UUID.randomUUID().toString())
+            val uploadTask = ref?.putFile(filePath!!)
+
+        }else{
+            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -127,6 +123,22 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
             } else {
                 Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if(data == null || data.data == null){
+                return
+            }
+
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                profileImage.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }

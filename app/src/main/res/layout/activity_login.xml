@@ -151,27 +151,27 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/facebookLogo"
+        android:id="@+id/facebookLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/facebook_logo"
-        app:layout_constraintEnd_toStartOf="@+id/googleLogo"
+        app:layout_constraintEnd_toStartOf="@+id/googleLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/socialLogins"
         tools:ignore="MissingConstraints" />
 
 
     <ImageView
-        android:id="@+id/googleLogo"
+        android:id="@+id/googleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/google_logo"
-        app:layout_constraintStart_toEndOf="@+id/facebookLogo"
+        app:layout_constraintStart_toEndOf="@+id/facebookLogin"
         app:layout_constraintTop_toBottomOf="@+id/socialLogins"
         tools:ignore="MissingConstraints" />
 
@@ -184,7 +184,7 @@
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facebookLogo"
+        app:layout_constraintTop_toBottomOf="@+id/facebookLogin"
         tools:ignore="MissingConstraints" />
 
     <TextView

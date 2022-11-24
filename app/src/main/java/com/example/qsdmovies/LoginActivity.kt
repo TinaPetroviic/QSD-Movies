@@ -1,10 +1,12 @@
 package com.example.qsdmovies
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -16,9 +18,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var forgotPassword: TextView
     private lateinit var register: TextView
+    private lateinit var googleLogin: ImageView
+    private lateinit var facebookLogin: ImageView
+
 
     private lateinit var auth: FirebaseAuth
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -28,6 +34,9 @@ class LoginActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.loginButton)
         forgotPassword = findViewById(R.id.forgotPassword)
         register = findViewById(R.id.register)
+        googleLogin = findViewById(R.id.googleLogin)
+        facebookLogin = findViewById(R.id.facebookLogin)
+
 
         auth = FirebaseAuth.getInstance()
 
