@@ -116,7 +116,7 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this,HomeActivity::class.java)
+                val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()

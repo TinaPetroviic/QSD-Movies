@@ -17,7 +17,7 @@
         android:icon="@drawable/favorite"/>
 
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/profile"
         android:enabled="true"
         android:title="Profile"
         android:icon="@drawable/person"/>
