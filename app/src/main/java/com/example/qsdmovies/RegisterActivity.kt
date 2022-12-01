@@ -19,7 +19,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.IOException
 import java.util.*
 
+@Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity() {
+
     private lateinit var firstNameHere: EditText
     private lateinit var lastNameHere: EditText
     private lateinit var emailRegister: EditText
@@ -28,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var registerButton : Button
     private lateinit var profileImage : CircleImageView
     private lateinit var addProfilePicture : TextView
+
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
@@ -41,15 +44,11 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = "BACK"
+
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
-
-
-        val actionbar = supportActionBar
-        actionbar!!.title = "BACK"
-
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
 
         firstNameHere = findViewById(R.id.firstNameHere)
         lastNameHere = findViewById(R.id.lastNameHere)
@@ -63,6 +62,7 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
+
         registerButton.setOnClickListener {
             signUpUser()
         }
@@ -72,6 +72,10 @@ class RegisterActivity : AppCompatActivity() {
         }
         addProfilePicture.setOnClickListener {
             launchGallery() }
+    }
+    override fun onBackPressed() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
     private fun launchGallery() {
@@ -91,10 +95,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
 
     private fun signUpUser() {
         val name = firstNameHere.text.toString()

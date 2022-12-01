@@ -1,5 +1,6 @@
 package com.example.qsdmovies
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,8 +20,13 @@ class ForgotActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot)
 
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "BACK"
+
         emailForgot = findViewById(R.id.emailForgot)
         sendEmailButton = findViewById(R.id.sendEmailButton)
+
 
         auth = FirebaseAuth.getInstance()
 
@@ -28,22 +34,18 @@ class ForgotActivity : AppCompatActivity() {
             val email = emailForgot.text.toString()
             auth.sendPasswordResetEmail(email)
                 .addOnSuccessListener {
-                    Toast.makeText(this,"Please Check your Email",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please Check your Email", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                 }
         }
+    }
 
-        val actionbar = supportActionBar
-        actionbar!!.title = "BACK"
-
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
-
-        }
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    override fun onBackPressed() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }
+
+
