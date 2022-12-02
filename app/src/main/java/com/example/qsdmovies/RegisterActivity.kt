@@ -6,6 +6,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -27,9 +29,9 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var emailRegister: EditText
     private lateinit var passwordRegister: EditText
     private lateinit var confirmPasswordRegister: EditText
-    private lateinit var registerButton : Button
-    private lateinit var profileImage : CircleImageView
-    private lateinit var addProfilePicture : TextView
+    private lateinit var registerButton: Button
+    private lateinit var profileImage: CircleImageView
+    private lateinit var addProfilePicture: TextView
 
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
@@ -62,20 +64,20 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-
         registerButton.setOnClickListener {
             signUpUser()
         }
-
         addProfilePicture.setOnClickListener {
-            uploadImage()
+            launchGallery()
         }
-        addProfilePicture.setOnClickListener {
-            launchGallery() }
     }
-    override fun onBackPressed() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        android.R.id.home -> {
+            super.onBackPressed()
+            true
+        }
+        else ->super.onOptionsItemSelected(item)
     }
 
     private fun launchGallery() {
@@ -86,24 +88,30 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        if(filePath != null){
+        Log.d("RegisterActivity", "uploadImage")
+        if (filePath != null) {
             val ref = storageReference?.child("myImages/" + UUID.randomUUID().toString())
             val uploadTask = ref?.putFile(filePath!!)
+            uploadTask?.addOnCompleteListener {
+                if (it.isSuccessful) {
 
-        }else{
+                }
+            }
+
+        } else {
+            Log.d("RegisterActivity", "filepath null")
             Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
         }
     }
 
 
     private fun signUpUser() {
-        val name = firstNameHere.text.toString()
-        val surname = lastNameHere.text.toString()
+
         val email = emailRegister.text.toString()
         val pass = passwordRegister.text.toString()
         val confirmPassword = confirmPasswordRegister.text.toString()
 
-        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPassword.isEmpty()) {
+        if (email.isEmpty() || pass.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
@@ -116,7 +124,7 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this, HomeFragment::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
@@ -126,10 +134,11 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if(data == null || data.data == null){
+            if (data == null || data.data == null) {
                 return
             }
 
@@ -137,6 +146,7 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                 profileImage.setImageBitmap(bitmap)
+                uploadImage()
             } catch (e: IOException) {
                 e.printStackTrace()
             }

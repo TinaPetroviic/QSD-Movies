@@ -1,7 +1,7 @@
 package com.example.qsdmovies
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -24,6 +24,7 @@ class ForgotActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "BACK"
 
+
         emailForgot = findViewById(R.id.emailForgot)
         sendEmailButton = findViewById(R.id.sendEmailButton)
 
@@ -42,9 +43,12 @@ class ForgotActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        android.R.id.home -> {
+            super.onBackPressed()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }
 

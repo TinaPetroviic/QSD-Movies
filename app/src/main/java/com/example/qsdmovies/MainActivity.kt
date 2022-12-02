@@ -7,7 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
-@Suppress("DEPRECATION")
+
 class MainActivity: AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView

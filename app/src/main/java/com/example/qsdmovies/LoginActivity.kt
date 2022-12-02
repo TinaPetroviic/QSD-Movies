@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
 
         val user = auth.currentUser
@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-    }*/
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +80,6 @@ class LoginActivity : AppCompatActivity() {
         forgotPassword.setOnClickListener {
             val int = Intent(this, ForgotActivity::class.java)
             startActivity(int)
-            finish()
         }
     }
 
@@ -97,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, HomeFragment::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
