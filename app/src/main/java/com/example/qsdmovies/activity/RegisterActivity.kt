@@ -1,4 +1,4 @@
-package com.example.qsdmovies
+package com.example.qsdmovies.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.qsdmovies.activity.fragment.HomeFragment
+import com.example.qsdmovies.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -21,7 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.IOException
 import java.util.*
 
-@Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var firstNameHere: EditText
@@ -77,7 +78,7 @@ class RegisterActivity : AppCompatActivity() {
             super.onBackPressed()
             true
         }
-        else ->super.onOptionsItemSelected(item)
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun launchGallery() {

@@ -1,14 +1,18 @@
-package com.example.qsdmovies
+package com.example.qsdmovies.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.qsdmovies.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.example.qsdmovies.activity.fragment.FavoritesFragment
+import com.example.qsdmovies.activity.fragment.HomeFragment
+import com.example.qsdmovies.activity.fragment.ProfileFragment
+import com.example.qsdmovies.activity.fragment.SearchFragment
 
 
-
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var auth: FirebaseAuth
@@ -27,7 +31,7 @@ class MainActivity: AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         bottomNavigation.setOnNavigationItemSelectedListener {
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.search -> replaceFragment(searchFragment)
                 R.id.favorites -> replaceFragment(favoritesFragment)
@@ -38,10 +42,11 @@ class MainActivity: AppCompatActivity() {
 
 
     }
-    private fun replaceFragment(fragment: Fragment){
-        if(fragment !=null){
+
+    private fun replaceFragment(fragment: Fragment) {
+        if (fragment != null) {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout,fragment)
+            transaction.replace(R.id.frameLayout, fragment)
             transaction.commit()
         }
     }

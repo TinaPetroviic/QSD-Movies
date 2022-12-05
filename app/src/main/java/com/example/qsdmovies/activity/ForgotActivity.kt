@@ -1,4 +1,4 @@
-package com.example.qsdmovies
+package com.example.qsdmovies.activity
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.qsdmovies.R
 import com.google.firebase.auth.FirebaseAuth
 
 
