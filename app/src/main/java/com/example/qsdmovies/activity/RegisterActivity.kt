@@ -3,7 +3,6 @@ package com.example.qsdmovies.activity
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -12,8 +11,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.example.qsdmovies.activity.fragment.HomeFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
+import com.example.qsdmovies.fragment.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

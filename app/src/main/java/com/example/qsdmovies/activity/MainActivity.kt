@@ -3,13 +3,13 @@ package com.example.qsdmovies.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.qsdmovies.*
+import com.example.qsdmovies.R
+import com.example.qsdmovies.fragment.FavoritesFragment
+import com.example.qsdmovies.fragment.HomeFragment
+import com.example.qsdmovies.fragment.SearchFragment
+import com.example.qsdmovies.fragment.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.example.qsdmovies.activity.fragment.FavoritesFragment
-import com.example.qsdmovies.activity.fragment.HomeFragment
-import com.example.qsdmovies.activity.fragment.ProfileFragment
-import com.example.qsdmovies.activity.fragment.SearchFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
     }
 
     private fun replaceFragment(fragment: Fragment) {

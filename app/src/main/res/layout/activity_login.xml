@@ -158,6 +158,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/facebook_logo"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/googleLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/socialLogins"
