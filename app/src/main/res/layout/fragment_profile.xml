@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.fragment.ProfileFragment">
+    tools:context=".fragment.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
@@ -177,6 +177,7 @@
         tools:ignore="MissingConstraints,UseCompoundDrawables">
 
         <ImageView
+            android:id = "@+id/logoutImageView"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="40dp"

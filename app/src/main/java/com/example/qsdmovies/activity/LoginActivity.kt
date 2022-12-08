@@ -11,13 +11,14 @@ import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
-import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,22 +37,24 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var forgotPassword: TextView
     private lateinit var register: TextView
     private lateinit var googleLogin: ImageView
-    private lateinit var facebookLogin: ImageView
+    private lateinit var facebookLogin: LoginButton
 
     private lateinit var auth: FirebaseAuth
-
     private lateinit var callbackManager: CallbackManager
 
-    /*override fun onStart() {
+    /*public override fun onStart() {
         super.onStart()
-
-        val user = auth.currentUser
-        if (user != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
     }*/
 
+    private fun updateUI(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            Toast.makeText(this, "You didn't signed in", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,24 +70,22 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        callbackManager = CallbackManager.Factory.create()
-
         facebookLogin.setOnClickListener {
-            LoginManager.getInstance()
-                .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                    override fun onSuccess(loginResult: LoginResult) {
-                        Log.d(TAG, "facebook:onSuccess:$loginResult")
-                        handleFacebookAccessToken(loginResult.accessToken)
-                    }
+            facebookLogin.setReadPermissions("email", "public_profile")
+            facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
+                    Log.d(TAG, "facebook:onSuccess:$loginResult")
+                    handleFacebookAccessToken(loginResult.accessToken)
+                }
 
-                    override fun onCancel() {
-                        Log.d(TAG, "facebook:onCancel")
-                    }
+                override fun onCancel() {
+                    Log.d(TAG, "facebook:onCancel")
+                }
 
-                    override fun onError(error: FacebookException) {
-                        Log.d(TAG, "facebook:onError", error)
-                    }
-                })
+                override fun onError(error: FacebookException) {
+                    Log.d(TAG, "facebook:onError", error)
+                }
+            })
         }
 
         googleLogin.setOnClickListener {
@@ -96,10 +97,6 @@ class LoginActivity : AppCompatActivity() {
             signInClient.signInIntent.also {
                 startActivityForResult(it, REQUEST_CODE_SIGN_IN)
             }
-        }
-
-        facebookLogin.setOnClickListener {
-
         }
 
         loginButton.setOnClickListener {
@@ -127,12 +124,14 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    updateUI(user)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
                         baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    updateUI(null)
                 }
             }
 

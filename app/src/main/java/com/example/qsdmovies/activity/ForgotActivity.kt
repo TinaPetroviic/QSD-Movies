@@ -21,14 +21,11 @@ class ForgotActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot)
 
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "BACK"
 
-
         emailForgot = findViewById(R.id.emailForgot)
         sendEmailButton = findViewById(R.id.sendEmailButton)
-
 
         auth = FirebaseAuth.getInstance()
 
