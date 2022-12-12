@@ -23,6 +23,7 @@ class ProfileFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+
     }
 
     override fun onCreateView(
@@ -34,6 +35,12 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        signout.setOnClickListener {
+
+            val intent = Intent (this@ProfileFragment.context, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

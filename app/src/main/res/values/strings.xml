@@ -3,8 +3,8 @@
     <string name="app_name">QSD Movies</string>
     <string name="webclient_id">3604724225-fg2kabc2avq1q3mm2sejq4jche0fvlo8.apps.googleusercontent.com</string>
 
-    <string name="facebook_app_id">1234</string>
+    <string name="facebook_app_id">1505293729936521</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">56789</string>
+    <string name="facebook_client_token">a44a2a476c505b82d535ec05d166c9eb</string>
 
 </resources>

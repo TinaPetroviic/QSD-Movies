@@ -168,8 +168,8 @@ class LoginActivity : AppCompatActivity() {
                 googleAuthForFirebase(it)
             }
         }
-        callbackManager.onActivityResult(requestCode, resultCode, data)
     }
+
 
     private fun googleAuthForFirebase(account: GoogleSignInAccount) {
         val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
