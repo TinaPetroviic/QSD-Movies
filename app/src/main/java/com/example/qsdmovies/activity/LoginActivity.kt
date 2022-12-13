@@ -42,11 +42,11 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
-    /*public override fun onStart() {
+    public override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         updateUI(currentUser)
-    }*/
+    }
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
@@ -71,11 +71,10 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         facebookLogin.setOnClickListener {
-            facebookLogin.setReadPermissions("email", "public_profile")
             facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    Log.d(TAG, "facebook:onSuccess:$loginResult")
-                    handleFacebookAccessToken(loginResult.accessToken)
+                override fun onSuccess(result: LoginResult) {
+                    Log.d(TAG, "facebook:onSuccess:$result")
+                    handleFacebookAccessToken(result.accessToken)
                 }
 
                 override fun onCancel() {
