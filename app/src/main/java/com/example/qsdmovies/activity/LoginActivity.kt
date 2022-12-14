@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
 class LoginActivity : AppCompatActivity() {
 
     private val REQUEST_CODE_SIGN_IN = 0
