@@ -1,8 +1,11 @@
 package com.example.qsdmovies.activity
 
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -15,20 +18,17 @@ import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
+import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
 
-    private val REQUEST_CODE_SIGN_IN = 0
 
     private lateinit var emailHere: EditText
     private lateinit var passwordHere: EditText
@@ -41,11 +41,16 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val RC_SIGN_IN: Int = 1
+    private lateinit var gso: GoogleSignInOptions
+
     public override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
+
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
@@ -68,12 +73,17 @@ class LoginActivity : AppCompatActivity() {
         facebookLogin = findViewById(R.id.facebookLogin)
 
         auth = FirebaseAuth.getInstance()
+        createRequest()
+
+        createKeyHash(this, "com.example.qsdmovies")
 
         facebookLogin.setOnClickListener {
             facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
                     Log.d(TAG, "facebook:onSuccess:$result")
                     handleFacebookAccessToken(result.accessToken)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
 
                 override fun onCancel() {
@@ -87,14 +97,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         googleLogin.setOnClickListener {
-            val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.webclient_id))
-                .requestEmail()
-                .build()
-            val signInClient = GoogleSignIn.getClient(this, options)
-            signInClient.signInIntent.also {
-                startActivityForResult(it, REQUEST_CODE_SIGN_IN)
-            }
+            signIn()
         }
 
         loginButton.setOnClickListener {
@@ -112,6 +115,19 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun createRequest() {
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    private fun signIn() {
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
     private fun handleFacebookAccessToken(token: AccessToken) {
 
         Log.d(TAG, "handleFacebookAccessToken:$token")
@@ -123,6 +139,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
@@ -159,11 +177,16 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_CODE_SIGN_IN) {
-            val account = GoogleSignIn.getSignedInAccountFromIntent(data).result
-            account?.let {
-                googleAuthForFirebase(it)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                googleAuthForFirebase(account)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } catch (e: ApiException) {
+                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -171,18 +194,25 @@ class LoginActivity : AppCompatActivity() {
 
     private fun googleAuthForFirebase(account: GoogleSignInAccount) {
         val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                auth.signInWithCredential(credentials).await()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@LoginActivity, "Successfully logged in", Toast.LENGTH_LONG)
-                        .show()
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_LONG).show()
+        auth.signInWithCredential(credentials)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@LoginActivity, "Login Failed: ", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun createKeyHash(activity: Activity, yourPackage: String) {
+        val info =
+            activity.packageManager.getPackageInfo(yourPackage, PackageManager.GET_SIGNATURES)
+        for (signature in info.signatures) {
+            val md = MessageDigest.getInstance("SHA")
+            md.update(signature.toByteArray())
+            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
         }
     }
 }

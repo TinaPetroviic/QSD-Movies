@@ -31,6 +31,10 @@ class ForgotActivity : AppCompatActivity() {
 
         sendEmailButton.setOnClickListener {
             val email = emailForgot.text.toString()
+            if (email.isEmpty()) {
+                Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             auth.sendPasswordResetEmail(email)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Please Check your Email", Toast.LENGTH_SHORT).show()
