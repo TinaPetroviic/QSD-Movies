@@ -1,7 +1,6 @@
 package com.example.qsdmovies.activity
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -29,6 +28,7 @@ import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
 
+    val TAG = "LoginActivity"
 
     private lateinit var emailHere: EditText
     private lateinit var passwordHere: EditText
@@ -47,12 +47,14 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart")
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
 
 
     private fun updateUI(currentUser: FirebaseUser?) {
+        Log.d(TAG, "updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
@@ -78,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
         createKeyHash(this, "com.example.qsdmovies")
 
         facebookLogin.setOnClickListener {
+            callbackManager = CallbackManager.Factory.create()
             facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
                     Log.d(TAG, "facebook:onSuccess:$result")
@@ -107,7 +110,6 @@ class LoginActivity : AppCompatActivity() {
         register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
         }
         forgotPassword.setOnClickListener {
             val int = Intent(this, ForgotActivity::class.java)
@@ -139,6 +141,10 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    Toast.makeText(
+                        baseContext, "signInWithCredential:success",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {

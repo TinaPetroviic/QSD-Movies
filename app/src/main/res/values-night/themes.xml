@@ -2,16 +2,18 @@
     <!-- Base application theme. -->
     <style name="Theme.QSDMovies" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+
+        <item name="colorPrimary">@color/primarycolor</item>
+        <item name="colorPrimaryVariant">@color/backgroundcolor</item>
+        <item name="colorOnPrimary">@color/primarycolor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/backgroundcolor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
-        <item name="android:backgroundTint">@color/primarycolor</item>
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:textColor"> @color/black</item>
     </style>
 </resources>
