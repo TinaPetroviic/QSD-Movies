@@ -55,8 +55,6 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
-        } else {
-            Toast.makeText(this, "You didn't signed in", Toast.LENGTH_LONG).show()
         }
     }
 
