@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
-import com.example.qsdmovies.fragment.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -38,6 +37,9 @@ class RegisterActivity : AppCompatActivity() {
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
+
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
+
 
     private lateinit var auth: FirebaseAuth
 
@@ -69,6 +71,9 @@ class RegisterActivity : AppCompatActivity() {
             signUpUser()
         }
         addProfilePicture.setOnClickListener {
+            launchGallery()
+        }
+        profileImage.setOnClickListener {
             launchGallery()
         }
     }
@@ -122,6 +127,34 @@ class RegisterActivity : AppCompatActivity() {
                 .show()
             return
         }
+
+        if (email.matches(emailPattern.toRegex())) {
+            Toast.makeText(
+                applicationContext, "Valid email address",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                applicationContext, "Invalid email address",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        if (passwordRegister.text.toString().length < 8) {
+            passwordRegister.setError("password minimum contain 8 character")
+            passwordRegister.requestFocus()
+            passwordRegister.isEnabled = true
+
+        }
+        if (passwordRegister.text.toString().length > 8) {
+            passwordRegister.setError("password maximum contain 8 character")
+            passwordRegister.requestFocus()
+        }
+        if (passwordRegister.text.toString().equals("")) {
+            passwordRegister.setError("please enter password")
+            passwordRegister.requestFocus()
+        }
+
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {

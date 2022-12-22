@@ -7,7 +7,6 @@
     android:background="@color/backgroundcolor"
     tools:context=".activity.LoginActivity">
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -171,6 +170,7 @@
             android:onClick="onClickFacebookButton"
             android:textAllCaps="false"
             android:textColor="#ffffff"
+            android:backgroundTint="@color/primarycolor"
             android:textSize="22sp" />
 
         <com.facebook.login.widget.LoginButton
@@ -179,6 +179,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0"
+            android:background="@color/primarycolor"
             android:paddingTop="25sp"
             android:visibility="visible"
             app:com_facebook_login_text="Log in with Facebook" />
