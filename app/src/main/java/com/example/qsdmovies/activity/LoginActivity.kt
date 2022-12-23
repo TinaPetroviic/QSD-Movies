@@ -1,7 +1,6 @@
 package com.example.qsdmovies.activity
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -25,10 +24,13 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
 
+    val TAG = "LoginActivity"
 
     private lateinit var emailHere: EditText
     private lateinit var passwordHere: EditText
@@ -45,14 +47,18 @@ class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 1
     private lateinit var gso: GoogleSignInOptions
 
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
+
     public override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart")
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
 
 
     private fun updateUI(currentUser: FirebaseUser?) {
+        Log.d(TAG, "updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
         }
@@ -70,12 +76,14 @@ class LoginActivity : AppCompatActivity() {
         googleLogin = findViewById(R.id.googleLogin)
         facebookLogin = findViewById(R.id.facebookLogin)
 
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
+
         createRequest()
 
         createKeyHash(this, "com.example.qsdmovies")
 
         facebookLogin.setOnClickListener {
+            callbackManager = CallbackManager.Factory.create()
             facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
                     Log.d(TAG, "facebook:onSuccess:$result")
@@ -105,11 +113,10 @@ class LoginActivity : AppCompatActivity() {
         register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
         }
         forgotPassword.setOnClickListener {
-            val int = Intent(this, ForgotActivity::class.java)
-            startActivity(int)
+            val intent = Intent(this, ForgotActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -137,6 +144,10 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    Toast.makeText(
+                        baseContext, "signInWithCredential:success",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -159,6 +170,33 @@ class LoginActivity : AppCompatActivity() {
         if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
             return
+        }
+
+        if (email.matches(emailPattern.toRegex())) {
+            Toast.makeText(
+                applicationContext, "Valid email address",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                applicationContext, "Invalid email address",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        if (passwordHere.text.toString().length < 8) {
+            passwordHere.setError("password minimum contain 8 character")
+            passwordHere.requestFocus()
+            passwordHere.isEnabled = true
+
+        }
+        if (passwordHere.text.toString().length > 8) {
+            passwordHere.setError("password maximum contain 8 character")
+            passwordHere.requestFocus()
+        }
+        if (passwordHere.text.toString().equals("")) {
+            passwordHere.setError("please enter password")
+            passwordHere.requestFocus()
         }
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {

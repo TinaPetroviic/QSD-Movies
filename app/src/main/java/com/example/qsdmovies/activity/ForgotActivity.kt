@@ -1,5 +1,6 @@
 package com.example.qsdmovies.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -14,6 +15,8 @@ class ForgotActivity : AppCompatActivity() {
 
     private lateinit var emailForgot: EditText
     private lateinit var sendEmailButton: Button
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
+
 
     private lateinit var auth: FirebaseAuth
 
@@ -35,15 +38,25 @@ class ForgotActivity : AppCompatActivity() {
                 Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            auth.sendPasswordResetEmail(email)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Please Check your Email", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-                }
+            if (email.matches(emailPattern.toRegex())) {
+                auth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Please Check your Email", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@ForgotActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(
+                    applicationContext, "Invalid email address",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
@@ -52,6 +65,7 @@ class ForgotActivity : AppCompatActivity() {
         }
         else -> super.onOptionsItemSelected(item)
     }
+
 }
 
 
