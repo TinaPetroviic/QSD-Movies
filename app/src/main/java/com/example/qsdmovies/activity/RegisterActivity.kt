@@ -129,10 +129,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         if (email.matches(emailPattern.toRegex())) {
-            Toast.makeText(
-                applicationContext, "Valid email address",
-                Toast.LENGTH_SHORT
-            ).show()
+
         } else {
             Toast.makeText(
                 applicationContext, "Invalid email address",
@@ -158,7 +155,7 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()

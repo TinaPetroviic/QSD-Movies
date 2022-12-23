@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(currentUser: FirebaseUser?) {
         Log.d(TAG, "updateUI")
         if (currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, BottomBarActivity::class.java))
         }
     }
 
@@ -88,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onSuccess(result: LoginResult) {
                     Log.d(TAG, "facebook:onSuccess:$result")
                     handleFacebookAccessToken(result.accessToken)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -148,7 +148,7 @@ class LoginActivity : AppCompatActivity() {
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -173,10 +173,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (email.matches(emailPattern.toRegex())) {
-            Toast.makeText(
-                applicationContext, "Valid email address",
-                Toast.LENGTH_SHORT
-            ).show()
+
         } else {
             Toast.makeText(
                 applicationContext, "Invalid email address",
@@ -201,7 +198,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
@@ -218,7 +215,7 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 googleAuthForFirebase(account)
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
             } catch (e: ApiException) {
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT)
@@ -234,7 +231,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this@LoginActivity, "Login Failed: ", Toast.LENGTH_SHORT).show()

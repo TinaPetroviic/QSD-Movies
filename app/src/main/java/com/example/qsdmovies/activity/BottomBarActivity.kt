@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
 import com.example.qsdmovies.fragment.FavoritesFragment
 import com.example.qsdmovies.fragment.HomeFragment
-import com.example.qsdmovies.fragment.SearchFragment
 import com.example.qsdmovies.fragment.ProfileFragment
+import com.example.qsdmovies.fragment.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MainActivity : AppCompatActivity() {
+class BottomBarActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var auth: FirebaseAuth
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_bottombar)
         bottomNavigation = findViewById(R.id.bottomNavigation)
 
         auth = FirebaseAuth.getInstance()
