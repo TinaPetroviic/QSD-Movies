@@ -42,7 +42,6 @@ class HomeFragment : Fragment() {
         getMovieData { movies: List<Movie> ->
             recyclerView.adapter = MovieAdapter(movies)
         }
-
     }
 
     private fun getMovieData(callback: (List<Movie>) -> Unit) {
@@ -58,5 +57,4 @@ class HomeFragment : Fragment() {
 
         })
     }
-
 }

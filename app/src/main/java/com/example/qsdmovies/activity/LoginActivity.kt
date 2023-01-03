@@ -8,6 +8,7 @@ import android.util.Base64
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -56,11 +57,19 @@ class LoginActivity : AppCompatActivity() {
         updateUI(currentUser)
     }
 
+    private fun replaceFragment(fragment: Fragment) {
+        if (fragment != null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frameLayout, fragment)
+            transaction.commit()
+        }
+    }
 
     private fun updateUI(currentUser: FirebaseUser?) {
         Log.d(TAG, "updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, BottomBarActivity::class.java))
+            //replaceFragment(HomeFragment())
         }
     }
 
