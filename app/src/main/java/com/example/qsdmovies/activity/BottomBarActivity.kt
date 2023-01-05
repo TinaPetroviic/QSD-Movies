@@ -30,6 +30,8 @@ class BottomBarActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        loadFragment(HomeFragment())
+
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
@@ -47,5 +49,12 @@ class BottomBarActivity : AppCompatActivity() {
             transaction.replace(R.id.frameLayout, fragment)
             transaction.commit()
         }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout, fragment)
+        transaction.disallowAddToBackStack()
+        transaction.commit()
     }
 }

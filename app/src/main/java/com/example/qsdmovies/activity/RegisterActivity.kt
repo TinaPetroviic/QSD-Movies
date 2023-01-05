@@ -113,17 +113,39 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun signUpUser() {
 
+        val name = firstNameHere.text.toString()
+        val surname = lastNameHere.text.toString()
         val email = emailRegister.text.toString()
         val pass = passwordRegister.text.toString()
         val confirmPassword = confirmPasswordRegister.text.toString()
 
-        if (email.isEmpty() || pass.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
+        if (name.isEmpty()) {
+            Toast.makeText(this, "name field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (surname.isEmpty()) {
+            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (pass.isEmpty()) {
+            Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (confirmPassword.isEmpty()) {
+            Toast.makeText(this, "confirm password field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (pass != confirmPassword) {
-            Toast.makeText(this, "Password and Confirm Password do not match", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "password and confirm password do not match", Toast.LENGTH_SHORT)
                 .show()
             return
         }
@@ -132,7 +154,7 @@ class RegisterActivity : AppCompatActivity() {
 
         } else {
             Toast.makeText(
-                applicationContext, "Invalid email address",
+                applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -143,13 +165,43 @@ class RegisterActivity : AppCompatActivity() {
             passwordRegister.isEnabled = true
 
         }
-        if (passwordRegister.text.toString().length > 8) {
-            passwordRegister.setError("password maximum contain 8 character")
+        if (passwordRegister.text.toString().length > 32) {
+            passwordRegister.setError("password maximum contain 32 character")
             passwordRegister.requestFocus()
         }
         if (passwordRegister.text.toString().equals("")) {
             passwordRegister.setError("please enter password")
             passwordRegister.requestFocus()
+        }
+
+        if (firstNameHere.text.toString().length < 1) {
+            firstNameHere.setError("first name minimum contain 1 character")
+            firstNameHere.requestFocus()
+            firstNameHere.isEnabled = true
+
+        }
+        if (firstNameHere.text.toString().length > 50) {
+            firstNameHere.setError("first name maximum contain 50 character")
+            firstNameHere.requestFocus()
+        }
+        if (firstNameHere.text.toString().equals("")) {
+            firstNameHere.setError("please enter first name")
+            firstNameHere.requestFocus()
+        }
+
+        if (lastNameHere.text.toString().length < 1) {
+            lastNameHere.setError("last name minimum contain 1 character")
+            lastNameHere.requestFocus()
+            lastNameHere.isEnabled = true
+
+        }
+        if (lastNameHere.text.toString().length > 50) {
+            lastNameHere.setError("last name maximum contain 50 character")
+            lastNameHere.requestFocus()
+        }
+        if (lastNameHere.text.toString().equals("")) {
+            lastNameHere.setError("please enter last name")
+            lastNameHere.requestFocus()
         }
 
 

@@ -8,7 +8,6 @@ import android.util.Base64
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -57,19 +56,10 @@ class LoginActivity : AppCompatActivity() {
         updateUI(currentUser)
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        if (fragment != null) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout, fragment)
-            transaction.commit()
-        }
-    }
-
     private fun updateUI(currentUser: FirebaseUser?) {
         Log.d(TAG, "updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, BottomBarActivity::class.java))
-            //replaceFragment(HomeFragment())
         }
     }
 
@@ -176,8 +166,12 @@ class LoginActivity : AppCompatActivity() {
         val email = emailHere.text.toString()
         val pass = passwordHere.text.toString()
 
-        if (email.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
+        if (email.isEmpty()) {
+            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (pass.isEmpty()) {
+            Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -185,7 +179,7 @@ class LoginActivity : AppCompatActivity() {
 
         } else {
             Toast.makeText(
-                applicationContext, "Invalid email address",
+                applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -196,8 +190,8 @@ class LoginActivity : AppCompatActivity() {
             passwordHere.isEnabled = true
 
         }
-        if (passwordHere.text.toString().length > 8) {
-            passwordHere.setError("password maximum contain 8 character")
+        if (passwordHere.text.toString().length > 32) {
+            passwordHere.setError("password maximum contain 32 character")
             passwordHere.requestFocus()
         }
         if (passwordHere.text.toString().equals("")) {
@@ -212,7 +206,7 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
             } else
-                Toast.makeText(this, "Log In failed ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -243,7 +237,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@LoginActivity, "Login Failed: ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }

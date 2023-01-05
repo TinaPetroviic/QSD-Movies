@@ -35,7 +35,7 @@ class ForgotActivity : AppCompatActivity() {
         sendEmailButton.setOnClickListener {
             val email = emailForgot.text.toString()
             if (email.isEmpty()) {
-                Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (email.matches(emailPattern.toRegex())) {
@@ -50,7 +50,7 @@ class ForgotActivity : AppCompatActivity() {
                     }
             } else {
                 Toast.makeText(
-                    applicationContext, "Invalid email address",
+                    applicationContext, "invalid email address",
                     Toast.LENGTH_SHORT
                 ).show()
             }

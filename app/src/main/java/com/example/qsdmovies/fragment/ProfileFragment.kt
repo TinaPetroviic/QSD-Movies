@@ -29,7 +29,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<View>(R.id.signout).setOnClickListener {
+        view.findViewById<View>(R.id.logout).setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this@ProfileFragment.context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
