@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "3604724225",
+    "project_id": "qsd-movies-b9ee8",
+    "storage_bucket": "qsd-movies-b9ee8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3604724225:android:5393c4346a2e35cd029e00",
+        "android_client_info": {
+          "package_name": "com.example.qsdmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3604724225-fg2kabc2avq1q3mm2sejq4jche0fvlo8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qsdmovies",
+            "certificate_hash": "bef56a16c971001c1398ac6bb427b7029d369965"
+          }
+        },
+        {
+          "client_id": "3604724225-jpq8acrt6v3v5i4d2hs0ng5gi73n69h5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHr7uwkvcgIk_MFnem8QAvJX2NcRwEjh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3604724225-jpq8acrt6v3v5i4d2hs0ng5gi73n69h5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
