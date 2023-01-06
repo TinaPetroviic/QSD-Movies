@@ -60,7 +60,12 @@ class HomeFragment : Fragment() {
             recyclerViewTVShows.adapter = TvShowsAdapter(tvshows)
         }
 
-
+        recyclerViewPopularMovies.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+        recyclerViewPopularMovies.setHasFixedSize(true)
+        getMovieData { movies: List<Movie> ->
+            recyclerViewPopularMovies.adapter = MovieAdapter(movies)
+        }
     }
 
     private fun getMovieData(callback: (List<Movie>) -> Unit) {
@@ -105,7 +110,6 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<TvShowsResponse>, t: Throwable?) {
 
             }
-
         })
     }
 }

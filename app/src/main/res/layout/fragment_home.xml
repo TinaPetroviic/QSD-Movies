@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="450dp">
 
-        <ImageView
-            android:id="@+id/poster"
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            android:foreground="@drawable/gradient"
-            android:layout_height="450dp"/>
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_gravity="center"
+                android:foreground="@drawable/gradient"
+                android:scaleType="fitXY" />
 
 
             <RatingBar
@@ -31,10 +31,11 @@
                 style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="#FFCC01"
                 android:layout_gravity="center|bottom"
-                android:layout_marginBottom="20dp"
-                android:rating="3" />
+                android:layout_marginBottom="10dp"
+                android:progressTint="#FFCC01"
+                android:rating="3.5"
+                android:stepSize="0.5" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <TextView
@@ -87,7 +88,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewTopRated"/>
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewTopRated" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewTVShows"
@@ -96,6 +97,26 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTvShows" />
+
+        <TextView
+            android:id="@+id/textViewPopularMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Movies"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewTVShows" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPopularMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPopularMovies" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

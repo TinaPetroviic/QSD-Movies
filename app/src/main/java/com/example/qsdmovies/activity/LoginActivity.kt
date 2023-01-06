@@ -204,7 +204,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
 
-                Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_SHORT).show()
             } else
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
         }

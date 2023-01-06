@@ -13,8 +13,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
+import com.example.qsdmovies.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -40,6 +43,9 @@ class RegisterActivity : AppCompatActivity() {
 
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
+    private lateinit var firstName: String
+    private lateinit var lastName: String
+    private lateinit var database: DatabaseReference
 
     private lateinit var auth: FirebaseAuth
 
@@ -66,6 +72,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
         auth = Firebase.auth
+        database = Firebase.database.reference
 
         registerButton.setOnClickListener {
             signUpUser()
@@ -120,12 +127,12 @@ class RegisterActivity : AppCompatActivity() {
         val confirmPassword = confirmPasswordRegister.text.toString()
 
         if (name.isEmpty()) {
-            Toast.makeText(this, "name field can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "first name field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (surname.isEmpty()) {
-            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "last name field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -207,15 +214,28 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
+                saveData()
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
 
-                Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Successfully Signed Up", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
+
             }
         }
+    }
+
+    private fun saveData() {
+
+        firstName = firstNameHere.text.toString().trim()
+        lastName = lastNameHere.text.toString().trim()
+
+        val user = User(firstName, lastName)
+
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+        database.child("User").child(userID).setValue(user)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
