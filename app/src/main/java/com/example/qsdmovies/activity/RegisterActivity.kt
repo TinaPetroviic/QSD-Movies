@@ -215,13 +215,14 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 saveData()
+
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Successfully Signed Up", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-
+                Toast.makeText(this, "Signed Up Failed!", Toast.LENGTH_SHORT).show()
             }
         }
     }

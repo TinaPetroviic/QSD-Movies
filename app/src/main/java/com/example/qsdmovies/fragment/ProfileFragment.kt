@@ -10,13 +10,15 @@ import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    lateinit var auth: FirebaseAuth
+    lateinit var databaseReference : DatabaseReference
+    lateinit var database : FirebaseDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,10 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
+        database = FirebaseDatabase.getInstance()
+        databaseReference = database?.reference!!.child("profile")
 
-        database = FirebaseDatabase.getInstance().getReference("User").child(uid.toString())
-
+        loadProfile()
 
         view.findViewById<View>(R.id.logout).setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -48,5 +50,23 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
 
         }
+    }
+
+    private fun loadProfile() {
+
+        val user = auth.currentUser
+        val userreference = databaseReference?.child(user?.uid!!)
+
+        accountName.text = user?.uid
+        userreference?.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                accountName.text = snapshot.child("User").value.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
     }
 }
