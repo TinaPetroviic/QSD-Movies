@@ -171,7 +171,6 @@
                 android:layout_width="47dp"
                 android:layout_height="47dp"
                 android:background="@drawable/facebook_logo"
-                android:backgroundTint="@color/primarycolor"
                 android:onClick="onClickFacebookButton"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
@@ -183,7 +182,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0"
-                android:background="@color/primarycolor"
                 android:paddingTop="25sp"
                 android:visibility="visible"
                 app:com_facebook_login_text="Log in with Facebook" />

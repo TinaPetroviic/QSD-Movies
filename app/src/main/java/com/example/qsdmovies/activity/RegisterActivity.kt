@@ -222,7 +222,7 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Successfully Signed Up", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this, "Signed Up Failed!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "user already exists", Toast.LENGTH_SHORT).show()
             }
         }
     }

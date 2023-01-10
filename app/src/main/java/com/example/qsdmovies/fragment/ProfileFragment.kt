@@ -2,10 +2,10 @@ package com.example.qsdmovies.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.LoginActivity
@@ -16,9 +16,8 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileFragment : Fragment() {
 
     lateinit var auth: FirebaseAuth
-    lateinit var databaseReference : DatabaseReference
-    lateinit var database : FirebaseDatabase
-
+    var databaseReference: DatabaseReference? = null
+    var database: FirebaseDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +37,15 @@ class ProfileFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile")
+        databaseReference = database?.reference!!.child("User")
 
         loadProfile()
 
         view.findViewById<View>(R.id.logout).setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this@ProfileFragment.context, LoginActivity::class.java)
-            Toast.makeText(activity, "Successfully Signed Out", Toast.LENGTH_SHORT).show()
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-
         }
     }
 
@@ -57,16 +54,18 @@ class ProfileFragment : Fragment() {
         val user = auth.currentUser
         val userreference = databaseReference?.child(user?.uid!!)
 
-        accountName.text = user?.uid
-        userreference?.addValueEventListener(object : ValueEventListener{
+        Log.d("myDebugTag", "debug message")
+
+        accountName.text = user?.displayName
+        userreference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                accountName.text = snapshot.child("User").value.toString()
+                accountName.text = snapshot.child("firstName").value.toString()
+
             }
 
             override fun onCancelled(error: DatabaseError) {
 
             }
         })
-
     }
 }

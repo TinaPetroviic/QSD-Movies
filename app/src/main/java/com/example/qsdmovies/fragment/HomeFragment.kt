@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerViewWatching.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewWatching.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
             Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movies.first().poster)
@@ -48,20 +48,20 @@ class HomeFragment : Fragment() {
         }
 
         recyclerViewTopRated.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewTopRated.setHasFixedSize(true)
         getTopRatedList { toprated: List<TopRated> ->
             recyclerViewTopRated.adapter = TopRatedAdapter(toprated)
         }
         recyclerViewTVShows.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewTVShows.setHasFixedSize(true)
         getTvShowsList { tvshows: List<TvShows> ->
             recyclerViewTVShows.adapter = TvShowsAdapter(tvshows)
         }
 
         recyclerViewPopularMovies.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewPopularMovies.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
             recyclerViewPopularMovies.adapter = MovieAdapter(movies)

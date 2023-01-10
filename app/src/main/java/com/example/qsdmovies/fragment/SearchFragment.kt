@@ -42,14 +42,14 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerViewTvShows.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewTvShows.setHasFixedSize(true)
         getTvShowsList { tvshows: List<TvShows> ->
             recyclerViewTvShows.adapter = TvShowsAdapter(tvshows)
         }
 
         recyclerViewMovies.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewMovies.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
             recyclerViewMovies.adapter = MovieAdapter(movies)
