@@ -11,13 +11,18 @@ import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
 
-    lateinit var auth: FirebaseAuth
-    var databaseReference: DatabaseReference? = null
-    var database: FirebaseDatabase? = null
+    private lateinit var auth: FirebaseAuth
+    private var databaseReference: DatabaseReference? = null
+    private var database: FirebaseDatabase? = null
+
+    private var firebaseStorage: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,9 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("User")
+
+        firebaseStorage = FirebaseStorage.getInstance()
+        storageReference = firebaseStorage!!.reference
 
         loadProfile()
 

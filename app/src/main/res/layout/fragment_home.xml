@@ -5,7 +5,7 @@
     android:id="@+id/containerHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:backgroundTint="#FFFFFF"
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
@@ -15,35 +15,36 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="450dp">
+            android:layout_height="430dp">
 
             <ImageView
                 android:id="@+id/poster"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="430dp"
                 android:layout_gravity="center"
                 android:foreground="@drawable/gradient"
                 android:scaleType="fitXY" />
 
-
-            <RatingBar
-                android:id="@+id/rating"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_marginBottom="5dp"
-                android:progressTint="#FFCC01"
-                android:rating="3.5"
-                android:stepSize="0.5" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginTop="-10dp"
+            android:progressTint="#FFCC01"
+            android:rating="3.5"
+            android:stepSize="0.5" />
 
         <TextView
             android:id="@+id/textViewWatching"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:text="Watching"
             android:textSize="24sp"
             android:textStyle="bold"

@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
+import com.example.qsdmovies.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -26,6 +27,8 @@ import java.io.IOException
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRegisterBinding
 
     private lateinit var firstNameHere: EditText
     private lateinit var lastNameHere: EditText
@@ -231,6 +234,7 @@ class RegisterActivity : AppCompatActivity() {
 
         firstName = firstNameHere.text.toString().trim()
         lastName = lastNameHere.text.toString().trim()
+
 
         val user = User(firstName, lastName)
 
