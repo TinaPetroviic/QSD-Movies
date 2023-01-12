@@ -1,6 +1,7 @@
 package com.example.qsdmovies.activity
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -219,10 +220,11 @@ class RegisterActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 saveData()
 
+                val mProgressDialog = ProgressDialog(this)
+                mProgressDialog.setMessage("Loading...")
+                mProgressDialog.show()
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
-
-                Toast.makeText(this, "Successfully Signed Up", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
                 Toast.makeText(this, "user already exists", Toast.LENGTH_SHORT).show()

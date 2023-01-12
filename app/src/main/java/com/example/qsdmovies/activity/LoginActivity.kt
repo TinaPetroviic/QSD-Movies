@@ -1,6 +1,7 @@
 package com.example.qsdmovies.activity
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -147,6 +148,9 @@ class LoginActivity : AppCompatActivity() {
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
+                    val mProgressDialog = ProgressDialog(this)
+                    mProgressDialog.setMessage("Loading...")
+                    mProgressDialog.show()
                     val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -201,10 +205,11 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
+                val mProgressDialog = ProgressDialog(this)
+                mProgressDialog.setMessage("Loading...")
+                mProgressDialog.show()
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
-
-                Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_SHORT).show()
             } else
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
         }
@@ -218,6 +223,9 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 googleAuthForFirebase(account)
+                val mProgressDialog = ProgressDialog(this)
+                mProgressDialog.setMessage("Loading...")
+                mProgressDialog.show()
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
             } catch (e: ApiException) {

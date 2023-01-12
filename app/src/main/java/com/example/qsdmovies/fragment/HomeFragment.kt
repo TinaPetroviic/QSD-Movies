@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
                 return callback(response.body()!!.movies)
             }
 
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable?) {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
 
             }
         })
@@ -91,7 +91,7 @@ class HomeFragment : Fragment() {
                 return callback(response.body()!!.toprated)
             }
 
-            override fun onFailure(call: Call<TopRatedResponse>, t: Throwable?) {
+            override fun onFailure(call: Call<TopRatedResponse>, t: Throwable) {
 
             }
         })
@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
                 return callback(response.body()!!.tvshows)
             }
 
-            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable?) {
+            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
 
             }
         })
