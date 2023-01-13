@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.LoginActivity
+import com.example.qsdmovies.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -16,6 +17,9 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
+
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
     private var databaseReference: DatabaseReference? = null
@@ -30,10 +34,13 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
 
     }
 
@@ -75,5 +82,10 @@ class ProfileFragment : Fragment() {
 
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

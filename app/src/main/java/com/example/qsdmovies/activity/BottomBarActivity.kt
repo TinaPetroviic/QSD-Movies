@@ -4,17 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
+import com.example.qsdmovies.databinding.ActivityBottombarBinding
 import com.example.qsdmovies.fragment.FavoritesFragment
 import com.example.qsdmovies.fragment.HomeFragment
 import com.example.qsdmovies.fragment.ProfileFragment
 import com.example.qsdmovies.fragment.SearchFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
 class BottomBarActivity : AppCompatActivity() {
 
-    private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var binding: ActivityBottombarBinding
+
     private lateinit var auth: FirebaseAuth
 
     private val homeFragment = HomeFragment()
@@ -25,14 +26,15 @@ class BottomBarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bottombar)
-        bottomNavigation = findViewById(R.id.bottomNavigation)
+        binding = ActivityBottombarBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         auth = FirebaseAuth.getInstance()
 
         loadFragment(HomeFragment())
 
-        bottomNavigation.setOnNavigationItemSelectedListener {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.search -> replaceFragment(searchFragment)

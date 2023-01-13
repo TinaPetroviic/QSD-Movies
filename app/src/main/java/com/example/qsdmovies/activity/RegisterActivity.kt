@@ -8,12 +8,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
 import com.example.qsdmovies.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -23,22 +19,13 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_register.*
 import java.io.IOException
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-
-    private lateinit var firstNameHere: EditText
-    private lateinit var lastNameHere: EditText
-    private lateinit var emailRegister: EditText
-    private lateinit var passwordRegister: EditText
-    private lateinit var confirmPasswordRegister: EditText
-    private lateinit var registerButton: Button
-    private lateinit var profileImage: CircleImageView
-    private lateinit var addProfilePicture: TextView
 
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
@@ -57,7 +44,9 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "BACK"
@@ -65,26 +54,16 @@ class RegisterActivity : AppCompatActivity() {
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
 
-        firstNameHere = findViewById(R.id.firstNameHere)
-        lastNameHere = findViewById(R.id.lastNameHere)
-        emailRegister = findViewById(R.id.emailRegister)
-        passwordRegister = findViewById(R.id.passwordRegister)
-        confirmPasswordRegister = findViewById(R.id.confirmPasswordRegister)
-        registerButton = findViewById(R.id.registerButton)
-        profileImage = findViewById(R.id.profileImage)
-        addProfilePicture = findViewById(R.id.addProfilePicture)
-
-
         auth = Firebase.auth
         database = Firebase.database.reference
 
-        registerButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             signUpUser()
         }
-        addProfilePicture.setOnClickListener {
+        binding.addProfilePicture.setOnClickListener {
             launchGallery()
         }
-        profileImage.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             launchGallery()
         }
     }

@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.qsdmovies.R
 import com.example.qsdmovies.adapter.MovieAdapter
 import com.example.qsdmovies.adapter.TvShowsAdapter
+import com.example.qsdmovies.databinding.FragmentSearchBinding
 import com.example.qsdmovies.models.Movie
 import com.example.qsdmovies.models.MovieResponse
 import com.example.qsdmovies.models.TvShows
@@ -25,6 +25,8 @@ import retrofit2.Response
 
 class SearchFragment : Fragment() {
 
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +34,13 @@ class SearchFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,6 +91,11 @@ class SearchFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

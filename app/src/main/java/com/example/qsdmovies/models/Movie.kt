@@ -18,10 +18,14 @@ data class Movie(
     @SerializedName("relase date")
     val relase: String?,
 
-    @SerializedName("vote_count")
-    val vote: String
+    @SerializedName("rating")
+    val rating: String,
+
+    @SerializedName("video")
+    val video: Boolean
+
 
 
 ) : Parcelable {
-    constructor() : this("", "", "", "", "")
+    constructor() : this("", "", "", "", "",true)
 }

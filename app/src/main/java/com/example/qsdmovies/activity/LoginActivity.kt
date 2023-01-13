@@ -7,15 +7,15 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
+import com.example.qsdmovies.databinding.ActivityLoginBinding
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -27,26 +27,21 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
 
     val TAG = "LoginActivity"
 
-    private lateinit var emailHere: EditText
-    private lateinit var passwordHere: EditText
-    private lateinit var loginButton: Button
-    private lateinit var forgotPassword: TextView
-    private lateinit var register: TextView
-    private lateinit var googleLogin: ImageView
-    private lateinit var facebookLogin: LoginButton
+    private lateinit var binding: ActivityLoginBinding
 
     private lateinit var auth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN: Int = 1
     private lateinit var gso: GoogleSignInOptions
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
@@ -66,15 +61,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        emailHere = findViewById(R.id.emailHere)
-        passwordHere = findViewById(R.id.passwordHere)
-        loginButton = findViewById(R.id.loginButton)
-        forgotPassword = findViewById(R.id.forgotPassword)
-        register = findViewById(R.id.register)
-        googleLogin = findViewById(R.id.googleLogin)
-        facebookLogin = findViewById(R.id.facebookLogin)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         auth = Firebase.auth
 
@@ -82,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
         createKeyHash(this, "com.example.qsdmovies")
 
-        facebookLogin.setOnClickListener {
+        binding.facebookLogin.setOnClickListener {
             callbackManager = CallbackManager.Factory.create()
             facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {

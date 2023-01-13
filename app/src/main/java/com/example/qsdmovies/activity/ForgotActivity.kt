@@ -3,36 +3,33 @@ package com.example.qsdmovies.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.qsdmovies.R
+import com.example.qsdmovies.databinding.ActivityForgotBinding
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_forgot.*
 
 
 class ForgotActivity : AppCompatActivity() {
 
-    private lateinit var emailForgot: EditText
-    private lateinit var sendEmailButton: Button
-    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
-
+    private lateinit var binding: ActivityForgotBinding
 
     private lateinit var auth: FirebaseAuth
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forgot)
+        binding = ActivityForgotBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "BACK"
 
-        emailForgot = findViewById(R.id.emailForgot)
-        sendEmailButton = findViewById(R.id.sendEmailButton)
 
         auth = FirebaseAuth.getInstance()
 
-        sendEmailButton.setOnClickListener {
+        binding.sendEmailButton.setOnClickListener {
             val email = emailForgot.text.toString()
             if (email.isEmpty()) {
                 Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()

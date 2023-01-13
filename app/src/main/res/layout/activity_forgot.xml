@@ -102,6 +102,7 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
