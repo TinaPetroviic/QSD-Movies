@@ -17,7 +17,6 @@ import com.example.qsdmovies.services.MovieApiInterface
 import com.example.qsdmovies.services.MoviesApiService
 import com.example.qsdmovies.services.TvShowsApiInterface
 import com.example.qsdmovies.services.TvShowsApiService
-import kotlinx.android.synthetic.main.fragment_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,18 +45,18 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerViewTvShows.layoutManager =
+        binding.recyclerViewTvShows.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewTvShows.setHasFixedSize(true)
+        binding.recyclerViewTvShows.setHasFixedSize(true)
         getTvShowsList { tvshows: List<TvShows> ->
-            recyclerViewTvShows.adapter = TvShowsAdapter(tvshows)
+            binding.recyclerViewTvShows.adapter = TvShowsAdapter(tvshows)
         }
 
-        recyclerViewMovies.layoutManager =
+        binding.recyclerViewMovies.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewMovies.setHasFixedSize(true)
+        binding.recyclerViewMovies.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
-            recyclerViewMovies.adapter = MovieAdapter(movies)
+            binding.recyclerViewMovies.adapter = MovieAdapter(movies)
         }
 
     }

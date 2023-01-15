@@ -19,7 +19,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.android.synthetic.main.activity_register.*
 import java.io.IOException
 import java.util.*
 
@@ -103,11 +102,11 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun signUpUser() {
 
-        val name = firstNameHere.text.toString()
-        val surname = lastNameHere.text.toString()
-        val email = emailRegister.text.toString()
-        val pass = passwordRegister.text.toString()
-        val confirmPassword = confirmPasswordRegister.text.toString()
+        val name = binding.firstNameHere.text.toString()
+        val surname = binding.lastNameHere.text.toString()
+        val email = binding.emailRegister.text.toString()
+        val pass = binding.passwordRegister.text.toString()
+        val confirmPassword = binding.confirmPasswordRegister.text.toString()
 
         if (name.isEmpty()) {
             Toast.makeText(this, "first name field can't be empty", Toast.LENGTH_SHORT).show()
@@ -149,49 +148,49 @@ class RegisterActivity : AppCompatActivity() {
             ).show()
         }
 
-        if (passwordRegister.text.toString().length < 8) {
-            passwordRegister.setError("password minimum contain 8 character")
-            passwordRegister.requestFocus()
-            passwordRegister.isEnabled = true
+        if (binding.passwordRegister.text.toString().length < 8) {
+            binding.passwordRegister.setError("password minimum contain 8 character")
+            binding.passwordRegister.requestFocus()
+            binding.passwordRegister.isEnabled = true
 
         }
-        if (passwordRegister.text.toString().length > 32) {
-            passwordRegister.setError("password maximum contain 32 character")
-            passwordRegister.requestFocus()
+        if (binding.passwordRegister.text.toString().length > 32) {
+            binding.passwordRegister.setError("password maximum contain 32 character")
+            binding.passwordRegister.requestFocus()
         }
-        if (passwordRegister.text.toString().equals("")) {
-            passwordRegister.setError("please enter password")
-            passwordRegister.requestFocus()
-        }
-
-        if (firstNameHere.text.toString().length < 1) {
-            firstNameHere.setError("first name minimum contain 1 character")
-            firstNameHere.requestFocus()
-            firstNameHere.isEnabled = true
-
-        }
-        if (firstNameHere.text.toString().length > 50) {
-            firstNameHere.setError("first name maximum contain 50 character")
-            firstNameHere.requestFocus()
-        }
-        if (firstNameHere.text.toString().equals("")) {
-            firstNameHere.setError("please enter first name")
-            firstNameHere.requestFocus()
+        if (binding.passwordRegister.text.toString().equals("")) {
+            binding.passwordRegister.setError("please enter password")
+            binding.passwordRegister.requestFocus()
         }
 
-        if (lastNameHere.text.toString().length < 1) {
-            lastNameHere.setError("last name minimum contain 1 character")
-            lastNameHere.requestFocus()
-            lastNameHere.isEnabled = true
+        if (binding.firstNameHere.text.toString().length < 1) {
+            binding.firstNameHere.setError("first name minimum contain 1 character")
+            binding.firstNameHere.requestFocus()
+            binding.firstNameHere.isEnabled = true
 
         }
-        if (lastNameHere.text.toString().length > 50) {
-            lastNameHere.setError("last name maximum contain 50 character")
-            lastNameHere.requestFocus()
+        if (binding.firstNameHere.text.toString().length > 50) {
+            binding.firstNameHere.setError("first name maximum contain 50 character")
+            binding.firstNameHere.requestFocus()
         }
-        if (lastNameHere.text.toString().equals("")) {
-            lastNameHere.setError("please enter last name")
-            lastNameHere.requestFocus()
+        if (binding.firstNameHere.text.toString().equals("")) {
+            binding.firstNameHere.setError("please enter first name")
+            binding.firstNameHere.requestFocus()
+        }
+
+        if (binding.lastNameHere.text.toString().length < 1) {
+            binding.lastNameHere.setError("last name minimum contain 1 character")
+            binding.lastNameHere.requestFocus()
+            binding.lastNameHere.isEnabled = true
+
+        }
+        if (binding.lastNameHere.text.toString().length > 50) {
+            binding.lastNameHere.setError("last name maximum contain 50 character")
+            binding.lastNameHere.requestFocus()
+        }
+        if (binding.lastNameHere.text.toString().equals("")) {
+            binding.lastNameHere.setError("please enter last name")
+            binding.lastNameHere.requestFocus()
         }
 
 
@@ -213,9 +212,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun saveData() {
 
-        firstName = firstNameHere.text.toString().trim()
-        lastName = lastNameHere.text.toString().trim()
-
+        firstName = binding.firstNameHere.text.toString().trim()
+        lastName = binding.lastNameHere.text.toString().trim()
 
         val user = User(firstName, lastName)
 
@@ -234,7 +232,7 @@ class RegisterActivity : AppCompatActivity() {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-                profileImage.setImageBitmap(bitmap)
+                binding.profileImage.setImageBitmap(bitmap)
                 uploadImage()
             } catch (e: IOException) {
                 e.printStackTrace()

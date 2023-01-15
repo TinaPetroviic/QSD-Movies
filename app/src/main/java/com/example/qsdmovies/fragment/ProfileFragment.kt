@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
 
@@ -54,6 +53,7 @@ class ProfileFragment : Fragment() {
         firebaseStorage = FirebaseStorage.getInstance()
         storageReference = firebaseStorage!!.reference
 
+
         loadProfile()
 
         view.findViewById<View>(R.id.logout).setOnClickListener {
@@ -71,10 +71,10 @@ class ProfileFragment : Fragment() {
 
         Log.d("myDebugTag", "debug message")
 
-        accountName.text = user?.displayName
+        binding.accountName.text = user?.displayName
         userreference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                accountName.text = snapshot.child("firstName").value.toString()
+                binding.accountName.text = snapshot.child("firstName").value.toString()
 
             }
 

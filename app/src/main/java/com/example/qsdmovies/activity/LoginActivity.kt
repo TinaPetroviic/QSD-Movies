@@ -27,7 +27,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
@@ -73,37 +72,39 @@ class LoginActivity : AppCompatActivity() {
 
         binding.facebookLogin.setOnClickListener {
             callbackManager = CallbackManager.Factory.create()
-            facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult) {
-                    Log.d(TAG, "facebook:onSuccess:$result")
-                    handleFacebookAccessToken(result.accessToken)
-                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
-                    startActivity(intent)
-                }
+            binding.facebookLogin.registerCallback(
+                callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(result: LoginResult) {
+                        Log.d(TAG, "facebook:onSuccess:$result")
+                        handleFacebookAccessToken(result.accessToken)
+                        val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
+                        startActivity(intent)
+                    }
 
-                override fun onCancel() {
-                    Log.d(TAG, "facebook:onCancel")
-                }
+                    override fun onCancel() {
+                        Log.d(TAG, "facebook:onCancel")
+                    }
 
-                override fun onError(error: FacebookException) {
-                    Log.d(TAG, "facebook:onError", error)
-                }
-            })
+                    override fun onError(error: FacebookException) {
+                        Log.d(TAG, "facebook:onError", error)
+                    }
+                })
         }
 
-        googleLogin.setOnClickListener {
+        binding.googleLogin.setOnClickListener {
             signIn()
         }
 
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             login()
         }
 
-        register.setOnClickListener {
+        binding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-        forgotPassword.setOnClickListener {
+        binding.forgotPassword.setOnClickListener {
             val intent = Intent(this, ForgotActivity::class.java)
             startActivity(intent)
         }
@@ -156,8 +157,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login() {
 
-        val email = emailHere.text.toString()
-        val pass = passwordHere.text.toString()
+        val email = binding.emailHere.text.toString()
+        val pass = binding.passwordHere.text.toString()
 
         if (email.isEmpty()) {
             Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
@@ -177,19 +178,19 @@ class LoginActivity : AppCompatActivity() {
             ).show()
         }
 
-        if (passwordHere.text.toString().length < 8) {
-            passwordHere.setError("password minimum contain 8 character")
-            passwordHere.requestFocus()
-            passwordHere.isEnabled = true
+        if (binding.passwordHere.text.toString().length < 8) {
+            binding.passwordHere.setError("password minimum contain 8 character")
+            binding.passwordHere.requestFocus()
+            binding.passwordHere.isEnabled = true
 
         }
-        if (passwordHere.text.toString().length > 32) {
-            passwordHere.setError("password maximum contain 32 character")
-            passwordHere.requestFocus()
+        if (binding.passwordHere.text.toString().length > 32) {
+            binding.passwordHere.setError("password maximum contain 32 character")
+            binding.passwordHere.requestFocus()
         }
-        if (passwordHere.text.toString().equals("")) {
-            passwordHere.setError("please enter password")
-            passwordHere.requestFocus()
+        if (binding.passwordHere.text.toString().equals("")) {
+            binding.passwordHere.setError("please enter password")
+            binding.passwordHere.requestFocus()
         }
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {

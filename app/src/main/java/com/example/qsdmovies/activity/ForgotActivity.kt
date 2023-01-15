@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.databinding.ActivityForgotBinding
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_forgot.*
 
 
 class ForgotActivity : AppCompatActivity() {
@@ -30,7 +29,7 @@ class ForgotActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.sendEmailButton.setOnClickListener {
-            val email = emailForgot.text.toString()
+            val email = binding.emailForgot.text.toString()
             if (email.isEmpty()) {
                 Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
