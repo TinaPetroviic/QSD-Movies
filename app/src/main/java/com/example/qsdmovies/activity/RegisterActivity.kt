@@ -215,7 +215,7 @@ class RegisterActivity : AppCompatActivity() {
         firstName = binding.firstNameHere.text.toString().trim()
         lastName = binding.lastNameHere.text.toString().trim()
 
-        val user = User(firstName, lastName)
+        val user = User(firstName, lastName, binding.profileImage)
 
         val userID = FirebaseAuth.getInstance().currentUser!!.uid
         database.child("User").child(userID).setValue(user)
