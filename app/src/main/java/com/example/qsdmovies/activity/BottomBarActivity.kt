@@ -23,7 +23,6 @@ class BottomBarActivity : AppCompatActivity() {
     private val favoritesFragment = FavoritesFragment()
     private val profileFragment = ProfileFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBottombarBinding.inflate(layoutInflater)
@@ -46,13 +45,13 @@ class BottomBarActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, fragment)
+        transaction.replace(R.id.frame_layout, fragment)
         transaction.commit()
     }
 
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, fragment)
+        transaction.replace(R.id.frame_layout, fragment)
         transaction.disallowAddToBackStack()
         transaction.commit()
     }

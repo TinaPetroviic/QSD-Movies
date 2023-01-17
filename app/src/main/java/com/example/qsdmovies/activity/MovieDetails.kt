@@ -1,5 +1,6 @@
 package com.example.qsdmovies.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -17,5 +18,9 @@ class MovieDetails : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "BACK"
 
+        binding.watchNowButton.setOnClickListener {
+            val intent = Intent(this, WebViewWatchNowActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <VideoView
-            android:id="@+id/videoView"
+            android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
@@ -19,7 +19,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/playButton"
+            android:id="@+id/play_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
@@ -27,15 +27,15 @@
             android:src="@drawable/ic_baseline_play_circle_filled_24"
             app:borderWidth="0dp"
             app:fabSize="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/videoView"
+            app:layout_constraintBottom_toBottomOf="@+id/video_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/videoView"
+            app:layout_constraintTop_toTopOf="@+id/video_view"
             tools:ignore="MissingConstraints" />
 
 
         <TextView
-            android:id="@+id/movieName"
+            android:id="@+id/movie_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
@@ -47,10 +47,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/videoView" />
+            app:layout_constraintTop_toBottomOf="@+id/video_view" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView"
+            android:id="@+id/categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -60,11 +60,11 @@
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movieName"
+            app:layout_constraintTop_toBottomOf="@+id/movie_name"
             tools:text="Movie  |  Adventure  |  Comedy  |  Family" />
 
         <TextView
-            android:id="@+id/ratingNum"
+            android:id="@+id/rating_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -75,11 +75,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+            app:layout_constraintTop_toBottomOf="@+id/categories"
             tools:ignore="MissingConstraints" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/rating_bar"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingNum" />
+            app:layout_constraintTop_toBottomOf="@+id/rating_num" />
 
         <TextView
             android:id="@+id/description"
@@ -103,10 +103,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+            app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
 
         <Button
-            android:id="@+id/watchNowButton"
+            android:id="@+id/watch_now_button"
             android:layout_width="180dp"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -125,28 +125,28 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textViewCast"
+            android:id="@+id/cast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Cast"
+            android:text="@string/cast"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/watchNowButton"
+            app:layout_constraintTop_toBottomOf="@+id/watch_now_button"
             tools:ignore="MissingConstraints" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCast"
+            android:id="@+id/recycler_view_cast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCast"
+            app:layout_constraintTop_toBottomOf="@+id/cast"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

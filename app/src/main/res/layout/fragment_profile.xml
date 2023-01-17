@@ -9,7 +9,7 @@
     tools:context=".fragment.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImage"
+        android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="30dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/accountName"
+        android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -31,11 +31,11 @@
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view_premium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -45,7 +45,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountName"
+        app:layout_constraintTop_toBottomOf="@+id/account_name"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
@@ -55,7 +55,7 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_premium"
         tools:ignore="MissingConstraints,UseCompoundDrawables">
 
         <ImageView
@@ -71,7 +71,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Account"
+            android:text="@string/account"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
@@ -102,7 +102,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Notification"
+            android:text="@string/notification"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
@@ -133,7 +133,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
@@ -164,7 +164,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Help"
+            android:text="@string/help"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
@@ -197,7 +197,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 

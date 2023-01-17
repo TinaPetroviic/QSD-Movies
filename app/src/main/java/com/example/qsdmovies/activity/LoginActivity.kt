@@ -178,17 +178,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (binding.passwordHere.text.toString().length < 8) {
-            binding.passwordHere.setError("password minimum contain 8 character")
+            binding.passwordHere.error = "password minimum contain 8 character"
             binding.passwordHere.requestFocus()
             binding.passwordHere.isEnabled = true
 
         }
         if (binding.passwordHere.text.toString().length > 32) {
-            binding.passwordHere.setError("password maximum contain 32 character")
+            binding.passwordHere.error = "password maximum contain 32 character"
             binding.passwordHere.requestFocus()
         }
         if (binding.passwordHere.text.toString().equals("")) {
-            binding.passwordHere.setError("please enter password")
+            binding.passwordHere.error = "please enter password"
             binding.passwordHere.requestFocus()
         }
 

@@ -25,7 +25,6 @@ data class Movie(
     val video: Boolean
 
 
-
 ) : Parcelable {
-    constructor() : this("", "", "", "", "",true)
+    constructor() : this("", "", "", "", "", true)
 }

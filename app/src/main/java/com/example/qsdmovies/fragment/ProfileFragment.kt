@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.activity.LoginActivity
+import com.example.qsdmovies.activity.WebViewHelpActivity
 import com.example.qsdmovies.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -52,6 +53,11 @@ class ProfileFragment : Fragment() {
         storageReference = firebaseStorage!!.reference
 
         loadProfile()
+
+        binding.help.setOnClickListener {
+            val intent = Intent(context, WebViewHelpActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()

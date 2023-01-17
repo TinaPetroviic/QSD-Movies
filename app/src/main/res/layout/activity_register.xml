@@ -13,7 +13,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/profile_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="20dp"
@@ -25,38 +25,38 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/addProfilePicture"
+            android:id="@+id/add_profile_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="40dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Add profile picture"
+            android:text="@string/add_profile_picture"
             android:textAlignment="center"
             android:textSize="17dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
         <TextView
-            android:id="@+id/firstName"
+            android:id="@+id/first_name"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="FIRST NAME"
+            android:text="@string/first_name"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addProfilePicture"
+            app:layout_constraintTop_toBottomOf="@+id/add_profile_picture"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/firstNameHere"
+            android:id="@+id/first_name_here"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -70,27 +70,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstName"
+            app:layout_constraintTop_toBottomOf="@+id/first_name"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/lastName"
+            android:id="@+id/last_name"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="LAST NAME"
+            android:text="@string/last_name"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstNameHere"
+            app:layout_constraintTop_toBottomOf="@+id/first_name_here"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/lastNameHere"
+            android:id="@+id/last_name_here"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -104,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastName"
+            app:layout_constraintTop_toBottomOf="@+id/last_name"
             tools:ignore="MissingConstraints" />
 
 
@@ -121,11 +121,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastNameHere"
+            app:layout_constraintTop_toBottomOf="@+id/last_name_here"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/emailRegister"
+            android:id="@+id/email_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -154,11 +154,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailRegister"
+            app:layout_constraintTop_toBottomOf="@+id/email_register"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/passwordRegister"
+            android:id="@+id/password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -177,23 +177,23 @@
 
 
         <TextView
-            android:id="@+id/confirmPassword"
+            android:id="@+id/confirm_password"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="CONFIRM PASSWORD"
+            android:text="@string/confirm_password"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordRegister"
+            app:layout_constraintTop_toBottomOf="@+id/password_register"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/confirmPasswordRegister"
+            android:id="@+id/confirm_password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -207,11 +207,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirmPassword"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password"
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
@@ -230,7 +230,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirmPasswordRegister"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_register"
             tools:ignore="MissingConstraints" />
 
 

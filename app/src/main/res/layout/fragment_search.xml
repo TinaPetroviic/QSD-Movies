@@ -19,54 +19,54 @@
         android:clickable="true"
         android:textCursorDrawable="@null"
         app:iconifiedByDefault="false"
-        app:queryBackground="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@null">
 
     </androidx.appcompat.widget.SearchView>
 
     <TextView
-        android:id="@+id/tvShows"
+        android:id="@+id/tv_shows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/gotham_book_font"
-        android:text="TV SHOWS"
+        android:text="@string/tv_shows"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewTvShows"
+        android:id="@+id/recycler_view_tv_shows"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvShows" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_shows" />
 
     <TextView
-        android:id="@+id/Movies"
+        android:id="@+id/movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/gotham_book_font"
-        android:text="MOVIES"
+        android:text="@string/movies"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewTvShows" />
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_tv_shows" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMovies"
+        android:id="@+id/recycler_view_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Movies" />
+        app:layout_constraintTop_toBottomOf="@+id/movies" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

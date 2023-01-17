@@ -60,11 +60,11 @@ class HomeFragment : Fragment() {
             binding.recyclerViewTopRated.adapter = TopRatedAdapter(toprated)
         }
 
-        binding.recyclerViewTVShows.layoutManager =
+        binding.recyclerViewTvShows.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewTVShows.setHasFixedSize(true)
+        binding.recyclerViewTvShows.setHasFixedSize(true)
         getTvShowsList { tvshows: List<TvShows> ->
-            binding.recyclerViewTVShows.adapter = TvShowsAdapter(tvshows)
+            binding.recyclerViewTvShows.adapter = TvShowsAdapter(tvshows)
         }
 
         binding.recyclerViewPopularMovies.layoutManager =
