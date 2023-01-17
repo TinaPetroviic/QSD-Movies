@@ -36,10 +36,9 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,7 +67,7 @@ class SearchFragment : Fragment() {
                 return callback(response.body()!!.movies)
             }
 
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable?) {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
 
             }
 
@@ -85,7 +84,7 @@ class SearchFragment : Fragment() {
                 return callback(response.body()!!.tvshows)
             }
 
-            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable?) {
+            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
 
             }
 

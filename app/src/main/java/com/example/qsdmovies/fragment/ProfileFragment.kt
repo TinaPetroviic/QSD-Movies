@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.LoginActivity
 import com.example.qsdmovies.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -36,10 +35,9 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
 
     }
 
@@ -53,10 +51,9 @@ class ProfileFragment : Fragment() {
         firebaseStorage = FirebaseStorage.getInstance()
         storageReference = firebaseStorage!!.reference
 
-
         loadProfile()
 
-        view.findViewById<View>(R.id.logout).setOnClickListener {
+        binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this@ProfileFragment.context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -19,7 +19,7 @@ import com.google.firebase.messaging.RemoteMessage
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    private var NOTIFICATION_CHANNEL_ID = "net.larntech.notification"
+    private var NOTIFICATION_CHANNEL_ID = "com.example.qsdmovies.services"
     private val NOTIFICATION_ID = 100
 
     @RequiresApi(Build.VERSION_CODES.S)

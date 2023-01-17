@@ -61,8 +61,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         auth = Firebase.auth
 
@@ -211,11 +210,11 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val account = task.getResult(ApiException::class.java)!!
-                googleAuthForFirebase(account)
                 val mProgressDialog = ProgressDialog(this)
                 mProgressDialog.setMessage("Loading...")
                 mProgressDialog.show()
+                val account = task.getResult(ApiException::class.java)!!
+                googleAuthForFirebase(account)
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
             } catch (e: ApiException) {
@@ -231,7 +230,6 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credentials)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
                     val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {

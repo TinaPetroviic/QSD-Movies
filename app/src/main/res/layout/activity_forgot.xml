@@ -79,7 +79,6 @@
         android:background="@drawable/button_selector"
         android:ems="10"
         android:fontFamily="@font/gotham_book_font"
-        android:hint="email here"
         android:inputType="textEmailAddress"
         android:padding="22dp"
         app:layout_constraintEnd_toEndOf="parent"
