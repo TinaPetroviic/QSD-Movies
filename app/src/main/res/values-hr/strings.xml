@@ -37,5 +37,6 @@
     <string name="tv_show">Tv Show</string>
     <string name="cast">Glumci</string>
     <string name="known_for">Sudjelovanja</string>
+    <string name="Language">Jezik</string>
 
 </resources>

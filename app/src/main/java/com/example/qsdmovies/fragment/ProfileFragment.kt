@@ -54,6 +54,9 @@ class ProfileFragment : Fragment() {
 
         loadProfile()
 
+        binding.language.setOnClickListener {
+        }
+
         binding.help.setOnClickListener {
             val intent = Intent(context, WebViewHelpActivity::class.java)
             startActivity(intent)

@@ -71,6 +71,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
             android:text="@string/account"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
@@ -102,6 +103,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
             android:text="@string/notification"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
@@ -133,6 +135,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
             android:text="@string/settings"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
@@ -142,13 +145,44 @@
 
 
     <LinearLayout
-        android:id="@+id/help"
+        android:id="@+id/language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="@color/iconsbackground"
+            android:src="@drawable/ic_baseline_language_24"
+            app:tint="@color/iconsbackground" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/Language"
+            android:textColor="#5a5a5a"
+            android:textSize="22sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -164,6 +198,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
             android:text="@string/help"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
@@ -197,6 +232,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
             android:text="@string/logout"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
