@@ -16,9 +16,6 @@ class WebViewWatchNowActivity : AppCompatActivity() {
         binding = ActivityWebviewwatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "BACK"
-
         binding.webViewWatchNow.webViewClient = WebViewClient()
 
         binding.webViewWatchNow.apply {

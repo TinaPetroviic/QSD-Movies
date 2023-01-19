@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.qsdmovies.activity.ContactActivity
 import com.example.qsdmovies.activity.LoginActivity
 import com.example.qsdmovies.activity.WebViewHelpActivity
 import com.example.qsdmovies.databinding.FragmentProfileBinding
@@ -53,6 +54,11 @@ class ProfileFragment : Fragment() {
         storageReference = firebaseStorage!!.reference
 
         loadProfile()
+
+        binding.contact.setOnClickListener {
+            val intent = Intent(context, ContactActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.language.setOnClickListener {
         }

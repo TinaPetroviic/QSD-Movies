@@ -29,7 +29,6 @@
     <string name="movies">FILMOVI</string>
     <string name="account">Račun</string>
     <string name="notification">Obavijest</string>
-    <string name="settings">Postavke</string>
     <string name="help">Pomoć</string>
     <string name="logout">Odjava</string>
     <string name="watching">Gledate</string>
@@ -37,6 +36,8 @@
     <string name="tv_show">Tv Show</string>
     <string name="cast">Glumci</string>
     <string name="known_for">Sudjelovanja</string>
-    <string name="Language">Jezik</string>
+    <string name="contact">Kontakt</string>
+    <string name="language">Jezik</string>
+
 
 </resources>

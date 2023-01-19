@@ -113,7 +113,7 @@
 
 
     <LinearLayout
-        android:id="@+id/settings"
+        android:id="@+id/contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -123,11 +123,11 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="35dp"
+            android:layout_height="34dp"
             android:layout_marginStart="40dp"
             android:backgroundTint="@color/iconsbackground"
-            android:src="@drawable/ic_baseline_settings_24"
+            android:src="@drawable/ic_baseline_mail_24"
             app:tint="@color/iconsbackground" />
 
         <TextView
@@ -136,7 +136,7 @@
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
             android:gravity="center"
-            android:text="@string/settings"
+            android:text="@string/contact"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
@@ -151,7 +151,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings"
+        app:layout_constraintTop_toBottomOf="@+id/contact"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -168,7 +168,7 @@
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gotham_book_font"
             android:gravity="center"
-            android:text="@string/Language"
+            android:text="@string/language"
             android:textColor="#5a5a5a"
             android:textSize="22sp" />
 

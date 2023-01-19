@@ -28,7 +28,6 @@
     <string name="movies">MOVIES</string>
     <string name="account">Account</string>
     <string name="notification">Notification</string>
-    <string name="settings">Settings</string>
     <string name="help">Help</string>
     <string name="logout">Logout</string>
     <string name="watching">Watching</string>
@@ -36,7 +35,8 @@
     <string name="tv_show">Tv Show</string>
     <string name="cast">Cast</string>
     <string name="known_for">Known for</string>
-    <string name="Language">Language</string>
+    <string name="contact">Contact</string>
+    <string name="language">Language</string>
 
 
 </resources>

@@ -49,6 +49,8 @@
 
         <activity android:name=".activity.WebViewWatchNowActivity" />
 
+        <activity android:name=".activity.ContactActivity"/>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

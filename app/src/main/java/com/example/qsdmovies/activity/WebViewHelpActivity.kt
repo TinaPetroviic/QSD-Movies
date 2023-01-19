@@ -16,9 +16,6 @@ class WebViewHelpActivity : AppCompatActivity() {
         binding = ActivityWebviewhelpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "BACK"
-
         binding.webViewHelp.webViewClient = WebViewClient()
 
         binding.webViewHelp.apply {
