@@ -145,6 +145,7 @@ class RegisterActivity : AppCompatActivity() {
                 applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
+            return
         }
 
         if (binding.passwordRegister.text.toString().length < 8) {
@@ -205,6 +206,7 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
             } else {
                 Toast.makeText(this, "user already exists", Toast.LENGTH_SHORT).show()
+                return@addOnCompleteListener
             }
         }
     }

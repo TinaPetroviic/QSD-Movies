@@ -37,6 +37,18 @@
     <string name="known_for">Known for</string>
     <string name="contact">Contact</string>
     <string name="language">Language</string>
-
+    <string name="movie_adventure_comedy_family">Movie | Adventure | Comedy | Family</string>
+    <string name="moviess">Movies</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_subject_details">Enter Subject Details</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="emaill">EMAIL</string>
+    <string name="the_name_of_the_movie">the name of the movie</string>
+    <string name="watch_now">WATCH NOW</string>
+    <string name="emaiil">EMAIL</string>
+    <string name="passwordd">PASSWORD</string>
+    <string name="registerr">REGISTER</string>
+    <string name="first_namee">First name</string>
+    <string name="premium">Premium</string>
 
 </resources>

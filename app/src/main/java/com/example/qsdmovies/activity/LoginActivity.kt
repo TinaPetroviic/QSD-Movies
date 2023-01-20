@@ -175,6 +175,7 @@ class LoginActivity : AppCompatActivity() {
                 applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
+            return
         }
 
         if (binding.passwordHere.text.toString().length < 8) {

@@ -47,8 +47,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Movie | Adventure | Comedy | Family"
-            android:textSize="16dp"
+            android:text="@string/movie_adventure_comedy_family"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -122,7 +122,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Movies"
+            android:text="@string/moviess"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

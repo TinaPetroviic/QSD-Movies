@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.databinding.ActivityContactBinding
-import kotlinx.android.synthetic.main.activity_contact.*
 
 class ContactActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityContactBinding
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,31 +19,52 @@ class ContactActivity : AppCompatActivity() {
 
         binding.sendEmailButton.setOnClickListener {
 
-            val enterEmail = enter_email.text.toString().trim()
-            val enterSubjectDetails = enter_subject_details.text.toString().trim()
-            val message = message.text.toString().trim()
+            val email = binding.email.text.toString().trim()
+            val subject = binding.subject.text.toString().trim()
+            val message = binding.message.text.toString().trim()
 
-            sendEmail(enterEmail, enterSubjectDetails, message)
+            sendEmail(email, subject, message)
+
         }
-
     }
 
-    private fun sendEmail(enterEmail: String, enterSubjectDetails: String, message: String) {
+    private fun sendEmail(email: String, subject: String, message: String) {
 
         val mIntent = Intent(Intent.ACTION_SEND)
         mIntent.data = Uri.parse("qsd.testing@gmail.com")
         mIntent.type = "text/plain"
 
-        mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(enterEmail))
-        mIntent.putExtra(Intent.EXTRA_SUBJECT, arrayOf(enterSubjectDetails))
+        mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        mIntent.putExtra(Intent.EXTRA_SUBJECT, arrayOf(subject))
         mIntent.putExtra(Intent.EXTRA_TEXT, arrayOf(message))
 
+        if (email.isEmpty()) {
+            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (subject.isEmpty()) {
+            Toast.makeText(this, "subject field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (message.isEmpty()) {
+            Toast.makeText(this, "message field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (email.matches(emailPattern.toRegex())) {
+
+        } else {
+            Toast.makeText(
+                applicationContext, "invalid email address",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
         try {
-            startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
+            startActivity(Intent.createChooser(mIntent, "choose email client..."))
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
-
-
     }
 }

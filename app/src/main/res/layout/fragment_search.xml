@@ -34,7 +34,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/gotham_book_font"
         android:text="@string/tv_shows"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />
 
@@ -55,7 +55,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/gotham_book_font"
         android:text="@string/movies"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view_tv_shows" />
 

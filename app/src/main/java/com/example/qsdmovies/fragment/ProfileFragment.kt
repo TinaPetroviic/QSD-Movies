@@ -1,11 +1,16 @@
 package com.example.qsdmovies.fragment
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.activity.ContactActivity
 import com.example.qsdmovies.activity.LoginActivity
@@ -15,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
@@ -27,6 +33,10 @@ class ProfileFragment : Fragment() {
 
     private var firebaseStorage: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
+
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +56,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadLocate()
+
+
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("User")
@@ -61,6 +74,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.language.setOnClickListener {
+            showChangeLang()
         }
 
         binding.help.setOnClickListener {
@@ -76,6 +90,67 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun showChangeLang() {
+
+        val listItmes = arrayOf("English", "Croatian", "German", "Spanish", "Italian")
+
+        val mBuilder = this@ProfileFragment.context?.let { AlertDialog.Builder(it) }
+        mBuilder?.setTitle("Choose Language")
+        mBuilder?.setSingleChoiceItems(listItmes, -1) { dialog, which ->
+            if (which == 0) {
+                setLocate("en")
+                activity?.recreate()
+            } else if (which == 1) {
+                setLocate("hr")
+                activity?.recreate()
+            } else if (which == 2) {
+                setLocate("de")
+                activity?.recreate()
+            } else if (which == 3) {
+                setLocate("es")
+                activity?.recreate()
+            } else if (which == 4) {
+                setLocate("it")
+                activity?.recreate()
+            }
+
+            dialog.dismiss()
+        }
+        val mDialog = mBuilder?.create()
+
+        mDialog?.show()
+
+    }
+
+    private fun setLocate(Lang: String) {
+
+        val locale = Locale(Lang)
+
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+
+        config.locale = locale
+        requireActivity().baseContext?.resources?.updateConfiguration(
+            config,
+            requireActivity().baseContext?.resources?.displayMetrics
+        )
+
+        val editor = activity?.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.edit()
+        editor?.putString("My_Lang", Lang)
+        editor?.apply()
+    }
+
+    private fun loadLocate() {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = sharedPreferences?.getString("My_Lang", "")
+        if (language != null) {
+            setLocate(language)
+        }
+    }
+
+
     private fun loadProfile() {
 
         val user = auth.currentUser
@@ -83,10 +158,10 @@ class ProfileFragment : Fragment() {
 
         Log.d("myDebugTag", "debug message")
 
-        binding.accountName.text = user?.displayName
+        _binding?.accountName?.text = user?.displayName
         userreference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.accountName.text = snapshot.child("firstName").value.toString()
+                _binding?.accountName?.text = snapshot.child("firstName").value.toString()
 
             }
 

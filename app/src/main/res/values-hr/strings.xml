@@ -28,7 +28,7 @@
     <string name="tv_shows">TV SHOWS</string>
     <string name="movies">FILMOVI</string>
     <string name="account">Račun</string>
-    <string name="notification">Obavijest</string>
+    <string name="notification">Obavijesti</string>
     <string name="help">Pomoć</string>
     <string name="logout">Odjava</string>
     <string name="watching">Gledate</string>
@@ -38,6 +38,18 @@
     <string name="known_for">Sudjelovanja</string>
     <string name="contact">Kontakt</string>
     <string name="language">Jezik</string>
-
+    <string name="movie_adventure_comedy_family"> Filmovi | Avantura | Komedija | Obiteljski </string>
+    <string name="moviess">Filmovi</string>
+    <string name="enter_email">Unesite email</string>
+    <string name="enter_subject_details">Unesite pojedinosti o predmetu</string>
+    <string name="enter_message">Unesite poruku</string>
+    <string name="emaill">EMAIL</string>
+    <string name="the_name_of_the_movie">naziv filma</string>
+    <string name="watch_now">GLEDAJTE SADA</string>
+    <string name="emaiil">EMAIL</string>
+    <string name="passwordd">LOZINKA</string>
+    <string name="registerr">REGISTRACIJA</string>
+    <string name="first_namee">Ime</string>
+    <string name="premium">Premium</string>
 
 </resources>
