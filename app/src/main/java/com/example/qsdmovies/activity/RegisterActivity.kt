@@ -5,8 +5,6 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,19 +13,20 @@ import com.example.qsdmovies.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.io.IOException
-import java.util.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
 
-    private val PICK_IMAGE_REQUEST = 71
-    private var filePath: Uri? = null
+    private var PICK_IMAGE_REQUEST = 12
+    private var imagePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
 
@@ -49,20 +48,20 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "BACK"
 
+        auth = Firebase.auth
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
 
-        auth = Firebase.auth
         database = Firebase.database.reference
 
         binding.registerButton.setOnClickListener {
             signUpUser()
         }
         binding.addProfilePicture.setOnClickListener {
-            launchGallery()
+            fileChooser()
         }
         binding.profileImage.setOnClickListener {
-            launchGallery()
+            fileChooser()
         }
     }
 
@@ -72,30 +71,6 @@ class RegisterActivity : AppCompatActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
-    }
-
-    private fun launchGallery() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
-    }
-
-    private fun uploadImage() {
-        Log.d("RegisterActivity", "uploadImage")
-        if (filePath != null) {
-            val ref = storageReference?.child("myImages/" + UUID.randomUUID().toString())
-            val uploadTask = ref?.putFile(filePath!!)
-            uploadTask?.addOnCompleteListener {
-                if (it.isSuccessful) {
-
-                }
-            }
-
-        } else {
-            Log.d("RegisterActivity", "filepath null")
-            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
-        }
     }
 
 
@@ -201,6 +176,7 @@ class RegisterActivity : AppCompatActivity() {
                 val mProgressDialog = ProgressDialog(this)
                 mProgressDialog.setMessage("Loading...")
                 mProgressDialog.show()
+                sendData()
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -210,6 +186,39 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun sendData() {
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val myReference = firebaseDatabase.getReference(auth?.uid.toString())
+
+        val imageRef = storageReference!!.child(auth!!.uid!!)
+            .child("myImages").child("Profile Pic")
+        val uploadImage = imageRef.putFile(imagePath!!)
+        uploadImage.addOnFailureListener {
+            Toast.makeText(this, "Error Ocoured", Toast.LENGTH_SHORT).show()
+        }
+
+        val userProfile = User(firstName, lastName)
+        myReference.setValue(userProfile)
+    }
+
+    private fun fileChooser() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
+            && data != null && data.data != null
+        ) {
+            imagePath = data.data
+            Picasso.get().load(imagePath).into(profile_image)
+        }
+    }
+
 
     private fun saveData() {
 
@@ -221,23 +230,5 @@ class RegisterActivity : AppCompatActivity() {
         val userID = FirebaseAuth.getInstance().currentUser!!.uid
         database.child("User").child(userID).setValue(user)
 
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data == null || data.data == null) {
-                return
-            }
-
-            filePath = data.data
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-                binding.profileImage.setImageBitmap(bitmap)
-                uploadImage()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
     }
 }

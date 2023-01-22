@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.qsdmovies.activity.ContactActivity
 import com.example.qsdmovies.activity.LoginActivity
 import com.example.qsdmovies.activity.WebViewHelpActivity
@@ -27,7 +28,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
+    private var auth: FirebaseAuth? = null
     private var databaseReference: DatabaseReference? = null
     private var database: FirebaseDatabase? = null
 
@@ -66,6 +67,15 @@ class ProfileFragment : Fragment() {
         firebaseStorage = FirebaseStorage.getInstance()
         storageReference = firebaseStorage!!.reference
 
+        storageReference!!.child(auth!!.uid!!).child("myImages/Profile Pic")
+            .downloadUrl.addOnSuccessListener { uri ->
+                this.context?.let {
+                    Glide.with(it)
+                        .load(uri)
+                        .into(binding.profileImage)
+                }
+            }
+
         loadProfile()
 
         binding.contact.setOnClickListener {
@@ -83,10 +93,20 @@ class ProfileFragment : Fragment() {
         }
 
         binding.logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this@ProfileFragment.context, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+            val mBuilder = this.context?.let { it1 ->
+                AlertDialog.Builder(it1)
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes", null)
+                    .setNegativeButton("No", null)
+                    .show()
+            }
+
+            mBuilder?.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this@ProfileFragment.context, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
         }
     }
 
@@ -97,21 +117,27 @@ class ProfileFragment : Fragment() {
         val mBuilder = this@ProfileFragment.context?.let { AlertDialog.Builder(it) }
         mBuilder?.setTitle("Choose Language")
         mBuilder?.setSingleChoiceItems(listItmes, -1) { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                activity?.recreate()
-            } else if (which == 1) {
-                setLocate("hr")
-                activity?.recreate()
-            } else if (which == 2) {
-                setLocate("de")
-                activity?.recreate()
-            } else if (which == 3) {
-                setLocate("es")
-                activity?.recreate()
-            } else if (which == 4) {
-                setLocate("it")
-                activity?.recreate()
+            when (which) {
+                0 -> {
+                    setLocate("en")
+                    activity?.recreate()
+                }
+                1 -> {
+                    setLocate("hr")
+                    activity?.recreate()
+                }
+                2 -> {
+                    setLocate("de")
+                    activity?.recreate()
+                }
+                3 -> {
+                    setLocate("es")
+                    activity?.recreate()
+                }
+                4 -> {
+                    setLocate("it")
+                    activity?.recreate()
+                }
             }
 
             dialog.dismiss()
@@ -153,7 +179,7 @@ class ProfileFragment : Fragment() {
 
     private fun loadProfile() {
 
-        val user = auth.currentUser
+        val user = auth?.currentUser
         val userreference = databaseReference?.child(user?.uid!!)
 
         Log.d("myDebugTag", "debug message")

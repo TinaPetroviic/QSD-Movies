@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:title="@string/home"
         android:enabled="true"
-        android:icon="@drawable/home"/>
+        android:icon="@drawable/home"
+        android:title="@string/home" />
     <item
         android:id="@+id/search"
-        android:title="@string/search"
         android:enabled="true"
-        android:icon="@drawable/search"/>
+        android:icon="@drawable/search"
+        android:title="@string/search" />
     <item
         android:id="@+id/favorites"
-        android:title="@string/favorites"
         android:enabled="true"
-        android:icon="@drawable/favorite"/>
+        android:icon="@drawable/favorite"
+        android:title="@string/favorites" />
 
     <item
         android:id="@+id/profile"
         android:enabled="true"
-        android:title="@string/profile"
-        android:icon="@drawable/person"/>
+        android:icon="@drawable/person"
+        android:title="@string/profile" />
 
 
 </menu>
