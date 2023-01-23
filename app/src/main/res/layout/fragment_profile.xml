@@ -12,7 +12,7 @@
         android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/user_2"
         app:civ_border_color="#ffb731"
         app:civ_border_width="2dp"

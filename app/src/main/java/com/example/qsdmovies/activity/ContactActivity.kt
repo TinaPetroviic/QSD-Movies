@@ -1,5 +1,6 @@
 package com.example.qsdmovies.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +18,7 @@ class ContactActivity : AppCompatActivity() {
         binding = ActivityContactBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.sendEmailButton.setOnClickListener {
 
             val email = binding.email.text.toString().trim()
@@ -24,19 +26,16 @@ class ContactActivity : AppCompatActivity() {
             val message = binding.message.text.toString().trim()
 
             sendEmail(email, subject, message)
-
         }
     }
 
+    @SuppressLint("IntentReset")
     private fun sendEmail(email: String, subject: String, message: String) {
 
         val mIntent = Intent(Intent.ACTION_SEND)
-        mIntent.data = Uri.parse("qsd.testing@gmail.com")
-        mIntent.type = "text/plain"
 
-        mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-        mIntent.putExtra(Intent.EXTRA_SUBJECT, arrayOf(subject))
-        mIntent.putExtra(Intent.EXTRA_TEXT, arrayOf(message))
+        mIntent.data = Uri.parse("mailto:")
+        mIntent.type = "text/plain"
 
         if (email.isEmpty()) {
             Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
@@ -50,7 +49,6 @@ class ContactActivity : AppCompatActivity() {
             Toast.makeText(this, "message field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
-
         if (email.matches(emailPattern.toRegex())) {
 
         } else {
@@ -61,10 +59,18 @@ class ContactActivity : AppCompatActivity() {
             return
         }
 
+        mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        mIntent.putExtra(Intent.EXTRA_TEXT, message)
+
         try {
-            startActivity(Intent.createChooser(mIntent, "choose email client..."))
+            startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
+
         } catch (e: Exception) {
+
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+
         }
     }
 }
+

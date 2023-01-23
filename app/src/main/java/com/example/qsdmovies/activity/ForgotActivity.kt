@@ -21,10 +21,12 @@ class ForgotActivity : AppCompatActivity() {
         binding = ActivityForgotBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "BACK"
-
         auth = FirebaseAuth.getInstance()
+
+        binding.toolbar.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.sendEmailButton.setOnClickListener {
             val email = binding.emailForgot.text.toString()

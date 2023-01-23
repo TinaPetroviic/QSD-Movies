@@ -16,12 +16,12 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="420dp">
+            android:layout_height="490dp">
 
             <ImageView
                 android:id="@+id/poster"
                 android:layout_width="match_parent"
-                android:layout_height="410dp"
+                android:layout_height="480dp"
                 android:layout_gravity="center|fill"
                 android:foreground="@drawable/gradient"
                 android:scaleType="fitXY" />
