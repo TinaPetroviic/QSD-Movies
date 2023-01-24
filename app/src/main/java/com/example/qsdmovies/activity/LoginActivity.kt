@@ -137,9 +137,6 @@ class LoginActivity : AppCompatActivity() {
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val mProgressDialog = ProgressDialog(this)
-                    mProgressDialog.setMessage("Loading...")
-                    mProgressDialog.show()
                     val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -155,7 +152,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-
         val email = binding.emailHere.text.toString()
         val pass = binding.passwordHere.text.toString()
 
@@ -195,13 +191,11 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val mProgressDialog = ProgressDialog(this)
-                mProgressDialog.setMessage("Loading...")
-                mProgressDialog.show()
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
             } else
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+            return@addOnCompleteListener
         }
     }
 
@@ -211,9 +205,6 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val mProgressDialog = ProgressDialog(this)
-                mProgressDialog.setMessage("Loading...")
-                mProgressDialog.show()
                 val account = task.getResult(ApiException::class.java)!!
                 googleAuthForFirebase(account)
                 val intent = Intent(this, BottomBarActivity::class.java)

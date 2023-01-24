@@ -26,6 +26,7 @@ class ContactActivity : AppCompatActivity() {
             val message = binding.message.text.toString().trim()
 
             sendEmail(email, subject, message)
+
         }
     }
 
