@@ -6,7 +6,7 @@
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">a44a2a476c505b82d535ec05d166c9eb</string>
 
-    <string name="email">EMAIL</string>
+    <string name="email">Email</string>
     <string name="password">PASSWORD</string>
     <string name="forgot">FORGOT?</string>
     <string name="login">LOGIN</string>
@@ -50,5 +50,10 @@
     <string name="registerr">REGISTER</string>
     <string name="first_namee">First name</string>
     <string name="premium">Premium</string>
+    <string name="update_profile">UPDATE PROFILE</string>
+    <string name="first_nameee">first name</string>
+    <string name="last_nameee">last name</string>
+    <string name="update">UPDATE</string>
+    <string name="contact_us">CONTACT US</string>
 
 </resources>

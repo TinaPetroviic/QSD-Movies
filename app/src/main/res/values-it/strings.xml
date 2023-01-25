@@ -50,5 +50,10 @@
     <string name="registerr">REGISTRATI</string>
     <string name="first_namee">Nome</string>
     <string name="premium">Premio</string>
+    <string name="update_profile">AGGIORNA PROFILO</string>
+    <string name="first_nameee">nome</string>
+    <string name="last_nameee">cognome</string>
+    <string name="update">AGGIORNA</string>
+    <string name="contact_us">CONTATTACI</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.example.qsdmovies.activity
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -47,8 +46,7 @@ class LoginActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart")
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
+        updateUI(auth.currentUser)
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
@@ -240,6 +238,5 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
-
 
 

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/account_name"
+        android:id="@+id/first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -31,8 +31,7 @@
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"/>
 
     <TextView
         android:id="@+id/text_view_premium"
@@ -45,8 +44,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_name"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/first_name"/>
 
     <LinearLayout
         android:id="@+id/account"
@@ -55,16 +53,14 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_premium"
-        tools:ignore="MissingConstraints,UseCompoundDrawables">
+        app:layout_constraintTop_toBottomOf="@+id/text_view_premium">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="40dp"
             android:src="@drawable/ic_baseline_account_24"
-            app:tint="@color/iconsbackground"
-            tools:ignore="ContentDescription" />
+            app:tint="@color/iconsbackground"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,8 +83,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/account">
 
         <ImageView
             android:layout_width="36dp"
@@ -119,8 +114,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notification"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/notification">
 
         <ImageView
             android:layout_width="35dp"
@@ -151,8 +145,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/contact">
 
         <ImageView
             android:layout_width="36dp"
@@ -182,8 +175,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/language"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/language">
 
         <ImageView
             android:layout_width="36dp"
@@ -214,8 +206,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/help"
-        tools:ignore="MissingConstraints,UseCompoundDrawables">
+        app:layout_constraintTop_toBottomOf="@+id/help">
 
         <ImageView
             android:layout_width="36dp"
@@ -223,8 +214,7 @@
             android:layout_marginStart="40dp"
             android:backgroundTint="@color/iconsbackground"
             android:src="@drawable/ic_baseline_logout_24"
-            app:tint="@color/iconsbackground"
-            tools:ignore="ContentDescription" />
+            app:tint="@color/iconsbackground"/>
 
         <TextView
             android:id="@+id/signout"

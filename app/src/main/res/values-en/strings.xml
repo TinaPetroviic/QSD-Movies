@@ -52,5 +52,10 @@
     <string name="registerr">REGISTER</string>
     <string name="first_namee">First name</string>
     <string name="premium">Premium</string>
+    <string name="update_profile">UPDATE PROFILE</string>
+    <string name="first_nameee">first name</string>
+    <string name="last_nameee">last name</string>
+    <string name="update">UPDATE</string>
+    <string name="contact_us">CONTACT US</string>
 
 </resources>

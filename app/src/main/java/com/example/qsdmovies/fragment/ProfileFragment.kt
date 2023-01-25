@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.qsdmovies.activity.AccountActivity
 import com.example.qsdmovies.activity.ContactActivity
 import com.example.qsdmovies.activity.LoginActivity
 import com.example.qsdmovies.activity.WebViewHelpActivity
@@ -77,6 +78,11 @@ class ProfileFragment : Fragment() {
             }
 
         loadProfile()
+
+        binding.account.setOnClickListener {
+            val intent = Intent(context, AccountActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.contact.setOnClickListener {
             val intent = Intent(context, ContactActivity::class.java)
@@ -185,10 +191,10 @@ class ProfileFragment : Fragment() {
 
         Log.d("myDebugTag", "debug message")
 
-        _binding?.accountName?.text = user?.displayName
+        _binding?.firstName?.text = user?.displayName
         userreference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                _binding?.accountName?.text = snapshot.child("firstName").value.toString()
+                _binding?.firstName?.text = snapshot.child("firstName").value.toString()
 
             }
 
