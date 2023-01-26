@@ -187,7 +187,7 @@ class RegisterActivity : AppCompatActivity() {
         val firebaseDatabase = FirebaseDatabase.getInstance()
         val myReference = firebaseDatabase.getReference(auth?.uid.toString())
 
-        val imageRef = storageReference!!. child("myImages").child(auth!!. uid!!)
+        val imageRef = storageReference!!.child("myImages").child(auth!!.uid!!)
         val uploadImage = imageRef.putFile(imagePath!!)
         uploadImage.addOnFailureListener {
             Toast.makeText(this, "Error Ocoured", Toast.LENGTH_SHORT).show()

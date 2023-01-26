@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
         firebaseStorage = FirebaseStorage.getInstance()
         storageReference = firebaseStorage!!.reference
 
-        storageReference!!.child(auth!!.uid!!).child("myImages/Profile Pic")
+        storageReference!!.child("myImages").child(auth!!.uid!!)
             .downloadUrl.addOnSuccessListener { uri ->
                 this.context?.let {
                     Glide.with(it)
@@ -195,7 +195,6 @@ class ProfileFragment : Fragment() {
         userreference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 _binding?.firstName?.text = snapshot.child("firstName").value.toString()
-
             }
 
             override fun onCancelled(error: DatabaseError) {

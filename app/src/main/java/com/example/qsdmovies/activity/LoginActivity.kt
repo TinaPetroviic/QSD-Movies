@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
 import com.example.qsdmovies.databinding.ActivityLoginBinding
+import com.example.qsdmovies.uitel.LoadingDialog
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -40,6 +42,8 @@ class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 1
     private lateinit var gso: GoogleSignInOptions
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+
+    private lateinit var loading: LoadingDialog
 
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
@@ -95,6 +99,15 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginButton.setOnClickListener {
             login()
+            val loading = LoadingDialog(this)
+            loading.startLoading()
+            val handler = Handler()
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    loading.isDismiss()
+                }
+
+            }, 5000)
         }
 
         binding.register.setOnClickListener {

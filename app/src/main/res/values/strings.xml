@@ -55,5 +55,6 @@
     <string name="last_nameee">last name</string>
     <string name="update">UPDATE</string>
     <string name="contact_us">CONTACT US</string>
+    <string name="loading">Loading...</string>
 
 </resources>
