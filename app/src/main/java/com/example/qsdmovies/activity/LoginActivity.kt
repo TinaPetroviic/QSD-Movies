@@ -4,17 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.util.Base64
 import android.util.Log
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
+import com.example.qsdmovies.databinding.ActivityLoginBinding
+import com.example.qsdmovies.uitel.LoadingDialog
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -32,49 +34,36 @@ class LoginActivity : AppCompatActivity() {
 
     val TAG = "LoginActivity"
 
-    private lateinit var emailHere: EditText
-    private lateinit var passwordHere: EditText
-    private lateinit var loginButton: Button
-    private lateinit var forgotPassword: TextView
-    private lateinit var register: TextView
-    private lateinit var googleLogin: ImageView
-    private lateinit var facebookLogin: LoginButton
+    private lateinit var binding: ActivityLoginBinding
 
     private lateinit var auth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN: Int = 1
     private lateinit var gso: GoogleSignInOptions
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+
+    private lateinit var loading: LoadingDialog
 
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
     public override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart")
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
+        updateUI(auth.currentUser)
     }
-
 
     private fun updateUI(currentUser: FirebaseUser?) {
         Log.d(TAG, "updateUI")
         if (currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, BottomBarActivity::class.java))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        emailHere = findViewById(R.id.emailHere)
-        passwordHere = findViewById(R.id.passwordHere)
-        loginButton = findViewById(R.id.loginButton)
-        forgotPassword = findViewById(R.id.forgotPassword)
-        register = findViewById(R.id.register)
-        googleLogin = findViewById(R.id.googleLogin)
-        facebookLogin = findViewById(R.id.facebookLogin)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = Firebase.auth
 
@@ -82,39 +71,50 @@ class LoginActivity : AppCompatActivity() {
 
         createKeyHash(this, "com.example.qsdmovies")
 
-        facebookLogin.setOnClickListener {
+        binding.facebookLogin.setOnClickListener {
             callbackManager = CallbackManager.Factory.create()
-            facebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult) {
-                    Log.d(TAG, "facebook:onSuccess:$result")
-                    handleFacebookAccessToken(result.accessToken)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                }
+            binding.facebookLogin.registerCallback(
+                callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(result: LoginResult) {
+                        Log.d(TAG, "facebook:onSuccess:$result")
+                        handleFacebookAccessToken(result.accessToken)
+                        val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
+                        startActivity(intent)
+                    }
 
-                override fun onCancel() {
-                    Log.d(TAG, "facebook:onCancel")
-                }
+                    override fun onCancel() {
+                        Log.d(TAG, "facebook:onCancel")
+                    }
 
-                override fun onError(error: FacebookException) {
-                    Log.d(TAG, "facebook:onError", error)
-                }
-            })
+                    override fun onError(error: FacebookException) {
+                        Log.d(TAG, "facebook:onError", error)
+                    }
+                })
         }
 
-        googleLogin.setOnClickListener {
+        binding.googleLogin.setOnClickListener {
             signIn()
         }
 
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             login()
+            val loading = LoadingDialog(this)
+            loading.startLoading()
+            val handler = Handler()
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    loading.isDismiss()
+                }
+
+            }, 5000)
         }
 
-        register.setOnClickListener {
+        binding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-        forgotPassword.setOnClickListener {
+        binding.forgotPassword.setOnClickListener {
             val intent = Intent(this, ForgotActivity::class.java)
             startActivity(intent)
         }
@@ -148,7 +148,7 @@ class LoginActivity : AppCompatActivity() {
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -163,50 +163,50 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
+        val email = binding.emailHere.text.toString()
+        val pass = binding.passwordHere.text.toString()
 
-        val email = emailHere.text.toString()
-        val pass = passwordHere.text.toString()
-
-        if (email.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
+        if (email.isEmpty()) {
+            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (pass.isEmpty()) {
+            Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (email.matches(emailPattern.toRegex())) {
-            Toast.makeText(
-                applicationContext, "Valid email address",
-                Toast.LENGTH_SHORT
-            ).show()
+
         } else {
             Toast.makeText(
-                applicationContext, "Invalid email address",
+                applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
+            return
         }
 
-        if (passwordHere.text.toString().length < 8) {
-            passwordHere.setError("password minimum contain 8 character")
-            passwordHere.requestFocus()
-            passwordHere.isEnabled = true
+        if (binding.passwordHere.text.toString().length < 8) {
+            binding.passwordHere.error = "password minimum contain 8 character"
+            binding.passwordHere.requestFocus()
+            binding.passwordHere.isEnabled = true
 
         }
-        if (passwordHere.text.toString().length > 8) {
-            passwordHere.setError("password maximum contain 8 character")
-            passwordHere.requestFocus()
+        if (binding.passwordHere.text.toString().length > 32) {
+            binding.passwordHere.error = "password maximum contain 32 character"
+            binding.passwordHere.requestFocus()
         }
-        if (passwordHere.text.toString().equals("")) {
-            passwordHere.setError("please enter password")
-            passwordHere.requestFocus()
+        if (binding.passwordHere.text.toString().equals("")) {
+            binding.passwordHere.error = "please enter password"
+            binding.passwordHere.requestFocus()
         }
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
-
-                Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
             } else
-                Toast.makeText(this, "Log In failed ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+            return@addOnCompleteListener
         }
     }
 
@@ -218,7 +218,7 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 googleAuthForFirebase(account)
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
             } catch (e: ApiException) {
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT)
@@ -233,11 +233,10 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credentials)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@LoginActivity, "Login Failed: ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -252,6 +251,5 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
-
 
 

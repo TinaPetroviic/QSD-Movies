@@ -4,17 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
+import com.example.qsdmovies.databinding.ActivityBottombarBinding
 import com.example.qsdmovies.fragment.FavoritesFragment
 import com.example.qsdmovies.fragment.HomeFragment
-import com.example.qsdmovies.fragment.SearchFragment
 import com.example.qsdmovies.fragment.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.qsdmovies.fragment.SearchFragment
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MainActivity : AppCompatActivity() {
+class BottomBarActivity : AppCompatActivity() {
 
-    private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var binding: ActivityBottombarBinding
+
     private lateinit var auth: FirebaseAuth
 
     private val homeFragment = HomeFragment()
@@ -22,15 +23,16 @@ class MainActivity : AppCompatActivity() {
     private val favoritesFragment = FavoritesFragment()
     private val profileFragment = ProfileFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        bottomNavigation = findViewById(R.id.bottomNavigation)
+        binding = ActivityBottombarBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
 
-        bottomNavigation.setOnNavigationItemSelectedListener {
+        loadFragment(HomeFragment())
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.search -> replaceFragment(searchFragment)
@@ -42,10 +44,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        if (fragment != null) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout, fragment)
-            transaction.commit()
-        }
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout, fragment)
+        transaction.commit()
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout, fragment)
+        transaction.disallowAddToBackStack()
+        transaction.commit()
     }
 }

@@ -2,9 +2,59 @@
 
     <string name="app_name">QSD Movies</string>
     <string name="webclient_id">3604724225-fg2kabc2avq1q3mm2sejq4jche0fvlo8.apps.googleusercontent.com</string>
-
     <string name="facebook_app_id">1505293729936521</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">a44a2a476c505b82d535ec05d166c9eb</string>
+
+    <string name="email">Email</string>
+    <string name="password">PASSWORD</string>
+    <string name="forgot">FORGOT?</string>
+    <string name="login">LOGIN</string>
+    <string name="social_logins">Social Logins</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register">REGISTER</string>
+    <string name="add_profile_picture">Add profile picture</string>
+    <string name="first_name">FIRST NAME</string>
+    <string name="last_name">LAST NAME</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
+    <string name="forgot_password">FORGOT PASSWORD?</string>
+    <string name="enter_the_email_address_you_used_to_create_your_account_and_we_will_email_you_a_link_to_reset_yout_password">Enter the email address you used to create your account and we will email you a link to reset yout password</string>
+    <string name="send_email">SEND EMAIL</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
+    <string name="tv_shows">TV SHOWS</string>
+    <string name="movies">MOVIES</string>
+    <string name="account">Account</string>
+    <string name="notification">Notification</string>
+    <string name="help">Help</string>
+    <string name="logout">Logout</string>
+    <string name="watching">Watching</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="tv_show">Tv Show</string>
+    <string name="cast">Cast</string>
+    <string name="known_for">Known for</string>
+    <string name="contact">Contact</string>
+    <string name="language">Language</string>
+    <string name="movie_adventure_comedy_family">Movie | Adventure | Comedy | Family</string>
+    <string name="moviess">Movies</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_subject_details">Enter Subject Details</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="emaill">EMAIL</string>
+    <string name="the_name_of_the_movie">the name of the movie</string>
+    <string name="watch_now">WATCH NOW</string>
+    <string name="emaiil">EMAIL</string>
+    <string name="passwordd">PASSWORD</string>
+    <string name="registerr">REGISTER</string>
+    <string name="first_namee">First name</string>
+    <string name="premium">Premium</string>
+    <string name="update_profile">UPDATE PROFILE</string>
+    <string name="first_nameee">first name</string>
+    <string name="last_nameee">last name</string>
+    <string name="update">UPDATE</string>
+    <string name="contact_us">CONTACT US</string>
+    <string name="loading">Loading...</string>
 
 </resources>

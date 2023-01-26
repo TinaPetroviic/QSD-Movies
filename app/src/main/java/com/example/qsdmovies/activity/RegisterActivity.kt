@@ -4,42 +4,35 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.qsdmovies.R
+import com.bumptech.glide.Glide
+import com.example.qsdmovies.data.User
+import com.example.qsdmovies.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import de.hdodenhof.circleimageview.CircleImageView
-import java.io.IOException
-import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var firstNameHere: EditText
-    private lateinit var lastNameHere: EditText
-    private lateinit var emailRegister: EditText
-    private lateinit var passwordRegister: EditText
-    private lateinit var confirmPasswordRegister: EditText
-    private lateinit var registerButton: Button
-    private lateinit var profileImage: CircleImageView
-    private lateinit var addProfilePicture: TextView
+    private lateinit var binding: ActivityRegisterBinding
 
-    private val PICK_IMAGE_REQUEST = 71
-    private var filePath: Uri? = null
+    private var PICK_IMAGE_REQUEST = 12
+    private var imagePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
 
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
+    private lateinit var firstName: String
+    private lateinit var lastName: String
+    private lateinit var database: DatabaseReference
 
     private lateinit var auth: FirebaseAuth
 
@@ -47,34 +40,28 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "BACK"
+        binding.toolbar.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
+        auth = Firebase.auth
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
 
-        firstNameHere = findViewById(R.id.firstNameHere)
-        lastNameHere = findViewById(R.id.lastNameHere)
-        emailRegister = findViewById(R.id.emailRegister)
-        passwordRegister = findViewById(R.id.passwordRegister)
-        confirmPasswordRegister = findViewById(R.id.confirmPasswordRegister)
-        registerButton = findViewById(R.id.registerButton)
-        profileImage = findViewById(R.id.profileImage)
-        addProfilePicture = findViewById(R.id.addProfilePicture)
+        database = Firebase.database.reference
 
-
-        auth = Firebase.auth
-
-        registerButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             signUpUser()
         }
-        addProfilePicture.setOnClickListener {
-            launchGallery()
+        binding.addProfilePicture.setOnClickListener {
+            fileChooser()
         }
-        profileImage.setOnClickListener {
-            launchGallery()
+        binding.profileImage.setOnClickListener {
+            fileChooser()
         }
     }
 
@@ -86,104 +73,159 @@ class RegisterActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun launchGallery() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
-    }
-
-    private fun uploadImage() {
-        Log.d("RegisterActivity", "uploadImage")
-        if (filePath != null) {
-            val ref = storageReference?.child("myImages/" + UUID.randomUUID().toString())
-            val uploadTask = ref?.putFile(filePath!!)
-            uploadTask?.addOnCompleteListener {
-                if (it.isSuccessful) {
-
-                }
-            }
-
-        } else {
-            Log.d("RegisterActivity", "filepath null")
-            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
-        }
-    }
-
 
     private fun signUpUser() {
 
-        val email = emailRegister.text.toString()
-        val pass = passwordRegister.text.toString()
-        val confirmPassword = confirmPasswordRegister.text.toString()
+        val name = binding.firstNameHere.text.toString()
+        val surname = binding.lastNameHere.text.toString()
+        val email = binding.emailRegister.text.toString()
+        val pass = binding.passwordRegister.text.toString()
+        val confirmPassword = binding.confirmPasswordRegister.text.toString()
 
-        if (email.isEmpty() || pass.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show()
+        if (name.isEmpty()) {
+            Toast.makeText(this, "first name field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (surname.isEmpty()) {
+            Toast.makeText(this, "last name field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (pass.isEmpty()) {
+            Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (confirmPassword.isEmpty()) {
+            Toast.makeText(this, "confirm password field can't be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (pass != confirmPassword) {
-            Toast.makeText(this, "Password and Confirm Password do not match", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "password and confirm password do not match", Toast.LENGTH_SHORT)
                 .show()
             return
         }
 
         if (email.matches(emailPattern.toRegex())) {
-            Toast.makeText(
-                applicationContext, "Valid email address",
-                Toast.LENGTH_SHORT
-            ).show()
+
         } else {
             Toast.makeText(
-                applicationContext, "Invalid email address",
+                applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
+            return
         }
 
-        if (passwordRegister.text.toString().length < 8) {
-            passwordRegister.setError("password minimum contain 8 character")
-            passwordRegister.requestFocus()
-            passwordRegister.isEnabled = true
+        if (binding.passwordRegister.text.toString().length < 8) {
+            binding.passwordRegister.setError("password minimum contain 8 character")
+            binding.passwordRegister.requestFocus()
+            binding.passwordRegister.isEnabled = true
 
         }
-        if (passwordRegister.text.toString().length > 8) {
-            passwordRegister.setError("password maximum contain 8 character")
-            passwordRegister.requestFocus()
+        if (binding.passwordRegister.text.toString().length > 32) {
+            binding.passwordRegister.setError("password maximum contain 32 character")
+            binding.passwordRegister.requestFocus()
         }
-        if (passwordRegister.text.toString().equals("")) {
-            passwordRegister.setError("please enter password")
-            passwordRegister.requestFocus()
+        if (binding.passwordRegister.text.toString().equals("")) {
+            binding.passwordRegister.setError("please enter password")
+            binding.passwordRegister.requestFocus()
+        }
+
+        if (binding.firstNameHere.text.toString().length < 1) {
+            binding.firstNameHere.setError("first name minimum contain 1 character")
+            binding.firstNameHere.requestFocus()
+            binding.firstNameHere.isEnabled = true
+
+        }
+        if (binding.firstNameHere.text.toString().length > 50) {
+            binding.firstNameHere.setError("first name maximum contain 50 character")
+            binding.firstNameHere.requestFocus()
+        }
+        if (binding.firstNameHere.text.toString().equals("")) {
+            binding.firstNameHere.setError("please enter first name")
+            binding.firstNameHere.requestFocus()
+        }
+
+        if (binding.lastNameHere.text.toString().length < 1) {
+            binding.lastNameHere.setError("last name minimum contain 1 character")
+            binding.lastNameHere.requestFocus()
+            binding.lastNameHere.isEnabled = true
+
+        }
+        if (binding.lastNameHere.text.toString().length > 50) {
+            binding.lastNameHere.setError("last name maximum contain 50 character")
+            binding.lastNameHere.requestFocus()
+        }
+        if (binding.lastNameHere.text.toString().equals("")) {
+            binding.lastNameHere.setError("please enter last name")
+            binding.lastNameHere.requestFocus()
         }
 
 
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                val intent = Intent(this, MainActivity::class.java)
+                saveData()
+                sendData()
+                val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
-
-                Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "user already exists", Toast.LENGTH_SHORT).show()
+                return@addOnCompleteListener
             }
         }
     }
 
+    private fun sendData() {
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val myReference = firebaseDatabase.getReference(auth?.uid.toString())
+
+        val imageRef = storageReference!!.child("myImages").child(auth!!.uid!!)
+        val uploadImage = imageRef.putFile(imagePath!!)
+        uploadImage.addOnFailureListener {
+            Toast.makeText(this, "Error Ocoured", Toast.LENGTH_SHORT).show()
+        }
+
+        val userProfile = User(firstName, lastName)
+        myReference.setValue(userProfile)
+    }
+
+    private fun fileChooser() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data == null || data.data == null) {
-                return
-            }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
+            && data != null && data.data != null
+        ) {
+            imagePath = data.data
+            Glide.with(this)
+                .load(imagePath)
+                .into(binding.profileImage)
 
-            filePath = data.data
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-                profileImage.setImageBitmap(bitmap)
-                uploadImage()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
         }
+    }
+
+    private fun saveData() {
+
+        firstName = binding.firstNameHere.text.toString().trim()
+        lastName = binding.lastNameHere.text.toString().trim()
+
+        val user = User(firstName, lastName)
+
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+        database.child("User").child(userID).setValue(user)
+
     }
 }

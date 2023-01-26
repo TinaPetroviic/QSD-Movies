@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundcolor"
     tools:context=".fragment.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImage"
+        android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/user_2"
-        app:civ_border_color="#FAAC39"
-        app:civ_border_width="3dp"
+        app:civ_border_color="#ffb731"
+        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/accountName"
+        android:id="@+id/first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Tasun Prasad"
+        android:fontFamily="@font/gotham_book_font"
+        android:text="@string/first_namee"
+        android:textColor="#030303"
         android:textSize="26sp"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view_premium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Premium"
-        android:textColor="@color/primarycolor"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/gotham_book_font"
+        android:text="@string/premium"
+        android:textColor="#ffb120"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountName"
-        tools:ignore="MissingConstraints"/>
+        app:layout_constraintTop_toBottomOf="@+id/first_name"/>
 
     <LinearLayout
         android:id="@+id/account"
@@ -51,23 +53,23 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints,UseCompoundDrawables">
+        app:layout_constraintTop_toBottomOf="@+id/text_view_premium">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="40dp"
             android:src="@drawable/ic_baseline_account_24"
-            tools:ignore="ContentDescription"
-            app:tint="@color/iconsbackground" />
+            app:tint="@color/iconsbackground"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:text="Account"
-            android:textColor="@color/iconsbackground"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/account"
+            android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
 
@@ -81,8 +83,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/account">
 
         <ImageView
             android:layout_width="36dp"
@@ -90,14 +91,16 @@
             android:layout_marginStart="40dp"
             android:backgroundTint="@color/iconsbackground"
             android:src="@drawable/ic_baseline_notifications_24"
-            app:tint="@color/iconsbackground"/>
+            app:tint="@color/iconsbackground" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:text="Notification"
-            android:textColor="@color/iconsbackground"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/notification"
+            android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
 
@@ -105,34 +108,65 @@
 
 
     <LinearLayout
-        android:id="@+id/settings"
+        android:id="@+id/contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notification"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/notification">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="@color/iconsbackground"
+            android:src="@drawable/ic_baseline_mail_24"
+            app:tint="@color/iconsbackground" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/contact"
+            android:textColor="#5a5a5a"
+            android:textSize="22sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contact">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="40dp"
             android:backgroundTint="@color/iconsbackground"
-            android:src="@drawable/ic_baseline_settings_24"
-            app:tint="@color/iconsbackground"/>
+            android:src="@drawable/ic_baseline_language_24"
+            app:tint="@color/iconsbackground" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:text="Settings"
-            android:textColor="@color/iconsbackground"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/language"
+            android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/help"
@@ -141,8 +175,7 @@
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/language">
 
         <ImageView
             android:layout_width="36dp"
@@ -150,30 +183,30 @@
             android:layout_marginStart="40dp"
             android:backgroundTint="@color/iconsbackground"
             android:src="@drawable/ic_baseline_help_24"
-            app:tint="@color/iconsbackground"/>
+            app:tint="@color/iconsbackground" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:text="Help"
-            android:textColor="@color/iconsbackground"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/help"
+            android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
 
     </LinearLayout>
 
 
-
-
     <LinearLayout
+        android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/help"
-        tools:ignore="MissingConstraints,UseCompoundDrawables">
+        app:layout_constraintTop_toBottomOf="@+id/help">
 
         <ImageView
             android:layout_width="36dp"
@@ -181,16 +214,17 @@
             android:layout_marginStart="40dp"
             android:backgroundTint="@color/iconsbackground"
             android:src="@drawable/ic_baseline_logout_24"
-            tools:ignore="ContentDescription"
             app:tint="@color/iconsbackground"/>
 
         <TextView
-            android:id = "@+id/signout"
+            android:id="@+id/signout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:text="Logout"
-            android:textColor="@color/iconsbackground"
+            android:fontFamily="@font/gotham_book_font"
+            android:gravity="center"
+            android:text="@string/logout"
+            android:textColor="#5a5a5a"
             android:textSize="22sp" />
 
 

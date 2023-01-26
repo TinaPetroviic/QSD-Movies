@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QSD Movies</string>
+    <string name="webclient_id">3604724225-fg2kabc2avq1q3mm2sejq4jche0fvlo8.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1505293729936521</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">a44a2a476c505b82d535ec05d166c9eb</string>
+
+    <string name="email">EMAIL</string>
+    <string name="password">LOZINKA</string>
+    <string name="forgot">ZABORAVILI STE?</string>
+    <string name="login">PRIJAVA</string>
+    <string name="social_logins">Društvene mreže</string>
+    <string name="don_t_have_an_account">Nemate račun?</string>
+    <string name="register">REGISTRIRAJTE SE</string>
+    <string name="add_profile_picture">Dodaj profilnu sliku </string>
+    <string name="first_name">IME</string>
+    <string name="last_name">PREZIME</string>
+    <string name="confirm_password">POTVRDA LOZINKE</string>
+    <string name="forgot_password">ZABORAVILI STE LOZINKU?</string>
+    <string name="enter_the_email_address_you_used_to_create_your_account_and_we_will_email_you_a_link_to_reset_yout_password">Unesite adresu e-pošte koju ste koristili za kreiranje računa i poslat ćemo vam e-poštom vezu za ponovno postavljanje lozinke</string>
+    <string name="send_email"> POŠALJI EMAIL</string>
+    <string name="home">Početna</string>
+    <string name="search">Pretraži</string>
+    <string name="favorites">Favoriti</string>
+    <string name="profile">Profil</string>
+    <string name="tv_shows">TV SHOWS</string>
+    <string name="movies">FILMOVI</string>
+    <string name="account">Račun</string>
+    <string name="notification">Obavijesti</string>
+    <string name="help">Pomoć</string>
+    <string name="logout">Odjava</string>
+    <string name="watching">Gledate</string>
+    <string name="top_rated">Najbolje ocijenjeno</string>
+    <string name="tv_show">Tv Show</string>
+    <string name="cast">Glumci</string>
+    <string name="known_for">Sudjelovanja</string>
+    <string name="contact">Kontakt</string>
+    <string name="language">Jezik</string>
+    <string name="movie_adventure_comedy_family"> Filmovi | Avantura | Komedija | Obiteljski </string>
+    <string name="moviess">Filmovi</string>
+    <string name="enter_email">Unesite email</string>
+    <string name="enter_subject_details">Unesite pojedinosti o predmetu</string>
+    <string name="enter_message">Unesite poruku</string>
+    <string name="emaill">EMAIL</string>
+    <string name="the_name_of_the_movie">naziv filma</string>
+    <string name="watch_now">GLEDAJTE SADA</string>
+    <string name="emaiil">EMAIL</string>
+    <string name="passwordd">LOZINKA</string>
+    <string name="registerr">REGISTRACIJA</string>
+    <string name="first_namee">Ime</string>
+    <string name="premium">Premium</string>
+    <string name="update_profile">AZURIRAJTE PROFIL</string>
+    <string name="first_nameee">ime</string>
+    <string name="last_nameee">prezime</string>
+    <string name="update">AZURIRAJ</string>
+    <string name="contact_us">KONTAKTIRAJTE NAS</string>
+
+
+</resources>
