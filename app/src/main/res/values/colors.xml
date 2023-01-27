@@ -10,5 +10,6 @@
     <color name="primarycolor">#ffb428</color>
     <color name="backgroundcolor">#fdfdfd</color>
     <color name="iconsbackground">#5a5a5a</color>
+    <color name="black_70_opacity">#B35A5A5A</color>
 </resources>
 

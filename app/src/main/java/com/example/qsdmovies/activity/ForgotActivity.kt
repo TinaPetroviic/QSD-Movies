@@ -23,7 +23,7 @@ class ForgotActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.toolbar.setOnClickListener {
+        binding.back.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }

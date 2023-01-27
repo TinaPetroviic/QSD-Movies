@@ -4,14 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Handler
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
 import com.example.qsdmovies.databinding.ActivityLoginBinding
-import com.example.qsdmovies.uitel.LoadingDialog
+import com.example.qsdmovies.util.hide
+import com.example.qsdmovies.util.show
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -43,8 +43,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var gso: GoogleSignInOptions
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-    private lateinit var loading: LoadingDialog
-
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
     public override fun onStart() {
@@ -57,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
         Log.d(TAG, "updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, BottomBarActivity::class.java))
+            finish()
         }
     }
 
@@ -72,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
         createKeyHash(this, "com.example.qsdmovies")
 
         binding.facebookLogin.setOnClickListener {
+            binding.viewLoading.root.show()
             callbackManager = CallbackManager.Factory.create()
             binding.facebookLogin.registerCallback(
                 callbackManager,
@@ -79,15 +79,15 @@ class LoginActivity : AppCompatActivity() {
                     override fun onSuccess(result: LoginResult) {
                         Log.d(TAG, "facebook:onSuccess:$result")
                         handleFacebookAccessToken(result.accessToken)
-                        val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
-                        startActivity(intent)
                     }
 
                     override fun onCancel() {
+                        binding.viewLoading.root.hide()
                         Log.d(TAG, "facebook:onCancel")
                     }
 
                     override fun onError(error: FacebookException) {
+                        binding.viewLoading.root.hide()
                         Log.d(TAG, "facebook:onError", error)
                     }
                 })
@@ -99,15 +99,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginButton.setOnClickListener {
             login()
-            val loading = LoadingDialog(this)
-            loading.startLoading()
-            val handler = Handler()
-            handler.postDelayed(object : Runnable {
-                override fun run() {
-                    loading.isDismiss()
-                }
-
-            }, 5000)
         }
 
         binding.register.setOnClickListener {
@@ -142,14 +133,11 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    updateUI(user)
+                    updateUI(auth.currentUser)
                     Toast.makeText(
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
-                    startActivity(intent)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
@@ -157,47 +145,57 @@ class LoginActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     updateUI(null)
+                    binding.viewLoading.root.hide()
                 }
             }
 
     }
 
     private fun login() {
+        binding.viewLoading.root.show()
         val email = binding.emailHere.text.toString()
         val pass = binding.passwordHere.text.toString()
 
         if (email.isEmpty()) {
             Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            binding.viewLoading.root.hide()
             return
         }
         if (pass.isEmpty()) {
             Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
+            binding.viewLoading.root.hide()
             return
         }
 
-        if (email.matches(emailPattern.toRegex())) {
-
-        } else {
+        if (!email.matches(emailPattern.toRegex())) {
             Toast.makeText(
                 applicationContext, "invalid email address",
                 Toast.LENGTH_SHORT
             ).show()
+            binding.viewLoading.root.hide()
             return
         }
 
-        if (binding.passwordHere.text.toString().length < 8) {
+        if (pass.length < 8) {
             binding.passwordHere.error = "password minimum contain 8 character"
             binding.passwordHere.requestFocus()
             binding.passwordHere.isEnabled = true
+            binding.viewLoading.root.hide()
+            return
+
 
         }
         if (binding.passwordHere.text.toString().length > 32) {
             binding.passwordHere.error = "password maximum contain 32 character"
             binding.passwordHere.requestFocus()
+            binding.viewLoading.root.hide()
+            return
         }
         if (binding.passwordHere.text.toString().equals("")) {
             binding.passwordHere.error = "please enter password"
             binding.passwordHere.requestFocus()
+            binding.viewLoading.root.hide()
+            return
         }
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
@@ -206,6 +204,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             } else
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+            binding.viewLoading.root.hide()
             return@addOnCompleteListener
         }
     }
@@ -218,9 +217,8 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 googleAuthForFirebase(account)
-                val intent = Intent(this, BottomBarActivity::class.java)
-                startActivity(intent)
             } catch (e: ApiException) {
+                binding.viewLoading.root.hide()
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -235,11 +233,16 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val intent = Intent(this@LoginActivity, BottomBarActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                    binding.viewLoading.root.hide()
                 }
+            }.addOnFailureListener {
+                binding.viewLoading.root.hide()
             }
     }
+
 
     private fun createKeyHash(activity: Activity, yourPackage: String) {
         val info =
