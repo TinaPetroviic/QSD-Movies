@@ -4,69 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@color/brilliance"
     tools:context=".fragment.SearchFragment">
-
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/button_selector"
         android:clickable="true"
+        android:elevation="2dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:textCursorDrawable="@null"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryBackground="@null">
-
-    </androidx.appcompat.widget.SearchView>
+        app:queryBackground="@null" />
 
     <TextView
-        android:id="@+id/tv_shows"
+        android:id="@+id/tv_television_shows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/gotham_book_font"
         android:text="@string/tv_shows"
+        android:textAllCaps="true"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_tv_shows"
+        android:id="@+id/rv_television_shows"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shows" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_television_shows" />
 
     <TextView
-        android:id="@+id/movies"
+        android:id="@+id/tv_movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/gotham_book_font"
         android:text="@string/movies"
+        android:textAllCaps="true"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_tv_shows" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_television_shows" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_movies"
+        android:id="@+id/rv_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movies" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_movies" />
 </androidx.constraintlayout.widget.ConstraintLayout>

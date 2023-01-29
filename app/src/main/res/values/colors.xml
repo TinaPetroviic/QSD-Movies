@@ -7,9 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primarycolor">#ffb428</color>
-    <color name="backgroundcolor">#fdfdfd</color>
-    <color name="iconsbackground">#5a5a5a</color>
-    <color name="black_70_opacity">#B35A5A5A</color>
+    <color name="extreme_yellow">#ffb428</color>
+    <color name="brilliance">#fdfdfd</color>
+    <color name="forged_steel">#5a5a5a</color>
+    <color name="melodic_white">#EDE8E8</color>
+    <color name="garuda_gold">#ffb731</color>
+    <color name="armor_wash">#030303</color>
+    <color name="too_gold">#ffb120</color>
+    <color name="light_grey">#d9d9d9</color>
 </resources>
 

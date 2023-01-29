@@ -13,7 +13,5 @@ class CastActivity : AppCompatActivity() {
         binding = ActivityCastBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "BACK"
     }
 }

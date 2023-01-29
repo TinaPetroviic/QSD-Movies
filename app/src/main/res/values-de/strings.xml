@@ -51,11 +51,37 @@
     <string name="registerr">REGISTRIEREN</string>
     <string name="first_namee">Vorname</string>
     <string name="premium">Premium</string>
-    <string name="update_profile">PROFIL AKTUALISIEREN</string>
-    <string name="first_nameee">vorname</string>
-    <string name="last_nameee">nachname</string>
-    <string name="update">AKTUALISIEREN</string>
+    <string name="choose_language">Sprache wählen</string>
     <string name="contact_us">KONTAKTIEREN SIE UNS</string>
-
+    <string name="back">ZURÜCK</string>
+    <string name="update_profile">PROFIL AKTUALISIEREN</string>
+    <string name="update">AKTUALISIEREN</string>
+    <string name="first_nameeee">VORNAME</string>
+    <string name="last_nameee">NACHNAME</string>
+    <string name="enter_emaill">EMAIL EINGEBEN</string>
+    <string name="enter_subject_detailss">FACHDETAILS EINGEBEN</string>
+    <string name="enter_messagee">NACHRICHT EINGEBEN</string>
+    <string name="are_you_sure_you_want_to_exit">Bist du sicher, dass du beenden möchtest?</string>
+    <string name="error_ocoured">Fehler aufgetreten</string>
+    <string name="successfully_updated">Erfolgreich aktualisiert</string>
+    <string name="failed_to_update">Aktualisierung fehlgeschlagen</string>
+    <string name="email_field_cant_be_empty">E-Mail-Feld darf nicht leer sein</string>
+    <string name="subject_field_cant_be_empty">Betrefffeld darf nicht leer sein</string>
+    <string name="message_field_cant_be_empty">Nachrichtenfeld darf nicht leer sein</string>
+    <string name="invalid_email_address">ungültige E-Mail-Adresse</string>
+    <string name="choose_email_client">E-Mail-Client auswählen...</string>
+    <string name="please_check_your_email">Bitte überprüfen Sie Ihre E-Mail</string>
+    <string name="authentication_failed">Authentifizierung fehlgeschlagen.</string>
+    <string name="password_field_cant_be_empty">Passwortfeld darf nicht leer sein</string>
+    <string name="password_minimum_contain_8_character">Passwort muss mindestens 8 Zeichen lang sein</string>
+    <string name="password_maximum_contain_32_character">Passwort darf maximal 32 Zeichen enthalten</string>
+    <string name="please_enter_password">Bitte Passwort eingeben</string>
+    <string name="login_failed">Anmeldung fehlgeschlagen</string>
+    <string name="receiveddata_uri_is_empty">ReceivedData uri ist leer.</string>
+    <string name="select_picture">Bild auswählen</string>
+    <string name="successfully_uploaded">Erfolgreich hochgeladen</string>
+    <string name="failed_to_upload">Hochladen fehlgeschlagen</string>
+    <string name="confirm_password_do_not_match">Passwort und Passwort bestätigen stimmen nicht überein</string>
+    <string name="user_already_exists">Benutzer existiert bereits</string>
 
 </resources>

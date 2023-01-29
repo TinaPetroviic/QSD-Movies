@@ -16,6 +16,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "API_BASE_URL", '"https://api.themoviedb.org/"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +24,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "String", "API_KEY", '"330ead338b8ebe27064c777e1b7ee86d"'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            buildConfigField "String", "API_KEY", '"330ead338b8ebe27064c777e1b7ee86d"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,6 +42,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -43,11 +51,21 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity:1.6.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
 
+    // Logging
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-database-ktx'
@@ -59,27 +77,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging-display'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'androidx.test:core-ktx:1.5.0'
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation 'com.facebook.android:facebook-login:15.2.0'
 
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.cardview:cardview:1.0.0'
-
     implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
-    implementation 'androidx.activity:activity:1.6.1'
-
-    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation 'io.insert-koin:koin-android:3.3.2'
+    //Prefs
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
 }
-

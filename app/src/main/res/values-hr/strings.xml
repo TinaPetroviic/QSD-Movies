@@ -51,11 +51,37 @@
     <string name="registerr">REGISTRACIJA</string>
     <string name="first_namee">Ime</string>
     <string name="premium">Premium</string>
-    <string name="update_profile">AZURIRAJTE PROFIL</string>
-    <string name="first_nameee">ime</string>
-    <string name="last_nameee">prezime</string>
-    <string name="update">AZURIRAJ</string>
+    <string name="choose_language">Odaberi jezik</string>
     <string name="contact_us">KONTAKTIRAJTE NAS</string>
-
+    <string name="back">NATRAG</string>
+    <string name="update_profile">AŽURIRAJTE PROFIL</string>
+    <string name="update">AŽURIRAJ</string>
+    <string name="first_nameeee">IME</string>
+    <string name="last_nameee">PREZIME</string>
+    <string name="enter_emaill">UNESITE EMAIL</string>
+    <string name="enter_subject_detailss">UNESITE PREDMET</string>
+    <string name="enter_messagee">UNESITE PORUKU</string>
+    <string name="are_you_sure_you_want_to_exit">Jeste li sigurni da se želite odjaviti?</string>
+    <string name="error_ocoured">Došlo je do pogreške</string>
+    <string name="successfully_updated">Uspješno ažurirano</string>
+    <string name="failed_to_update">Ažuriranje nije uspjelo</string>
+    <string name="email_field_cant_be_empty">polje e-pošte ne može biti prazno</string>
+    <string name="subject_field_cant_be_empty">polje predmeta ne može biti prazno</string>
+    <string name="message_field_cant_be_empty">polje poruke ne može biti prazno</string>
+    <string name="invalid_email_address">nevažeća adresa e-pošte</string>
+    <string name="choose_email_client">Odaberite klijenta e-pošte...</string>
+    <string name="please_check_your_email">Provjerite svoju e-poštu</string>
+    <string name="authentication_failed">Provjera autentičnosti nije uspjela.</string>
+    <string name="password_field_cant_be_empty">polje za lozinku ne može biti prazno</string>
+    <string name="password_minimum_contain_8_character">zaporka sadrži najmanje 8 znakova</string>
+    <string name="password_maximum_contain_32_character">lozinka sadrži najviše 32 znaka</string>
+    <string name="please_enter_password">molimo unesite lozinku</string>
+    <string name="login_failed">Prijava nije uspjela</string>
+    <string name="receiveddata_uri_is_empty">Uri ReceivedData je prazan.</string>
+    <string name="select_picture">Odaberite sliku</string>
+    <string name="successfully_uploaded">Uspješno učitano</string>
+    <string name="failed_to_upload">Učitavanje nije uspjelo</string>
+    <string name="confirm_password_do_not_match">lozinka i lozinka za potvrdu se ne podudaraju</string>
+    <string name="user_already_exists">korisnik već postoji</string>
 
 </resources>

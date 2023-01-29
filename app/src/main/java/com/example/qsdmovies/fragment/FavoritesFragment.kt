@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.databinding.FragmentFavoritesBinding
 
-
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
@@ -32,10 +31,4 @@ class FavoritesFragment : Fragment() {
 
 
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

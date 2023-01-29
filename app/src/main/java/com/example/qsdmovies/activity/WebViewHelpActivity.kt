@@ -1,6 +1,5 @@
 package com.example.qsdmovies.activity
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -14,7 +13,6 @@ class WebViewHelpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWebviewhelpBinding
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWebviewhelpBinding.inflate(layoutInflater)

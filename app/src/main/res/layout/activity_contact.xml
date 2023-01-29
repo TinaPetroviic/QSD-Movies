@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_contact_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -19,86 +19,126 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/gotham_book_font"
+        android:text="@string/enter_emaill"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contact_us" />
 
     <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:background="@drawable/button_selector"
+        android:elevation="2dp"
         android:ems="10"
         android:fontFamily="@font/gotham_book_font"
-        android:hint="@string/enter_email"
         android:inputType="textEmailAddress"
         android:padding="22dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
-
-    <EditText
-        android:id="@+id/subject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/tv_subject"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:fontFamily="@font/gotham_book_font"
+        android:text="@string/enter_subject_detailss"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <EditText
+        android:id="@+id/et_subject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:background="@drawable/button_selector"
+        android:elevation="2dp"
         android:ems="10"
         android:fontFamily="@font/gotham_book_font"
-        android:hint="@string/enter_subject_details"
         android:inputType="textEmailAddress"
         android:padding="22dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_subject" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/gotham_book_font"
+        android:text="@string/enter_messagee"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_subject" />
 
     <EditText
-        android:id="@+id/message"
-        android:layout_width="match_parent"
+        android:id="@+id/et_message"
+        android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:background="@drawable/button_selector"
+        android:elevation="2dp"
         android:ems="10"
         android:fontFamily="@font/gotham_book_font"
         android:gravity="top"
-        android:hint="@string/enter_message"
         android:inputType="textEmailAddress"
         android:padding="22dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subject"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_message" />
 
     <Button
-        android:id="@+id/send_email_button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:id="@+id/btn_send_email"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/button_selector"
-        android:backgroundTint="@color/primarycolor"
+        android:backgroundTint="@color/extreme_yellow"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/gotham_book_font"
+        android:foreground="?attr/selectableItemBackground"
         android:text="@string/send_email"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message"
-         />
-
+        app:layout_constraintTop_toBottomOf="@+id/et_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

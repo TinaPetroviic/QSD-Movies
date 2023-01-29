@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.qsdmovies.R
 import com.example.qsdmovies.databinding.ActivityForgotBinding
+import com.example.qsdmovies.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -14,7 +16,6 @@ class ForgotActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotBinding
 
     private lateinit var auth: FirebaseAuth
-    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,21 +24,29 @@ class ForgotActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.back.setOnClickListener {
+        binding.clBack.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        binding.sendEmailButton.setOnClickListener {
-            val email = binding.emailForgot.text.toString()
+        binding.btnSendEmail.setOnClickListener {
+            val email = binding.etEmail.text.toString()
             if (email.isEmpty()) {
-                Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.email_field_cant_be_empty),
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
-            if (email.matches(emailPattern.toRegex())) {
+            if (email.matches(Constants.EMAIL_PATTERN.toRegex())) {
                 auth.sendPasswordResetEmail(email)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Please Check your Email", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.please_check_your_email),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         val intent = Intent(this@ForgotActivity, LoginActivity::class.java)
                         startActivity(intent)
                     }
@@ -46,7 +55,7 @@ class ForgotActivity : AppCompatActivity() {
                     }
             } else {
                 Toast.makeText(
-                    applicationContext, "invalid email address",
+                    applicationContext, getString(R.string.invalid_email_address),
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -9,13 +9,13 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.BottomBarActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import timber.log.Timber
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -26,7 +26,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        Log.e("message", "Message Received ...")
+        Timber.tag("message").e("Message Received ...")
 
         if (remoteMessage.data.isNotEmpty()) {
             val title = remoteMessage.data["title"]
@@ -42,7 +42,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
-        Log.e("token", "New Token")
+        Timber.tag("token").e("New Token")
     }
 
 
@@ -61,7 +61,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.getActivity(context, 0, ii, PendingIntent.FLAG_MUTABLE)
         val notification: Notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Log.e("Notification", "Created in up to orio OS device")
+            Timber.tag("Notification").e("Created in up to orio OS device")
             notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setOngoing(true)
                 .setSmallIcon(getNotificationIcon())
@@ -74,7 +74,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentTitle(title).build()
             val notificationManager = context.getSystemService(
-                Context.NOTIFICATION_SERVICE
+                NOTIFICATION_SERVICE
             ) as NotificationManager
             val notificationChannel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,

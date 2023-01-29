@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">QSD Movies</string>
@@ -6,7 +7,8 @@
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">a44a2a476c505b82d535ec05d166c9eb</string>
 
-    <string name="email">Email</string>
+
+    <string name="email">EMAIL</string>
     <string name="password">PASSWORD</string>
     <string name="forgot">FORGOT?</string>
     <string name="login">LOGIN</string>
@@ -50,11 +52,38 @@
     <string name="registerr">REGISTER</string>
     <string name="first_namee">First name</string>
     <string name="premium">Premium</string>
-    <string name="update_profile">UPDATE PROFILE</string>
-    <string name="first_nameee">first name</string>
-    <string name="last_nameee">last name</string>
-    <string name="update">UPDATE</string>
+    <string name="choose_language">Choose Language</string>
     <string name="contact_us">CONTACT US</string>
-    <string name="loading">Loading...</string>
+    <string name="back">BACK</string>
+    <string name="update_profile">UPDATE PROFILE</string>
+    <string name="update">UPDATE</string>
+    <string name="first_nameeee">FIRST NAME</string>
+    <string name="last_nameee">LAST NAME</string>
+    <string name="enter_emaill">Enter email</string>
+    <string name="enter_subject_detailss">ENTER SUBJECT DETAILS</string>
+    <string name="enter_messagee">ENTER MESSAGE</string>
+    <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+    <string name="error_ocoured">Error Ocoured</string>
+    <string name="successfully_updated">Successfully Updated</string>
+    <string name="failed_to_update">Failed to Update</string>
+    <string name="email_field_cant_be_empty">email field can\'t be empty</string>
+    <string name="subject_field_cant_be_empty">subject field can\'t be empty</string>
+    <string name="message_field_cant_be_empty">message field can\'t be empty</string>
+    <string name="invalid_email_address">invalid email address</string>
+    <string name="choose_email_client">Choose Email Client...</string>
+    <string name="please_check_your_email">Please Check your Email</string>
+    <string name="authentication_failed">Authentication failed.</string>
+    <string name="password_field_cant_be_empty">password field can\'t be empty</string>
+    <string name="password_minimum_contain_8_character">password minimum contain 8 character</string>
+    <string name="password_maximum_contain_32_character">password maximum contain 32 character</string>
+    <string name="please_enter_password">please enter password</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="receiveddata_uri_is_empty">ReceivedData uri is empty.</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="successfully_uploaded">Successfully uploaded</string>
+    <string name="failed_to_upload">Failed to upload</string>
+    <string name="confirm_password_do_not_match">password and confirm password do not match</string>
+    <string name="user_already_exists">user already exists</string>
+
 
 </resources>

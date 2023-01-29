@@ -1,22 +1,20 @@
 package com.example.qsdmovies.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.qsdmovies.adapter.MovieAdapter
-import com.example.qsdmovies.adapter.TopRatedAdapter
-import com.example.qsdmovies.adapter.TvShowsAdapter
 import com.example.qsdmovies.databinding.FragmentHomeBinding
 import com.example.qsdmovies.models.*
-import com.example.qsdmovies.services.*
+import com.example.qsdmovies.network.NetworkCore
+import com.example.qsdmovies.util.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
@@ -27,7 +25,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("HomeFragment", "onCreate")
+        Timber.tag("HomeFragment").d("onCreate")
 
     }
 
@@ -44,85 +42,63 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerViewWatching.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewWatching.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
-            Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movies.first().poster)
-                .into(binding.poster)
-            binding.recyclerViewWatching.adapter = MovieAdapter(movies)
+            Glide.with(this)
+                .load(Constants.IMAGE_BASE + movies.first().poster)
+                .into(binding.ivPoster)
+            binding.rvWatching.adapter = MovieAdapter(movies.map { it.poster })
         }
-
-        binding.recyclerViewTopRated.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewTopRated.setHasFixedSize(true)
-        getTopRatedList { toprated: List<TopRated> ->
-            binding.recyclerViewTopRated.adapter = TopRatedAdapter(toprated)
+        getTopRatedList { topRated: List<TopRated> ->
+            binding.rvTopRated.adapter = MovieAdapter(topRated.map { it.poster })
         }
-
-        binding.recyclerViewTvShows.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewTvShows.setHasFixedSize(true)
-        getTvShowsList { tvshows: List<TvShows> ->
-            binding.recyclerViewTvShows.adapter = TvShowsAdapter(tvshows)
+        getTvShowsList { tvShows: List<TvShows> ->
+            binding.rvTelevisionShows.adapter = MovieAdapter(tvShows.map { it.poster })
         }
-
-        binding.recyclerViewPopularMovies.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewPopularMovies.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
-            binding.recyclerViewPopularMovies.adapter = MovieAdapter(movies)
+            binding.rvPopularMovies.adapter = MovieAdapter(movies.map { it.poster })
         }
     }
 
     private fun getMovieData(callback: (List<Movie>) -> Unit) {
-        val apiService = MoviesApiService.getInstance().create(MovieApiInterface::class.java)
-        apiService.getMovieList().enqueue(object : Callback<MovieResponse> {
+        NetworkCore.moviesAPI.getMovieList().enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 return callback(response.body()!!.movies)
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-
+                Timber.e(t)
             }
         })
     }
 
     private fun getTopRatedList(callback: (List<TopRated>) -> Unit) {
-        val apiService = TopRatedApiService.getInstance().create(TopRatedApiInterface::class.java)
-        apiService.getTopRatedList().enqueue(object : Callback<TopRatedResponse> {
+        NetworkCore.moviesAPI.getTopRatedList().enqueue(object : Callback<TopRatedResponse> {
             override fun onResponse(
                 call: Call<TopRatedResponse>,
                 response: Response<TopRatedResponse>
             ) {
-                return callback(response.body()!!.toprated)
+                return callback(response.body()!!.topRated)
             }
 
             override fun onFailure(call: Call<TopRatedResponse>, t: Throwable) {
-
+                Timber.e(t)
             }
         })
     }
 
     private fun getTvShowsList(callback: (List<TvShows>) -> Unit) {
-        val apiService = TvShowsApiService.getInstance().create(TvShowsApiInterface::class.java)
-        apiService.getTvShowsList().enqueue(object : Callback<TvShowsResponse> {
+        NetworkCore.moviesAPI.getTvShowsList().enqueue(object : Callback<TvShowsResponse> {
             override fun onResponse(
                 call: Call<TvShowsResponse>,
                 response: Response<TvShowsResponse>
             ) {
-                return callback(response.body()!!.tvshows)
+                return callback(response.body()!!.tvShows)
             }
 
             override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
-
+                Timber.e(t)
+                t.printStackTrace()
             }
         })
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

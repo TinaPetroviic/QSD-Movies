@@ -14,10 +14,7 @@ class MovieDetails : AppCompatActivity() {
         binding = ActivityMoviedetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "BACK"
-
-        binding.watchNowButton.setOnClickListener {
+        binding.btnWatchNow.setOnClickListener {
             val intent = Intent(this, WebViewWatchNowActivity::class.java)
             startActivity(intent)
         }

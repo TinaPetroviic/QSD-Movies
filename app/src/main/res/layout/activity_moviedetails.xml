@@ -14,15 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/play_button"
+            android:id="@+id/btn_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_baseline_play_circle_filled_24"
             app:borderWidth="0dp"
             app:fabSize="normal"
@@ -31,24 +31,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/video_view" />
 
-
         <TextView
-            android:id="@+id/movie_name"
+            android:id="@+id/tv_movie_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="@string/the_name_of_the_movie"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/video_view" />
+            app:layout_constraintTop_toBottomOf="@+id/video_view"
+            tools:text="the name of the movie" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/categories"
+            android:id="@+id/tv_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -58,11 +57,11 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_name"
             tools:text="Movie  |  Adventure  |  Comedy  |  Family" />
 
         <TextView
-            android:id="@+id/rating_num"
+            android:id="@+id/tv_rating_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -73,7 +72,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categories" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
 
         <RatingBar
             android:id="@+id/rating_bar"
@@ -82,47 +81,48 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_marginTop="15dp"
-            android:progressTint="#ffb428"
+            android:progressTint="@color/extreme_yellow"
             android:rating="4"
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating_num" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_rating_value" />
 
         <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
 
         <Button
-            android:id="@+id/watch_now_button"
+            android:id="@+id/btn_watch_now"
             android:layout_width="180dp"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_selector"
-            android:backgroundTint="@color/primarycolor"
+            android:backgroundTint="@color/extreme_yellow"
+            android:clickable="true"
+            android:elevation="2dp"
+            android:focusable="true"
             android:fontFamily="@font/gotham_book_font"
-            android:text="@string/watch_now"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="WATCH NOW"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
         <TextView
-            android:id="@+id/cast"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_cast"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
@@ -133,15 +133,15 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/watch_now_button" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_watch_now" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_cast"
-            android:layout_width="match_parent"
+            android:id="@+id/rv_cast"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cast" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_cast" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

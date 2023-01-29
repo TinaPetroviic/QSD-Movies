@@ -4,34 +4,38 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
+import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
 import com.example.qsdmovies.databinding.ActivityRegisterBinding
+import com.example.qsdmovies.util.Constants
+import com.example.qsdmovies.util.hide
+import com.example.qsdmovies.util.show
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import timber.log.Timber
+import java.io.IOException
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
 
-    private var PICK_IMAGE_REQUEST = 12
+    companion object {
+        private const val PICK_IMAGE_REQUEST = 71
+    }
+
     private var imagePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
 
-    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
-
-    private lateinit var firstName: String
-    private lateinit var lastName: String
     private lateinit var database: DatabaseReference
 
     private lateinit var auth: FirebaseAuth
@@ -43,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.back.setOnClickListener {
+        binding.clBack.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -54,14 +58,14 @@ class RegisterActivity : AppCompatActivity() {
 
         database = Firebase.database.reference
 
-        binding.registerButton.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             signUpUser()
         }
-        binding.addProfilePicture.setOnClickListener {
-            fileChooser()
+        binding.ivProfile.setOnClickListener {
+            launchGallery()
         }
-        binding.profileImage.setOnClickListener {
-            fileChooser()
+        binding.tvAddProfilePicture.setOnClickListener {
+            launchGallery()
         }
     }
 
@@ -74,158 +78,140 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
-    private fun signUpUser() {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, receivedData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, receivedData)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if (receivedData == null || receivedData.data == null) {
+                return
+            }
 
-        val name = binding.firstNameHere.text.toString()
-        val surname = binding.lastNameHere.text.toString()
-        val email = binding.emailRegister.text.toString()
-        val pass = binding.passwordRegister.text.toString()
-        val confirmPassword = binding.confirmPasswordRegister.text.toString()
-
-        if (name.isEmpty()) {
-            Toast.makeText(this, "first name field can't be empty", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (surname.isEmpty()) {
-            Toast.makeText(this, "last name field can't be empty", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (email.isEmpty()) {
-            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (pass.isEmpty()) {
-            Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (confirmPassword.isEmpty()) {
-            Toast.makeText(this, "confirm password field can't be empty", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (pass != confirmPassword) {
-            Toast.makeText(this, "password and confirm password do not match", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-
-        if (email.matches(emailPattern.toRegex())) {
-
-        } else {
-            Toast.makeText(
-                applicationContext, "invalid email address",
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-
-        if (binding.passwordRegister.text.toString().length < 8) {
-            binding.passwordRegister.setError("password minimum contain 8 character")
-            binding.passwordRegister.requestFocus()
-            binding.passwordRegister.isEnabled = true
-
-        }
-        if (binding.passwordRegister.text.toString().length > 32) {
-            binding.passwordRegister.setError("password maximum contain 32 character")
-            binding.passwordRegister.requestFocus()
-        }
-        if (binding.passwordRegister.text.toString().equals("")) {
-            binding.passwordRegister.setError("please enter password")
-            binding.passwordRegister.requestFocus()
-        }
-
-        if (binding.firstNameHere.text.toString().length < 1) {
-            binding.firstNameHere.setError("first name minimum contain 1 character")
-            binding.firstNameHere.requestFocus()
-            binding.firstNameHere.isEnabled = true
-
-        }
-        if (binding.firstNameHere.text.toString().length > 50) {
-            binding.firstNameHere.setError("first name maximum contain 50 character")
-            binding.firstNameHere.requestFocus()
-        }
-        if (binding.firstNameHere.text.toString().equals("")) {
-            binding.firstNameHere.setError("please enter first name")
-            binding.firstNameHere.requestFocus()
-        }
-
-        if (binding.lastNameHere.text.toString().length < 1) {
-            binding.lastNameHere.setError("last name minimum contain 1 character")
-            binding.lastNameHere.requestFocus()
-            binding.lastNameHere.isEnabled = true
-
-        }
-        if (binding.lastNameHere.text.toString().length > 50) {
-            binding.lastNameHere.setError("last name maximum contain 50 character")
-            binding.lastNameHere.requestFocus()
-        }
-        if (binding.lastNameHere.text.toString().equals("")) {
-            binding.lastNameHere.setError("please enter last name")
-            binding.lastNameHere.requestFocus()
-        }
-
-
-        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                saveData()
-                sendData()
-                val intent = Intent(this, BottomBarActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "user already exists", Toast.LENGTH_SHORT).show()
-                return@addOnCompleteListener
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, receivedData.data)
+                binding.ivProfile.setImageBitmap(bitmap)
+                receivedData.data?.let {
+                    uploadImage(it)
+                } ?: Timber.d(getString(R.string.receiveddata_uri_is_empty))
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }
 
-    private fun sendData() {
-        val firebaseDatabase = FirebaseDatabase.getInstance()
-        val myReference = firebaseDatabase.getReference(auth?.uid.toString())
-
-        val imageRef = storageReference!!.child("myImages").child(auth!!.uid!!)
-        val uploadImage = imageRef.putFile(imagePath!!)
-        uploadImage.addOnFailureListener {
-            Toast.makeText(this, "Error Ocoured", Toast.LENGTH_SHORT).show()
-        }
-
-        val userProfile = User(firstName, lastName)
-        myReference.setValue(userProfile)
-    }
-
-    private fun fileChooser() {
+    private fun launchGallery() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        startActivityForResult(
+            Intent.createChooser(intent, getString(R.string.select_picture)),
+            PICK_IMAGE_REQUEST
+        )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
-            && data != null && data.data != null
-        ) {
-            imagePath = data.data
-            Glide.with(this)
-                .load(imagePath)
-                .into(binding.profileImage)
-
+    private fun uploadImage(imageFilePath: Uri) {
+        Timber.d("uploadImage")
+        val imageRef = storageReference!!.child(FirebaseAuth.getInstance().uid!!)
+            .child(Constants.IMAGE_PATH_DB)
+        val uploadTask = imageRef.putFile(imageFilePath)
+        uploadTask.addOnCompleteListener {
+            if (it.isSuccessful) {
+                Timber.d(getString(R.string.successfully_uploaded))
+            } else {
+                Timber.d(getString(R.string.failed_to_upload))
+            }
         }
     }
 
+    private fun signUpUser() {
+        binding.viewLoading.root.show()
+        Timber.d("signUpUser")
+        val name = binding.etFirstName.text.toString()
+        val surname = binding.etLastName.text.toString()
+        val email = binding.etEmail.text.toString()
+        val pass = binding.etPassword.text.toString()
+        val confirmPassword = binding.etConfirmPassword.text.toString()
+
+        if (name.length > Constants.FIRST_NAME_MINIMUM_LENGTH || name.length < Constants.FIRST_NAME_MAXIMUM_LENGTH) {
+            binding.etPassword.error =
+                "Password length must be between ${Constants.FIRST_NAME_MINIMUM_LENGTH} and ${Constants.FIRST_NAME_MAXIMUM_LENGTH} characters"
+            binding.etPassword.requestFocus()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        if (surname.length > Constants.LAST_NAME_MINIMUM_LENGTH || surname.length < Constants.LAST_NAME_MAXIMUM_LENGTH) {
+            binding.etPassword.error =
+                "Password length must be between ${Constants.LAST_NAME_MINIMUM_LENGTH} and ${Constants.LAST_NAME_MAXIMUM_LENGTH} characters"
+            binding.etPassword.requestFocus()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, getString(R.string.email_field_cant_be_empty), Toast.LENGTH_SHORT)
+                .show()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        if (pass.length > Constants.PASSWORD_MINIMUM_LENGTH || pass.length < Constants.PASSWORD_MAXIMUM_LENGTH) {
+            binding.etPassword.error =
+                "Password length must be between ${Constants.PASSWORD_MINIMUM_LENGTH} and ${Constants.PASSWORD_MAXIMUM_LENGTH} characters"
+            binding.etPassword.requestFocus()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        if (confirmPassword.length > Constants.PASSWORD_MINIMUM_LENGTH || confirmPassword.length < Constants.PASSWORD_MAXIMUM_LENGTH) {
+            binding.etPassword.error =
+                "Confirm password length must be between ${Constants.PASSWORD_MINIMUM_LENGTH} and ${Constants.PASSWORD_MAXIMUM_LENGTH} characters"
+            binding.etPassword.requestFocus()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        if (pass != confirmPassword) {
+            Toast.makeText(
+                this,
+                getString(R.string.confirm_password_do_not_match),
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        if (!email.matches(Constants.EMAIL_PATTERN.toRegex())) {
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.invalid_email_address),
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.viewLoading.root.hide()
+            return
+        }
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass)
+            .addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    saveData()
+                    startActivity(Intent(this, BottomBarActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.user_already_exists),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.viewLoading.root.hide()
+                }
+            }
+    }
+
     private fun saveData() {
-
-        firstName = binding.firstNameHere.text.toString().trim()
-        lastName = binding.lastNameHere.text.toString().trim()
-
+        val firstName = binding.etFirstName.text.toString().trim()
+        val lastName = binding.etLastName.text.toString().trim()
         val user = User(firstName, lastName)
 
-        val userID = FirebaseAuth.getInstance().currentUser!!.uid
-        database.child("User").child(userID).setValue(user)
-
+        database.child(Constants.USER_PATH_DB).child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .setValue(user)
     }
 }

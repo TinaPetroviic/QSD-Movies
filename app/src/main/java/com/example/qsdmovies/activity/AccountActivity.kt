@@ -6,9 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
 import com.example.qsdmovies.databinding.ActivityAccountBinding
+import com.example.qsdmovies.fragment.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -42,19 +45,19 @@ class AccountActivity : AppCompatActivity() {
                 this.let {
                     Glide.with(it)
                         .load(uri)
-                        .into(binding.profileImage)
+                        .into(binding.imgProfilePhoto)
                 }
             }
-        binding.profileImage.setOnClickListener {
+        binding.imgProfilePhoto.setOnClickListener {
             fileChooser()
         }
 
 
 
-        binding.updateButton.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
 
-            val firstName = binding.firstName.text.toString()
-            val lastName = binding.lastName.text.toString()
+            val firstName = binding.etFirstName.text.toString()
+            val lastName = binding.etLastName.text.toString()
 
             sendData()
             updateData(firstName, lastName)
@@ -68,7 +71,7 @@ class AccountActivity : AppCompatActivity() {
         val imageRef = storageReference!!.child("myImages").child(auth!!.uid!!)
         val uploadImage = imageRef.putFile(imagePath!!)
         uploadImage.addOnFailureListener {
-            Toast.makeText(this, "Error Ocoured", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_ocoured), Toast.LENGTH_SHORT).show()
         }
 
         val userProfile = User("firstName", "lastName")
@@ -90,7 +93,7 @@ class AccountActivity : AppCompatActivity() {
             imagePath = data.data
             Glide.with(this)
                 .load(imagePath)
-                .into(binding.profileImage)
+                .into(binding.imgProfilePhoto)
 
         }
     }
@@ -105,13 +108,14 @@ class AccountActivity : AppCompatActivity() {
 
         database.child(firstName).updateChildren(user).addOnSuccessListener {
 
-            binding.firstName.text.clear()
-            binding.lastName.text.clear()
-            Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT).show()
+            binding.etFirstName.text.clear()
+            binding.etLastName.text.clear()
+            Toast.makeText(this, getString(R.string.successfully_updated), Toast.LENGTH_SHORT)
+                .show()
 
         }.addOnFailureListener {
 
-            Toast.makeText(this, "Failed to Update", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.failed_to_update), Toast.LENGTH_SHORT).show()
 
         }
     }

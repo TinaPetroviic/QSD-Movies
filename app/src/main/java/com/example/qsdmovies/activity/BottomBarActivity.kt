@@ -1,6 +1,7 @@
 package com.example.qsdmovies.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.qsdmovies.R
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 class BottomBarActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottombarBinding
+
+    private var backPressedTime = 0L
 
     private lateinit var auth: FirebaseAuth
 
@@ -54,5 +57,15 @@ class BottomBarActivity : AppCompatActivity() {
         transaction.replace(R.id.frame_layout, fragment)
         transaction.disallowAddToBackStack()
         transaction.commit()
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+        } else {
+            Toast.makeText(applicationContext, "Press back again to exit app", Toast.LENGTH_SHORT)
+                .show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

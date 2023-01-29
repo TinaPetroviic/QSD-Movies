@@ -1,15 +1,12 @@
 package com.example.qsdmovies.activity
 
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
 import com.example.qsdmovies.databinding.ActivityLoginBinding
+import com.example.qsdmovies.util.Constants
 import com.example.qsdmovies.util.hide
 import com.example.qsdmovies.util.show
 import com.facebook.AccessToken
@@ -28,9 +25,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import java.security.MessageDigest
+import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
+
+    private var backPressedTime = 0L
 
     val TAG = "LoginActivity"
 
@@ -43,16 +42,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var gso: GoogleSignInOptions
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
-
     public override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart")
+        Timber.tag(TAG).d("onStart")
         updateUI(auth.currentUser)
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
-        Log.d(TAG, "updateUI")
+        Timber.tag(TAG).d("updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, BottomBarActivity::class.java))
             finish()
@@ -68,8 +65,6 @@ class LoginActivity : AppCompatActivity() {
 
         createRequest()
 
-        createKeyHash(this, "com.example.qsdmovies")
-
         binding.facebookLogin.setOnClickListener {
             binding.viewLoading.root.show()
             callbackManager = CallbackManager.Factory.create()
@@ -77,38 +72,48 @@ class LoginActivity : AppCompatActivity() {
                 callbackManager,
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult) {
-                        Log.d(TAG, "facebook:onSuccess:$result")
+                        Timber.tag(TAG).d("facebook:onSuccess:%s", result)
                         handleFacebookAccessToken(result.accessToken)
                     }
 
                     override fun onCancel() {
                         binding.viewLoading.root.hide()
-                        Log.d(TAG, "facebook:onCancel")
+                        Timber.tag(TAG).d("facebook:onCancel")
                     }
 
                     override fun onError(error: FacebookException) {
                         binding.viewLoading.root.hide()
-                        Log.d(TAG, "facebook:onError", error)
+                        Timber.tag(TAG).d(error, "facebook:onError")
                     }
                 })
         }
 
-        binding.googleLogin.setOnClickListener {
+        binding.imgGoogleLogin.setOnClickListener {
             signIn()
         }
 
-        binding.loginButton.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             login()
         }
 
-        binding.register.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-        binding.forgotPassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
             val intent = Intent(this, ForgotActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+        } else {
+            Toast.makeText(applicationContext, "Press back again to exit app", Toast.LENGTH_SHORT)
+                .show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
     private fun createRequest() {
@@ -126,22 +131,22 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleFacebookAccessToken(token: AccessToken) {
 
-        Log.d(TAG, "handleFacebookAccessToken:$token")
+        Timber.tag(TAG).d("handleFacebookAccessToken:%s", token)
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCredential:success")
+                    Timber.tag(TAG).d("signInWithCredential:success")
                     updateUI(auth.currentUser)
                     Toast.makeText(
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Timber.tag(TAG).w(task.exception, "signInWithCredential:failure")
                     Toast.makeText(
-                        baseContext, "Authentication failed.",
+                        baseContext, getString(R.string.authentication_failed),
                         Toast.LENGTH_SHORT
                     ).show()
                     updateUI(null)
@@ -153,8 +158,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login() {
         binding.viewLoading.root.show()
-        val email = binding.emailHere.text.toString()
-        val pass = binding.passwordHere.text.toString()
+        val email = binding.etEmail.text.toString()
+        val pass = binding.etPassword.text.toString()
 
         if (email.isEmpty()) {
             Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
@@ -166,44 +171,40 @@ class LoginActivity : AppCompatActivity() {
             binding.viewLoading.root.hide()
             return
         }
-
-        if (!email.matches(emailPattern.toRegex())) {
-            Toast.makeText(
-                applicationContext, "invalid email address",
-                Toast.LENGTH_SHORT
-            ).show()
+        if (!email.matches(Constants.EMAIL_PATTERN.toRegex())) {
+            Toast.makeText(applicationContext, "invalid email address", Toast.LENGTH_SHORT).show()
+            binding.viewLoading.root.hide()
+            return
+        }
+        if (binding.etPassword.text.toString().length < Constants.PASSWORD_MINIMUM_LENGTH) {
+            binding.etPassword.error =
+                "password minimum contain ${Constants.PASSWORD_MINIMUM_LENGTH} character"
+            binding.etPassword.requestFocus()
+            binding.etPassword.isEnabled = true
+            binding.viewLoading.root.hide()
+            return
+        }
+        if (binding.etPassword.text.toString().length > Constants.PASSWORD_MAXIMUM_LENGTH) {
+            binding.etPassword.error =
+                "password maximum contain ${Constants.PASSWORD_MAXIMUM_LENGTH} character"
+            binding.etPassword.requestFocus()
+            binding.viewLoading.root.hide()
+            return
+        }
+        if (binding.etPassword.text.toString() == "") {
+            binding.etPassword.error = "please enter password"
+            binding.etPassword.requestFocus()
             binding.viewLoading.root.hide()
             return
         }
 
-        if (pass.length < 8) {
-            binding.passwordHere.error = "password minimum contain 8 character"
-            binding.passwordHere.requestFocus()
-            binding.passwordHere.isEnabled = true
-            binding.viewLoading.root.hide()
-            return
-
-
-        }
-        if (binding.passwordHere.text.toString().length > 32) {
-            binding.passwordHere.error = "password maximum contain 32 character"
-            binding.passwordHere.requestFocus()
-            binding.viewLoading.root.hide()
-            return
-        }
-        if (binding.passwordHere.text.toString().equals("")) {
-            binding.passwordHere.error = "please enter password"
-            binding.passwordHere.requestFocus()
-            binding.viewLoading.root.hide()
-            return
-        }
 
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 val intent = Intent(this, BottomBarActivity::class.java)
                 startActivity(intent)
             } else
-                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
             binding.viewLoading.root.hide()
             return@addOnCompleteListener
         }
@@ -219,7 +220,7 @@ class LoginActivity : AppCompatActivity() {
                 googleAuthForFirebase(account)
             } catch (e: ApiException) {
                 binding.viewLoading.root.hide()
-                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT)
+                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -235,23 +236,16 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        getString(R.string.login_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     binding.viewLoading.root.hide()
                 }
             }.addOnFailureListener {
                 binding.viewLoading.root.hide()
             }
-    }
-
-
-    private fun createKeyHash(activity: Activity, yourPackage: String) {
-        val info =
-            activity.packageManager.getPackageInfo(yourPackage, PackageManager.GET_SIGNATURES)
-        for (signature in info.signatures) {
-            val md = MessageDigest.getInstance("SHA")
-            md.update(signature.toByteArray())
-            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-        }
     }
 }
 

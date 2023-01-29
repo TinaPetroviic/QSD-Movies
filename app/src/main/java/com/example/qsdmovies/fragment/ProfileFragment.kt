@@ -6,22 +6,24 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.qsdmovies.R
 import com.example.qsdmovies.activity.AccountActivity
 import com.example.qsdmovies.activity.ContactActivity
 import com.example.qsdmovies.activity.LoginActivity
 import com.example.qsdmovies.activity.WebViewHelpActivity
 import com.example.qsdmovies.databinding.FragmentProfileBinding
+import com.example.qsdmovies.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import timber.log.Timber
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -60,7 +62,6 @@ class ProfileFragment : Fragment() {
 
         loadLocate()
 
-
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("User")
@@ -73,27 +74,27 @@ class ProfileFragment : Fragment() {
                 this.context?.let {
                     Glide.with(it)
                         .load(uri)
-                        .into(binding.profileImage)
+                        .into(binding.imgProfilePhoto)
                 }
             }
 
         loadProfile()
 
-        binding.account.setOnClickListener {
+        binding.llAccount.setOnClickListener {
             val intent = Intent(context, AccountActivity::class.java)
             startActivity(intent)
         }
 
-        binding.contact.setOnClickListener {
+        binding.llContact.setOnClickListener {
             val intent = Intent(context, ContactActivity::class.java)
             startActivity(intent)
         }
 
-        binding.language.setOnClickListener {
+        binding.llLanguage.setOnClickListener {
             showChangeLang()
         }
 
-        binding.help.setOnClickListener {
+        binding.llHelp.setOnClickListener {
             val intent = Intent(context, WebViewHelpActivity::class.java)
             startActivity(intent)
         }
@@ -101,7 +102,7 @@ class ProfileFragment : Fragment() {
         binding.logout.setOnClickListener {
             val mBuilder = this.context?.let { it1 ->
                 AlertDialog.Builder(it1)
-                    .setMessage("Are you sure you want to exit?")
+                    .setMessage(getString(R.string.are_you_sure_you_want_to_exit))
                     .setPositiveButton("Yes", null)
                     .setNegativeButton("No", null)
                     .show()
@@ -185,26 +186,31 @@ class ProfileFragment : Fragment() {
 
 
     private fun loadProfile() {
+        Timber.d("loadProfile")
+        val user = FirebaseAuth.getInstance().currentUser
+        val userReference = databaseReference?.child(user?.uid!!)
 
-        val user = auth?.currentUser
-        val userreference = databaseReference?.child(user?.uid!!)
-
-        Log.d("myDebugTag", "debug message")
-
-        _binding?.firstName?.text = user?.displayName
-        userreference?.addValueEventListener(object : ValueEventListener {
+        binding.tvFirstName.text = user?.displayName
+        userReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                _binding?.firstName?.text = snapshot.child("firstName").value.toString()
+                Timber.d("onDataChange")
+                snapshot.child(Constants.FIRST_NAME_DB).value?.let {
+                    binding.tvFirstName.text = it.toString()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Timber.e(error.message)
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        FirebaseStorage.getInstance().reference.child(FirebaseAuth.getInstance().uid!!)
+            .child(Constants.IMAGE_PATH_DB)
+            .downloadUrl.addOnSuccessListener { uri ->
+                this.context?.let {
+                    Glide.with(it)
+                        .load(uri)
+                        .into(binding.imgProfilePhoto)
+                }
+            }
     }
 }
