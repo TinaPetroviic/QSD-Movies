@@ -6,12 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
 import com.example.qsdmovies.databinding.ActivityAccountBinding
 import com.example.qsdmovies.fragment.ProfileFragment
+import com.example.qsdmovies.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -40,7 +40,8 @@ class AccountActivity : AppCompatActivity() {
         firebaseStorage = FirebaseStorage.getInstance()
         storageReference = firebaseStorage!!.reference
 
-        storageReference!!.child("myImages").child(auth!!.uid!!)
+
+        storageReference!!.child(Constants.IMAGE_PATH_DB).child(auth!!.uid!!)
             .downloadUrl.addOnSuccessListener { uri ->
                 this.let {
                     Glide.with(it)
@@ -52,14 +53,13 @@ class AccountActivity : AppCompatActivity() {
             fileChooser()
         }
 
-
-
         binding.btnUpdate.setOnClickListener {
+
+            sendData()
 
             val firstName = binding.etFirstName.text.toString()
             val lastName = binding.etLastName.text.toString()
 
-            sendData()
             updateData(firstName, lastName)
         }
     }
@@ -68,7 +68,7 @@ class AccountActivity : AppCompatActivity() {
         val firebaseDatabase = FirebaseDatabase.getInstance()
         val myReference = firebaseDatabase.getReference(auth?.uid.toString())
 
-        val imageRef = storageReference!!.child("myImages").child(auth!!.uid!!)
+        val imageRef = storageReference!!.child(Constants.IMAGE_PATH_DB).child(auth!!.uid!!)
         val uploadImage = imageRef.putFile(imagePath!!)
         uploadImage.addOnFailureListener {
             Toast.makeText(this, getString(R.string.error_ocoured), Toast.LENGTH_SHORT).show()
@@ -100,18 +100,22 @@ class AccountActivity : AppCompatActivity() {
 
     private fun updateData(firstName: String, lastName: String) {
 
-        database = FirebaseDatabase.getInstance().getReference("User")
+        database = FirebaseDatabase.getInstance().getReference(Constants.USER_PATH_DB)
+            .child("yLqQ7yDZJYVB4UNY4GrUPF7FFiY2")
         val user = mapOf(
             "firstName" to firstName,
             "lastName" to lastName
         )
 
-        database.child(firstName).updateChildren(user).addOnSuccessListener {
+        database.updateChildren(user).addOnSuccessListener {
 
             binding.etFirstName.text.clear()
             binding.etLastName.text.clear()
             Toast.makeText(this, getString(R.string.successfully_updated), Toast.LENGTH_SHORT)
                 .show()
+
+            val intent = Intent(this, ProfileFragment::class.java)
+            startActivity(intent)
 
         }.addOnFailureListener {
 

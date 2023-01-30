@@ -14,6 +14,6 @@ object Constants {
 
     // Realtime database
     const val FIRST_NAME_DB = "firstName"
-    const val IMAGE_PATH_DB = "myImages/Profile Pic"
+    const val IMAGE_PATH_DB = "myImages/"
     const val USER_PATH_DB = "User"
 }

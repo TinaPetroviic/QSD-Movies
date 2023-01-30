@@ -60,7 +60,6 @@
     <string name="enter_emaill">Ingresar correo electrónico</string>
     <string name="enter_subject_detailss">NTRODUCIR DETALLES DEL ASUNTO</string>
     <string name="enter_messagee">INGRESAR MENSAJE</string>
-    <string name="are_you_sure_you_want_to_exit">Está seguro de que desea salir?</string>
     <string name="error_ocoured">Error encontrado</string>
     <string name="successfully_updated">Actualizado con éxito</string>
     <string name="failed_to_update">Error al actualizar</string>
@@ -68,7 +67,7 @@
     <string name="subject_field_cant_be_empty">el campo de asunto no puede estar vacío</string>
     <string name="message_field_cant_be_empty">el campo de mensaje no puede estar vacío</string>
     <string name="invalid_email_address">dirección de correo electrónico no válida</string>
-    <string name="choose_email_client">Elegir cliente de correo electrónico...</string>
+    <string name="choose_email_client">Elegir cliente de correo electrónico…</string>
     <string name="please_check_your_email">Por favor revise su correo electrónico</string>
     <string name="authentication_failed">Autenticación fallida.</string>
     <string name="password_field_cant_be_empty">el campo de contraseña no puede estar vacío</string>
@@ -82,5 +81,14 @@
     <string name="failed_to_upload">Error al cargar</string>
     <string name="confirm_password_do_not_match">contraseña y confirmación de contraseña no coinciden</string>
     <string name="user_already_exists">el usuario ya existe</string>
+    <string name="Are_you_sure_you_want_to_exit">¿Está seguro de que desea salir?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="press_back_again_to_exit_app">Presione atrás nuevamente para salir de la aplicación</string>
+    <string name="english">Inglés</string>
+    <string name="croatian">croata</string>
+    <string name="german">alemán</string>
+    <string name="spanish">Español</string>
+    <string name="italian">italiano</string>
 
 </resources>

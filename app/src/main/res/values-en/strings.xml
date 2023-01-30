@@ -62,7 +62,6 @@
     <string name="enter_emaill">Enter email</string>
     <string name="enter_subject_detailss">ENTER SUBJECT DETAILS</string>
     <string name="enter_messagee">ENTER MESSAGE</string>
-    <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
     <string name="error_ocoured">Error Ocoured</string>
     <string name="successfully_updated">Successfully Updated</string>
     <string name="failed_to_update">Failed to Update</string>
@@ -70,7 +69,7 @@
     <string name="subject_field_cant_be_empty">subject field can\'t be empty</string>
     <string name="message_field_cant_be_empty">message field can\'t be empty</string>
     <string name="invalid_email_address">invalid email address</string>
-    <string name="choose_email_client">Choose Email Client...</string>
+    <string name="choose_email_client">Choose Email Client…</string>
     <string name="please_check_your_email">Please Check your Email</string>
     <string name="authentication_failed">Authentication failed.</string>
     <string name="password_field_cant_be_empty">password field can\'t be empty</string>
@@ -84,6 +83,15 @@
     <string name="failed_to_upload">Failed to upload</string>
     <string name="confirm_password_do_not_match">password and confirm password do not match</string>
     <string name="user_already_exists">user already exists</string>
+    <string name="Are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="press_back_again_to_exit_app">Press back again to exit app</string>
+    <string name="english">English</string>
+    <string name="croatian">Croatian</string>
+    <string name="german">German</string>
+    <string name="spanish">Spanish</string>
+    <string name="italian">Italian</string>
 
 
 </resources>

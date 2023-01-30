@@ -110,7 +110,11 @@ class LoginActivity : AppCompatActivity() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed()
         } else {
-            Toast.makeText(applicationContext, "Press back again to exit app", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.press_back_again_to_exit_app),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
         backPressedTime = System.currentTimeMillis()
@@ -162,17 +166,26 @@ class LoginActivity : AppCompatActivity() {
         val pass = binding.etPassword.text.toString()
 
         if (email.isEmpty()) {
-            Toast.makeText(this, "email field can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.email_field_cant_be_empty), Toast.LENGTH_SHORT)
+                .show()
             binding.viewLoading.root.hide()
             return
         }
         if (pass.isEmpty()) {
-            Toast.makeText(this, "password field can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                getString(R.string.password_field_cant_be_empty),
+                Toast.LENGTH_SHORT
+            ).show()
             binding.viewLoading.root.hide()
             return
         }
         if (!email.matches(Constants.EMAIL_PATTERN.toRegex())) {
-            Toast.makeText(applicationContext, "invalid email address", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.invalid_email_address),
+                Toast.LENGTH_SHORT
+            ).show()
             binding.viewLoading.root.hide()
             return
         }
@@ -192,7 +205,7 @@ class LoginActivity : AppCompatActivity() {
             return
         }
         if (binding.etPassword.text.toString() == "") {
-            binding.etPassword.error = "please enter password"
+            binding.etPassword.error = getString(R.string.please_enter_password)
             binding.etPassword.requestFocus()
             binding.viewLoading.root.hide()
             return

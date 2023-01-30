@@ -63,7 +63,11 @@ class BottomBarActivity : AppCompatActivity() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed()
         } else {
-            Toast.makeText(applicationContext, "Press back again to exit app", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.press_back_again_to_exit_app),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
         backPressedTime = System.currentTimeMillis()

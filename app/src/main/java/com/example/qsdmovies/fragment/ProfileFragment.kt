@@ -3,7 +3,6 @@ package com.example.qsdmovies.fragment
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import timber.log.Timber
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -37,9 +35,6 @@ class ProfileFragment : Fragment() {
 
     private var firebaseStorage: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
-
-    private lateinit var editor: SharedPreferences.Editor
-    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,14 +57,15 @@ class ProfileFragment : Fragment() {
 
         loadLocate()
 
+
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("User")
+        databaseReference = database?.reference!!.child(Constants.USER_PATH_DB)
 
         firebaseStorage = FirebaseStorage.getInstance()
         storageReference = firebaseStorage!!.reference
 
-        storageReference!!.child("myImages").child(auth!!.uid!!)
+        storageReference!!.child(Constants.IMAGE_PATH_DB).child(auth!!.uid!!)
             .downloadUrl.addOnSuccessListener { uri ->
                 this.context?.let {
                     Glide.with(it)
@@ -83,6 +79,10 @@ class ProfileFragment : Fragment() {
         binding.llAccount.setOnClickListener {
             val intent = Intent(context, AccountActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.llNotification.setOnClickListener {
+
         }
 
         binding.llContact.setOnClickListener {
@@ -99,12 +99,12 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.logout.setOnClickListener {
+        binding.llLogout.setOnClickListener {
             val mBuilder = this.context?.let { it1 ->
                 AlertDialog.Builder(it1)
-                    .setMessage(getString(R.string.are_you_sure_you_want_to_exit))
-                    .setPositiveButton("Yes", null)
-                    .setNegativeButton("No", null)
+                    .setMessage(getString(R.string.Are_you_sure_you_want_to_exit))
+                    .setPositiveButton(getString(R.string.yes), null)
+                    .setNegativeButton(getString(R.string.no), null)
                     .show()
             }
 
@@ -120,10 +120,14 @@ class ProfileFragment : Fragment() {
 
     private fun showChangeLang() {
 
-        val listItmes = arrayOf("English", "Croatian", "German", "Spanish", "Italian")
+        val listItmes = arrayOf(
+            getString(R.string.english), getString(R.string.croatian), getString(
+                R.string.german
+            ), getString(R.string.spanish), getString(R.string.italian)
+        )
 
         val mBuilder = this@ProfileFragment.context?.let { AlertDialog.Builder(it) }
-        mBuilder?.setTitle("Choose Language")
+        mBuilder?.setTitle(getString(R.string.choose_language))
         mBuilder?.setSingleChoiceItems(listItmes, -1) { dialog, which ->
             when (which) {
                 0 -> {
@@ -186,31 +190,20 @@ class ProfileFragment : Fragment() {
 
 
     private fun loadProfile() {
-        Timber.d("loadProfile")
-        val user = FirebaseAuth.getInstance().currentUser
+
+        val user = auth?.currentUser
         val userReference = databaseReference?.child(user?.uid!!)
+
 
         binding.tvFirstName.text = user?.displayName
         userReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                Timber.d("onDataChange")
-                snapshot.child(Constants.FIRST_NAME_DB).value?.let {
-                    binding.tvFirstName.text = it.toString()
-                }
+                binding.tvFirstName.text = snapshot.child(Constants.FIRST_NAME_DB).value.toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Timber.e(error.message)
+
             }
         })
-        FirebaseStorage.getInstance().reference.child(FirebaseAuth.getInstance().uid!!)
-            .child(Constants.IMAGE_PATH_DB)
-            .downloadUrl.addOnSuccessListener { uri ->
-                this.context?.let {
-                    Glide.with(it)
-                        .load(uri)
-                        .into(binding.imgProfilePhoto)
-                }
-            }
     }
 }
