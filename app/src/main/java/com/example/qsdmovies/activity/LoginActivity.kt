@@ -162,6 +162,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login() {
         binding.viewLoading.root.show()
+
         val email = binding.etEmail.text.toString()
         val pass = binding.etPassword.text.toString()
 

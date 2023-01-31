@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
 import com.example.qsdmovies.databinding.ActivityAccountBinding
+import com.example.qsdmovies.fragment.ProfileFragment
 import com.example.qsdmovies.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -49,18 +50,21 @@ class AccountActivity : AppCompatActivity() {
                 }
             }
 
+
         binding.imgProfilePhoto.setOnClickListener {
             fileChooser()
         }
 
         binding.btnUpdate.setOnClickListener {
 
+            sendData()
+
             val firstName = binding.etFirstName.text.toString()
             val lastName = binding.etLastName.text.toString()
 
             updateData(firstName, lastName)
 
-            sendData()
+
         }
     }
 
@@ -100,7 +104,8 @@ class AccountActivity : AppCompatActivity() {
 
     private fun updateData(firstName: String, lastName: String) {
 
-        database = FirebaseDatabase.getInstance().getReference(Constants.USER_PATH_DB).child(FirebaseAuth.getInstance().currentUser!!.uid)
+        database = FirebaseDatabase.getInstance().getReference(Constants.USER_PATH_DB)
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
 
         val user = mapOf(
             "firstName" to firstName,
@@ -111,8 +116,11 @@ class AccountActivity : AppCompatActivity() {
 
             binding.etFirstName.text.clear()
             binding.etLastName.text.clear()
-            Toast.makeText(this, getString(R.string.successfully_updated), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.successfully_updated), Toast.LENGTH_SHORT)
+                .show()
 
+            val intent = Intent(this, ProfileFragment::class.java)
+            startActivity(intent)
 
         }.addOnFailureListener {
 

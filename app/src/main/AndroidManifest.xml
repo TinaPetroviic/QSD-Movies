@@ -41,6 +41,8 @@
         <activity android:name=".activity.WebViewWatchNowActivity" />
         <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.AccountActivity" />
+        <activity android:name=".activity.MovieDetails"/>
+        <activity android:name=".activity.CastActivity"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
