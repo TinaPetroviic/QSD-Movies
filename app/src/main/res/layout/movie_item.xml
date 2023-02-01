@@ -9,6 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="230dp"
         android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onCardViewClick"
         android:padding="8dp" />
 
     <CheckBox

@@ -16,4 +16,10 @@ object Constants {
     const val FIRST_NAME_DB = "firstName"
     const val IMAGE_PATH_DB = "myImages/"
     const val USER_PATH_DB = "User"
+
+    // Movie details
+    const val MOVIE_POSTER = "extra_movie_poster"
+    const val MOVIE_TITLE = "extra_movie_title"
+    const val MOVIE_RATING = "extra_movie_rating"
+    const val MOVIE_OVERVIEW = "extra_movie_overview"
 }

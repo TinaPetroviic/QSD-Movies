@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         getMovieData { movies: List<Movie> ->
             Glide.with(this)
                 .load(Constants.IMAGE_BASE + movies.first().poster)

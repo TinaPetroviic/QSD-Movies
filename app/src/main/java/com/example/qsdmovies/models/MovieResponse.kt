@@ -3,6 +3,7 @@ package com.example.qsdmovies.models
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(
-    @SerializedName("results")
-    val movies: List<Movie>
+    @SerializedName("page") val page: Int,
+    @SerializedName("results") val movies: List<Movie>,
+    @SerializedName("total_pages") val pages: Int
 )

@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <VideoView
-            android:id="@+id/video_view"
+        <ImageView
+            android:id="@+id/movie_poster"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
@@ -26,13 +26,13 @@
             android:src="@drawable/ic_baseline_play_circle_filled_24"
             app:borderWidth="0dp"
             app:fabSize="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/video_view"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/video_view" />
+            app:layout_constraintTop_toTopOf="@+id/movie_poster" />
 
         <TextView
-            android:id="@+id/tv_movie_name"
+            android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
@@ -43,7 +43,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/video_view"
+            app:layout_constraintTop_toBottomOf="@+id/movie_poster"
             tools:text="the name of the movie" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -57,11 +57,11 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_name"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title"
             tools:text="Movie  |  Adventure  |  Comedy  |  Family" />
 
         <TextView
-            android:id="@+id/tv_rating_value"
+            android:id="@+id/movie_rating_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -75,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
 
         <RatingBar
-            android:id="@+id/rating_bar"
+            android:id="@+id/movie_rating"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,10 +86,10 @@
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rating_value" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating_value" />
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/movie_overview"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
@@ -97,7 +97,7 @@
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
 
         <Button
             android:id="@+id/btn_watch_now"
@@ -118,7 +118,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_overview" />
 
         <TextView
             android:id="@+id/tv_cast"
