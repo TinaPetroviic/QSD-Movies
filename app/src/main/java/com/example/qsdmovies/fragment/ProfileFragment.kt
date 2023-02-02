@@ -140,12 +140,20 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun showRationaleDialog() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(getString(R.string.notifications_are_required_to_keep_you_updated_on_new_content))
+            .create()
+            .show()
+    }
+
     private fun showErrorMessage() {
         Toast.makeText(
             requireContext(),
             getString(R.string.notifications_are_not_allowed),
             Toast.LENGTH_SHORT
         ).show()
+        showRationaleDialog()
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

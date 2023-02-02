@@ -93,5 +93,6 @@
     <string name="italian">Talijanski</string>
     <string name="notifications_are_not_allowed">Obavijesti nisu dopuštene</string>
     <string name="notifications_are_allowed">Obavijesti su dopuštene</string>
+    <string name="notifications_are_required_to_keep_you_updated_on_new_content">Obavijesti su potrebne kako biste bili u tijeku s novim sadržajem.</string>
 
 </resources>
