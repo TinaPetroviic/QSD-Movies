@@ -15,5 +15,13 @@
     <color name="armor_wash">#030303</color>
     <color name="too_gold">#ffb120</color>
     <color name="light_grey">#d9d9d9</color>
+    <color name="elemental_grey">#a0a0a0</color>
+    <color name="american_silver">#cecece</color>
+    <color name="white_smoke">#f5f5f5</color>
+    <color name="hydrargyrum">#9a9a9a</color>
+    <color name="aged_moustache_grey">#7e7e7e</color>
+    <color name="knights_armor">#5c5c5c</color>
+    <color name="black_liquorice">#3b3b3b</color>
+    <color name="sun_ray">#ffb01d</color>
 </resources>
 

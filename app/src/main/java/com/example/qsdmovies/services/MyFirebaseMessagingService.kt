@@ -101,7 +101,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun getNotificationIcon(): Int {
         val useWhiteIcon =
             true
-        return if (useWhiteIcon) R.mipmap.ic_launcher else R.mipmap.ic_launcher
+        return if (useWhiteIcon) R.drawable.qsdlogo_400px else R.drawable.qsdlogo_400px
     }
-
 }

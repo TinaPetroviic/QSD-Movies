@@ -91,6 +91,8 @@
     <string name="german">Deutsch</string>
     <string name="spanish">Spanisch</string>
     <string name="italian">Italienisch</string>
+    <string name="notifications_are_not_allowed">Benachrichtigungen sind nicht erlaubt</string>
+    <string name="notifications_are_allowed">Benachrichtigungen sind erlaubt</string>
 
 
 </resources>

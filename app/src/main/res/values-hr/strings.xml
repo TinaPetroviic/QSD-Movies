@@ -91,5 +91,7 @@
     <string name="german">Njemački</string>
     <string name="spanish">Španjolski</string>
     <string name="italian">Talijanski</string>
+    <string name="notifications_are_not_allowed">Obavijesti nisu dopuštene</string>
+    <string name="notifications_are_allowed">Obavijesti su dopuštene</string>
 
 </resources>

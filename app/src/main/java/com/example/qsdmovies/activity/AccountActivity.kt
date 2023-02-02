@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.qsdmovies.R
 import com.example.qsdmovies.data.User
 import com.example.qsdmovies.databinding.ActivityAccountBinding
-import com.example.qsdmovies.fragment.ProfileFragment
 import com.example.qsdmovies.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -63,7 +62,6 @@ class AccountActivity : AppCompatActivity() {
             val lastName = binding.etLastName.text.toString()
 
             updateData(firstName, lastName)
-
 
         }
     }
@@ -119,7 +117,7 @@ class AccountActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.successfully_updated), Toast.LENGTH_SHORT)
                 .show()
 
-            val intent = Intent(this, ProfileFragment::class.java)
+            val intent = Intent(this, BottomBarActivity::class.java)
             startActivity(intent)
 
         }.addOnFailureListener {

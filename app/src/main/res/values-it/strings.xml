@@ -90,6 +90,8 @@
     <string name="german">Tedesco</string>
     <string name="spanish">Spagnolo</string>
     <string name="italian">Italiano</string>
+    <string name="notifications_are_not_allowed">Le notifiche non sono consentite</string>
+    <string name="notifications_are_allowed">Le notifiche sono consentite</string>
 
 
 </resources>
