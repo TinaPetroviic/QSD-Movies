@@ -151,6 +151,7 @@ class ProfileFragment : Fragment() {
                 intent.data = uri
                 startActivity(intent)
             }
+
             .create()
             .show()
     }
