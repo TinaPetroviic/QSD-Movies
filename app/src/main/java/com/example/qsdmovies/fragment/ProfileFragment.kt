@@ -5,8 +5,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -143,16 +145,17 @@ class ProfileFragment : Fragment() {
     private fun showRationaleDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.notifications_are_required_to_keep_you_updated_on_new_content))
+            .setPositiveButton("Go to Settings") { dialog, which ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", "com.example.qsdmovies", null)
+                intent.data = uri
+                startActivity(intent)
+            }
             .create()
             .show()
     }
 
     private fun showErrorMessage() {
-        Toast.makeText(
-            requireContext(),
-            getString(R.string.notifications_are_not_allowed),
-            Toast.LENGTH_SHORT
-        ).show()
         showRationaleDialog()
     }
 
