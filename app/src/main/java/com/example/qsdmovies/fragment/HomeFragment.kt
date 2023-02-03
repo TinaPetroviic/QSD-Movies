@@ -230,7 +230,6 @@ class HomeFragment : Fragment() {
                             0
                         )
                         favorite?.text = "Add Favorite"
-
                     }
                 }
 

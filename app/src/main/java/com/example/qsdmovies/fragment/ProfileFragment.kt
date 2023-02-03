@@ -33,7 +33,6 @@ class ProfileFragment : Fragment() {
 
     private lateinit var requestLauncher: ActivityResultLauncher<String>
 
-
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 

@@ -33,7 +33,6 @@ import timber.log.Timber
 class LoginActivity : AppCompatActivity() {
 
     private var backPressedTime = 0L
-
     val TAG = "LoginActivity"
 
     private lateinit var binding: ActivityLoginBinding
