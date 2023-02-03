@@ -95,6 +95,9 @@
     <string name="notifications_are_not_allowed">Notifications are not allowed</string>
     <string name="notifications_are_allowed">Notifications are allowed</string>
     <string name="notifications_are_required_to_keep_you_updated_on_new_content">Notifications are required to keep you updated on new content.</string>
+    <string name="you_declined_and_we_can_no_longer_show_you_notifications">You declined and we can no longer show you notifications</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="ok">Ok</string>
 
 
 </resources>

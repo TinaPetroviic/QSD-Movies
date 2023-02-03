@@ -73,7 +73,7 @@ class ProfileFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                showErrorMessage()
+                showRationaleDialog()
             }
         }
 
@@ -145,19 +145,22 @@ class ProfileFragment : Fragment() {
     private fun showRationaleDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.notifications_are_required_to_keep_you_updated_on_new_content))
-            .setPositiveButton("Go to Settings") { dialog, which ->
+            .setPositiveButton(getString(R.string.go_to_settings)) { dialog, which ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", "com.example.qsdmovies", null)
                 intent.data = uri
                 startActivity(intent)
             }
+            .setNegativeButton(getString(R.string.ok)) { dialog, which ->
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.you_declined_and_we_can_no_longer_show_you_notifications),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
             .create()
             .show()
-    }
-
-    private fun showErrorMessage() {
-        showRationaleDialog()
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

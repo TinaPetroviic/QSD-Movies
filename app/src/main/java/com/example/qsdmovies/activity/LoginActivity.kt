@@ -1,9 +1,11 @@
 package com.example.qsdmovies.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.qsdmovies.BuildConfig
 import com.example.qsdmovies.R
 import com.example.qsdmovies.databinding.ActivityLoginBinding
 import com.example.qsdmovies.util.Constants
@@ -25,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
@@ -56,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -103,6 +107,16 @@ class LoginActivity : AppCompatActivity() {
         binding.tvForgotPassword.setOnClickListener {
             val intent = Intent(this, ForgotActivity::class.java)
             startActivity(intent)
+        }
+
+        if (BuildConfig.DEBUG) {
+            binding.tvEmail.setOnClickListener {
+                val email = "test@example.com"
+                val password = "password"
+
+                et_email.setText(email)
+                et_password.setText(password)
+            }
         }
     }
 

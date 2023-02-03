@@ -94,6 +94,8 @@
     <string name="notifications_are_not_allowed">Benachrichtigungen sind nicht erlaubt</string>
     <string name="notifications_are_allowed">Benachrichtigungen sind erlaubt</string>
     <string name="notifications_are_required_to_keep_you_updated_on_new_content">Benachrichtigungen sind erforderlich, um Sie über neue Inhalte auf dem Laufenden zu halten.</string>
-
+    <string name="you_declined_and_we_can_no_longer_show_you_notifications">Du hast abgelehnt und wir können dir keine Benachrichtigungen mehr anzeigen</string>
+    <string name="go_to_settings">Gehe zu den Einstellungen</string>
+    <string name="ok">Okay</string>
 
 </resources>

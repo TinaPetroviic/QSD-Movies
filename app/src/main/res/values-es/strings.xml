@@ -93,5 +93,8 @@
     <string name="notifications_are_not_allowed">No se permiten notificaciones</string>
     <string name="notifications_are_allowed">Se permiten notificaciones</string>
     <string name="notifications_are_required_to_keep_you_updated_on_new_content">Las notificaciones son necesarias para mantenerlo actualizado sobre contenido nuevo.</string>
+    <string name="you_declined_and_we_can_no_longer_show_you_notifications">Rechazaste y ya no podemos mostrarte notificaciones</string>
+    <string name="go_to_settings">Ir a Configuración</string>
+    <string name="ok">Ok</string>
 
 </resources>
