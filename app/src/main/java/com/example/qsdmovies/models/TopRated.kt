@@ -7,5 +7,6 @@ data class TopRated(
     @SerializedName("title") val title: String?,
     @SerializedName("poster_path") val poster: String?,
     @SerializedName("relase date") val releaseDate: String?,
-    @SerializedName("vote_count") val vote: String
+    @SerializedName("vote_count") val vote: String,
+    @SerializedName("overview") val overview: String,
 )

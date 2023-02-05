@@ -5,11 +5,13 @@
     android:id="@+id/containerHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -34,7 +36,7 @@
             android:layout_gravity="center|bottom"
             android:layout_marginTop="-20dp"
             android:progressTint="@color/sun_ray"
-            android:rating="3.5"
+            android:rating="3.75"
             android:stepSize="0.5" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -44,7 +46,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/gotham_book_font"
-            android:text="Movie | Adventure | Comedy | Family"
+            android:text="@string/movie_adventure_comedy_family"
             android:textColor="@color/aged_moustache_grey"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

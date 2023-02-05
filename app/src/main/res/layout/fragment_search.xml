@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_smoke"
+    android:background="@color/white"
     tools:context=".fragment.SearchFragment">
 
     <androidx.appcompat.widget.SearchView
@@ -15,6 +15,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/button_selector"
+        android:backgroundTint="@color/field"
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"

@@ -18,4 +18,9 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
+    <style name="SwitchStyle" parent="Theme.AppCompat">
+        <item name="colorControlActivated">@color/extreme_yellow</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
 </resources>

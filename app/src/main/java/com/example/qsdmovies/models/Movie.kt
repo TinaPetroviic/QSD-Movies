@@ -7,5 +7,6 @@ data class Movie(
     @SerializedName("title") val title: String,
     @SerializedName("overview") val overview: String,
     @SerializedName("poster_path") val poster: String,
-    @SerializedName("vote_average") val rating: Float
+    @SerializedName("vote_average") val rating: Float,
+    @SerializedName("media_type") val media_type: String? = null
 )

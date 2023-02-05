@@ -1,31 +1,38 @@
 package com.example.qsdmovies.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.qsdmovies.activity.MovieDetailsActivity
 import com.example.qsdmovies.adapter.MovieAdapter
 import com.example.qsdmovies.databinding.FragmentSearchBinding
 import com.example.qsdmovies.models.Movie
-import com.example.qsdmovies.models.MovieResponse
-import com.example.qsdmovies.models.TvShows
-import com.example.qsdmovies.models.TvShowsResponse
-import com.example.qsdmovies.network.NetworkCore
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
-
+import com.example.qsdmovies.util.Constants
+import com.example.qsdmovies.util.afterTextChangedDebounce
+import com.example.qsdmovies.util.observe
+import com.example.qsdmovies.viewmodels.SearchViewModel
 
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: SearchViewModel
+    private var movieAdapter = MovieAdapter {
+        openMovieActivity(it)
+    }
+    private var tvShowsAdapter = MovieAdapter {
+        openMovieActivity(it)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -40,39 +47,45 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getTvShowsList { tvShows: List<TvShows> ->
-            binding.rvTelevisionShows.adapter = MovieAdapter(tvShows.map { it.poster })
+        setupView()
+        viewModel.stateFlow.observe(viewLifecycleOwner) {
+            movieAdapter.submitData(it)
         }
-        getMovieData { movies: List<Movie> ->
-            binding.rvMovies.adapter = MovieAdapter(movies.map { it.poster })
+        viewModel.stateFlowTvShows.observe(viewLifecycleOwner) {
+            tvShowsAdapter.submitData(it)
         }
     }
 
-    private fun getMovieData(callback: (List<Movie>) -> Unit) {
-        NetworkCore.moviesAPI.getMovieList().enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                return callback(response.body()!!.movies)
-            }
+    private fun setupView() {
+        binding.search.afterTextChangedDebounce(1000L) {
+            if (it.isBlank()) triggerSearch("a") else triggerSearch(it)
+        }
 
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Timber.e(t)
-            }
-        })
+        binding.rvMovies.adapter = movieAdapter
+        binding.rvTelevisionShows.adapter = tvShowsAdapter
     }
 
-    private fun getTvShowsList(callback: (List<TvShows>) -> Unit) {
-        NetworkCore.moviesAPI.getTvShowsList().enqueue(object : Callback<TvShowsResponse> {
-            override fun onResponse(
-                call: Call<TvShowsResponse>,
-                response: Response<TvShowsResponse>
-            ) {
-                return callback(response.body()!!.tvShows)
-            }
+    private fun triggerSearch(query: String) {
+        viewModel.search(query).observe(viewLifecycleOwner) {
+            movieAdapter.submitData(it)
+        }
 
-            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
-                Timber.e(t)
-            }
-        })
+        viewModel.searchShows(query).observe(viewLifecycleOwner) {
+            tvShowsAdapter.submitData(it)
+        }
+    }
+
+    private fun openMovieActivity(model: Movie) {
+        val intent = Intent(requireActivity(), MovieDetailsActivity::class.java).apply {
+            putExtra(Constants.MOVIE_TITLE, model.title)
+            putExtra(Constants.MOVIE_RATING, model.rating)
+            putExtra(Constants.MOVIE_OVERVIEW, model.overview)
+            putExtra(Constants.MOVIE_POSTER, model.poster)
+            putExtra(Constants.MOVIE_ID, model.id.toInt())
+        }
+
+        requireActivity().startActivity(intent)
     }
 }
+
 

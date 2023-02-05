@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_poster"
     android:layout_width="wrap_content"
-    android:layout_height="230dp">
+    android:layout_height="230dp"
+    android:backgroundTint="@color/white">
 
     <ImageView
         android:id="@+id/movie_poster"
@@ -16,7 +17,7 @@
 
 
     <CheckBox
-        android:id="@+id/favorite"
+        android:id="@+id/check_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"

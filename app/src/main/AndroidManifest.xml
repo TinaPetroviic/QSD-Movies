@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
     <application
         android:allowBackup="true"
@@ -42,8 +41,8 @@
         <activity android:name=".activity.WebViewWatchNowActivity" />
         <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.AccountActivity" />
-        <activity android:name=".activity.MovieDetails"/>
-        <activity android:name=".activity.CastActivity"/>
+        <activity android:name=".activity.MovieDetailsActivity" />
+        <activity android:name=".activity.CastActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
