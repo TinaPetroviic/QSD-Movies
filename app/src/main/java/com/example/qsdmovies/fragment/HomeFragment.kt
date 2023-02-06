@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.tag("HomeFragment").d("onCreate")
+        Timber.d("onCreate")
 
         viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
 
         }
 
-        viewModel.stateFlowTopRated.observe(viewLifecycleOwner) {
+        viewModel.stateFlowTopRated.observe(viewLifecycleOwner) { it ->
             topRatedAdapter.submitData(it.map {
                 Movie(
                     it.id?.toLong() ?: -1,

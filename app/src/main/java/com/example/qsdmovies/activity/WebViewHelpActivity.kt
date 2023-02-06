@@ -7,7 +7,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.databinding.ActivityWebviewhelpBinding
-import kotlinx.android.synthetic.main.activity_webviewhelp.*
 
 class WebViewHelpActivity : AppCompatActivity() {
 
@@ -20,26 +19,26 @@ class WebViewHelpActivity : AppCompatActivity() {
 
         binding.webViewHelp.webViewClient = WebViewClient()
 
-        web_view_help.webViewClient = object : WebViewClient() {
+        binding.webViewHelp.webViewClient = object : WebViewClient() {
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 view?.visibility = View.INVISIBLE
-                progress_bar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 view?.visibility = View.VISIBLE
-                progress_bar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
             }
 
         }
-        web_view_help.settings.javaScriptEnabled = true
+        binding.webViewHelp.settings.javaScriptEnabled = true
 
-        val settings = web_view_help.settings
+        val settings = binding.webViewHelp.settings
         settings.domStorageEnabled = true
 
-        web_view_help.loadUrl("https://www.themoviedb.org/faq/general")
+        binding.webViewHelp.loadUrl("https://www.themoviedb.org/faq/general")
     }
 }

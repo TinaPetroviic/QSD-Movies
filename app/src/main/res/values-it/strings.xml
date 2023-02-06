@@ -96,6 +96,6 @@
     <string name="you_declined_and_we_can_no_longer_show_you_notifications">Hai rifiutato e non possiamo più mostrarti le notifiche</string>
     <string name="go_to_settings">Vai a Impostazioni</string>
     <string name="ok">Ok</string>
-
+    <string name="dark_mode">Modalità oscura</string>
 
 </resources>

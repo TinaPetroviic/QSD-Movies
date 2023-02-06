@@ -27,13 +27,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
 
     private var backPressedTime = 0L
-    val TAG = "LoginActivity"
 
     private lateinit var binding: ActivityLoginBinding
 
@@ -46,12 +44,12 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        Timber.tag(TAG).d("onStart")
+        Timber.d("onStart")
         updateUI(auth.currentUser)
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
-        Timber.tag(TAG).d("updateUI")
+        Timber.d("updateUI")
         if (currentUser != null) {
             startActivity(Intent(this, BottomBarActivity::class.java))
             finish()
@@ -75,18 +73,18 @@ class LoginActivity : AppCompatActivity() {
                 callbackManager,
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult) {
-                        Timber.tag(TAG).d("facebook:onSuccess:%s", result)
+                        Timber.d("facebook:onSuccess:%s", result)
                         handleFacebookAccessToken(result.accessToken)
                     }
 
                     override fun onCancel() {
                         binding.viewLoading.root.hide()
-                        Timber.tag(TAG).d("facebook:onCancel")
+                        Timber.d("facebook:onCancel")
                     }
 
                     override fun onError(error: FacebookException) {
                         binding.viewLoading.root.hide()
-                        Timber.tag(TAG).d(error, "facebook:onError")
+                        Timber.d(error, "facebook:onError")
                     }
                 })
         }
@@ -113,15 +111,15 @@ class LoginActivity : AppCompatActivity() {
                 val email = "test@example.com"
                 val password = "password"
 
-                et_email.setText(email)
-                et_password.setText(password)
+                binding.etEmail.setText(email)
+                binding.etPassword.setText(password)
             }
         }
     }
 
     override fun onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         } else {
             Toast.makeText(
                 applicationContext,
@@ -142,26 +140,27 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn() {
+        binding.viewLoading.root.show()
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
 
-        Timber.tag(TAG).d("handleFacebookAccessToken:%s", token)
+        Timber.d("handleFacebookAccessToken:%s", token)
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Timber.tag(TAG).d("signInWithCredential:success")
+                    Timber.d("signInWithCredential:success")
                     updateUI(auth.currentUser)
                     Toast.makeText(
                         baseContext, "signInWithCredential:success",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Timber.tag(TAG).w(task.exception, "signInWithCredential:failure")
+                    Timber.w(task.exception, "signInWithCredential:failure")
                     Toast.makeText(
                         baseContext, getString(R.string.authentication_failed),
                         Toast.LENGTH_SHORT
@@ -170,7 +169,6 @@ class LoginActivity : AppCompatActivity() {
                     binding.viewLoading.root.hide()
                 }
             }
-
     }
 
     private fun login() {
@@ -239,6 +237,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.viewLoading.root.show()
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -255,6 +254,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun googleAuthForFirebase(account: GoogleSignInAccount) {
+        binding.viewLoading.root.show()
         val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credentials)
             .addOnCompleteListener(this) { task ->

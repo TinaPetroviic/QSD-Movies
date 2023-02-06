@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -142,8 +141,8 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        switch1.setOnCheckedChangeListener { _, isChecked ->
-            if (switch1.isChecked) {
+        binding.switch1.setOnCheckedChangeListener { _, _ ->
+            if (binding.switch1.isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -155,13 +154,13 @@ class ProfileFragment : Fragment() {
     private fun showRationaleDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.notifications_are_required_to_keep_you_updated_on_new_content))
-            .setPositiveButton(getString(R.string.go_to_settings)) { dialog, which ->
+            .setPositiveButton(getString(R.string.go_to_settings)) { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", "com.example.qsdmovies", null)
                 intent.data = uri
                 startActivity(intent)
             }
-            .setNegativeButton(getString(R.string.ok)) { dialog, which ->
+            .setNegativeButton(getString(R.string.ok)) { _, _ ->
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.you_declined_and_we_can_no_longer_show_you_notifications),

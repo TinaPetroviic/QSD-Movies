@@ -37,8 +37,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         setupCasts()
 
         binding.clBack.setOnClickListener {
-            val intent = Intent(this, BottomBarActivity::class.java)
-            startActivity(intent)
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnWatchNow.setOnClickListener {

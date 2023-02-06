@@ -97,6 +97,6 @@
     <string name="you_declined_and_we_can_no_longer_show_you_notifications">Du hast abgelehnt und wir können dir keine Benachrichtigungen mehr anzeigen</string>
     <string name="go_to_settings">Gehe zu den Einstellungen</string>
     <string name="ok">Okay</string>
-
+    <string name="dark_mode">Dunkelmodus</string>
 
 </resources>

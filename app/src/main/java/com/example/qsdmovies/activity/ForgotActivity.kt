@@ -25,8 +25,7 @@ class ForgotActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.clBack.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnSendEmail.setOnClickListener {
@@ -65,7 +64,7 @@ class ForgotActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
-            super.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             true
         }
         else -> super.onOptionsItemSelected(item)

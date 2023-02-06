@@ -47,8 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.clBack.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            onBackPressedDispatcher.onBackPressed()
         }
 
         auth = Firebase.auth
@@ -70,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
-            super.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -80,8 +79,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun signUpUser() {
 
         binding.viewLoading.root.show()
-
-        Timber.d("signUpUser")
 
         val name = binding.etFirstName.text.toString()
         val surname = binding.etLastName.text.toString()
@@ -158,6 +155,7 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, getString(R.string.user_already_exists), Toast.LENGTH_SHORT)
                     .show()
+                binding.viewLoading.root.hide()
                 return@addOnCompleteListener
             }
         }

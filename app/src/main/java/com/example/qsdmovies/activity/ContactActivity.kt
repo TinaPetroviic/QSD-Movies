@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qsdmovies.R
 import com.example.qsdmovies.databinding.ActivityContactBinding
-import com.example.qsdmovies.util.Constants
 
 class ContactActivity : AppCompatActivity() {
 
@@ -22,28 +21,23 @@ class ContactActivity : AppCompatActivity() {
 
         binding.btnSendEmail.setOnClickListener {
 
-            val email = binding.etEmail.text.toString().trim()
             val subject = binding.etSubject.text.toString().trim()
             val message = binding.etMessage.text.toString().trim()
 
-            sendEmail(email, subject, message)
+            sendEmail(subject, message)
 
         }
     }
 
     @SuppressLint("IntentReset")
-    private fun sendEmail(email: String, subject: String, message: String) {
+    private fun sendEmail(subject: String, message: String) {
 
-        val mIntent = Intent(Intent.ACTION_SENDTO)
+        val mIntent = Intent(Intent.ACTION_SEND)
 
-        mIntent.data = Uri.parse("mailto:")
-        mIntent.type = "text/plain"
+        mIntent.data = Uri.parse("mailto: test@mail.com")
+        mIntent.type = "message/rfc822"
 
-        if (email.isEmpty()) {
-            Toast.makeText(this, getString(R.string.email_field_cant_be_empty), Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
+
         if (subject.isEmpty()) {
             Toast.makeText(
                 this,
@@ -60,17 +54,7 @@ class ContactActivity : AppCompatActivity() {
             ).show()
             return
         }
-        if (email.matches(Constants.EMAIL_PATTERN.toRegex())) {
 
-        } else {
-            Toast.makeText(
-                applicationContext, getString(R.string.invalid_email_address),
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-
-        mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
         mIntent.putExtra(Intent.EXTRA_TEXT, message)
 

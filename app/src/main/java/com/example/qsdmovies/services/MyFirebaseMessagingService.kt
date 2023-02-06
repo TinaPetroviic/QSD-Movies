@@ -26,7 +26,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        Timber.tag("message").e("Message Received ...")
+        Timber.e("Message Received ...")
 
         if (remoteMessage.data.isNotEmpty()) {
             val title = remoteMessage.data["title"]
@@ -42,7 +42,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
-        Timber.tag("token").e("New Token")
+        Timber.e("New Token")
     }
 
 
@@ -52,8 +52,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         title: String?,
         message: String?
     ) {
-        val ii: Intent
-        ii = Intent(context, BottomBarActivity::class.java)
+        val ii = Intent(context, BottomBarActivity::class.java)
         ii.data = Uri.parse("custom://" + System.currentTimeMillis())
         ii.action = "actionstring" + System.currentTimeMillis()
         ii.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -61,7 +60,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.getActivity(context, 0, ii, PendingIntent.FLAG_MUTABLE)
         val notification: Notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Timber.tag("Notification").e("Created in up to orio OS device")
+            Timber.e("Created in up to orio OS device")
             notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setOngoing(true)
                 .setSmallIcon(getNotificationIcon())

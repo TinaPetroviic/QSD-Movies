@@ -1,266 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/containerProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_smoke"
     tools:context=".fragment.ProfileFragment">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_profile_photo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
-        android:elevation="30dp"
-        android:src="@drawable/user_2"
-        app:civ_border_color="@color/garuda_gold"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_first_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/gotham_book_font"
-        android:text="@string/first_namee"
-        android:textColor="@color/black"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_profile_photo" />
-
-    <TextView
-        android:id="@+id/tv_premium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/gotham_book_font"
-        android:text="@string/premium"
-        android:textColor="@color/too_gold"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
-
-    <LinearLayout
-        android:id="@+id/ll_account"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_premium">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/ic_baseline_account_24"
-            app:tint="@color/forged_steel" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile_photo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:elevation="30dp"
+            android:src="@drawable/user_2"
+            app:civ_border_color="@color/garuda_gold"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_first_name"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="@string/account"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/ll_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_account">
-
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="@color/forged_steel"
-            android:src="@drawable/ic_baseline_notifications_24"
-            app:tint="@color/forged_steel" />
+            android:text="@string/first_namee"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_profile_photo" />
 
         <TextView
+            android:id="@+id/tv_premium"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="@string/notification"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
+            android:text="@string/premium"
+            android:textColor="@color/too_gold"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
+
+        <LinearLayout
+            android:id="@+id/ll_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_premium">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_baseline_account_24"
+                app:tint="@color/forged_steel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/account"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/ll_contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_notification">
+        <LinearLayout
+            android:id="@+id/ll_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_account">
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="@color/forged_steel"
-            android:src="@drawable/ic_baseline_mail_24"
-            app:tint="@color/forged_steel" />
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="@color/forged_steel"
+                android:src="@drawable/ic_baseline_notifications_24"
+                app:tint="@color/forged_steel" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="@string/contact"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
-
-
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/notification"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
 
 
-    <LinearLayout
-        android:id="@+id/ll_language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_contact">
-
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="@color/forged_steel"
-            android:src="@drawable/ic_baseline_language_24"
-            app:tint="@color/forged_steel" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="@string/language"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
+        </LinearLayout>
 
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_notification">
 
-    <LinearLayout
-        android:id="@+id/ll_help"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_dark_mode">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="@color/forged_steel"
+                android:src="@drawable/ic_baseline_mail_24"
+                app:tint="@color/forged_steel" />
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="@color/forged_steel"
-            android:src="@drawable/ic_baseline_help_24"
-            app:tint="@color/forged_steel" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="@string/help"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/contact"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/ll_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_help">
+        <LinearLayout
+            android:id="@+id/ll_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_contact">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="@color/forged_steel"
-            android:src="@drawable/ic_baseline_logout_24"
-            app:tint="@color/forged_steel" />
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="@color/forged_steel"
+                android:src="@drawable/ic_baseline_language_24"
+                app:tint="@color/forged_steel" />
 
-        <TextView
-            android:id="@+id/signout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="@string/logout"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_dark_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_language">
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="@color/forged_steel"
-            android:src="@drawable/ic_baseline_logout_24"
-            android:theme="@style/SwitchStyle"
-            app:tint="@color/forged_steel" />
-
-        <TextView
-            android:id="@+id/dark_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/gotham_book_font"
-            android:gravity="center"
-            android:text="Dark mode"
-            android:textColor="@color/forged_steel"
-            android:textSize="22sp" />
-
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/language"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_dark_mode">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="@color/forged_steel"
+                android:src="@drawable/ic_baseline_help_24"
+                app:tint="@color/forged_steel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/help"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_help">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="@color/forged_steel"
+                android:src="@drawable/ic_baseline_logout_24"
+                app:tint="@color/forged_steel" />
+
+            <TextView
+                android:id="@+id/signout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/logout"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_dark_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_language">
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="@color/forged_steel"
+                android:src="@drawable/ic_baseline_logout_24"
+                android:theme="@style/SwitchStyle"
+                app:tint="@color/forged_steel" />
+
+            <TextView
+                android:id="@+id/dark_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/gotham_book_font"
+                android:gravity="center"
+                android:text="@string/dark_mode"
+                android:textColor="@color/forged_steel"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

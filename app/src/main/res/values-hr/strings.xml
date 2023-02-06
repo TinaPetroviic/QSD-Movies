@@ -97,6 +97,6 @@
     <string name="you_declined_and_we_can_no_longer_show_you_notifications">Odbili ste i više vam ne možemo prikazivati obavijesti</string>
     <string name="go_to_settings">Idite u Postavke</string>
     <string name="ok">U redu</string>
-
+    <string name="dark_mode">Tamni način rada</string>
 
 </resources>
