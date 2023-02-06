@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.qsdmovies.adapter.CastAdapter
 import com.example.qsdmovies.databinding.ActivityMoviedetailsBinding
-import com.example.qsdmovies.models.Cast
 import com.example.qsdmovies.util.Constants
 import com.example.qsdmovies.util.Constants.MOVIE_OVERVIEW
 import com.example.qsdmovies.util.Constants.MOVIE_POSTER
@@ -85,21 +84,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             .distinctUntilChanged()
             .collect {
                 castAdapter = CastAdapter(it) { crew ->
-                    openCrewActivity(crew)
+
                 }
                 binding.rvCast.adapter = castAdapter
             }
-    }
-
-    private fun openCrewActivity(model: Cast) {
-        val intent = Intent(this, CastActivity::class.java).apply {
-            putExtra(Constants.CREW_NAME, model.name)
-            putExtra(Constants.CREW_DESC, model.character)
-            putExtra(Constants.CREW_IMAGE, model.profilePath)
-            putExtra(Constants.CREW_KNOWN_FOR, model.knownForDepartment)
-        }
-
-        startActivity(intent)
     }
 }
 
