@@ -11,17 +11,26 @@ import com.example.qsdmovies.databinding.MovieItemBinding
 import com.example.qsdmovies.models.Movie
 import com.example.qsdmovies.util.Constants
 
-class MovieAdapter(val onMovieTap: (Movie) -> Unit) :
-    PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MoviesDiffCallback) {
+class MovieAdapter(
+    val onMovieTap: (Movie) -> Unit,
+    val onLikeTap: (Movie) -> Unit
+) : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MoviesDiffCallback) {
 
     inner class MovieViewHolder(val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindMovie(posterPath: Movie) {
-            Glide.with(itemView).load((Constants.IMAGE_BASE + posterPath.poster))
+            Glide.with(itemView).load((Constants.IMAGE_BASE + posterPath.poster_path))
                 .into(binding.moviePoster)
             binding.tvName.isVisible = false
             binding.moviePoster.setOnClickListener {
                 onMovieTap.invoke(posterPath)
+            }
+
+            binding.checkBox.isChecked = posterPath.favorite
+
+            binding.checkBox.setOnClickListener {
+                posterPath.favorite = !posterPath.favorite
+                onLikeTap.invoke(posterPath)
             }
         }
     }

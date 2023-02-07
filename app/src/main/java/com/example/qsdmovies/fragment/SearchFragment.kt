@@ -22,12 +22,12 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: SearchViewModel
-    private var movieAdapter = MovieAdapter {
-        openMovieActivity(it)
-    }
-    private var tvShowsAdapter = MovieAdapter {
-        openMovieActivity(it)
-    }
+    private var movieAdapter = MovieAdapter(
+        onMovieTap = { openMovieActivity(it) },
+        onLikeTap = { tapped -> })
+    private var tvShowsAdapter = MovieAdapter(
+        onMovieTap = { openMovieActivity(it) },
+        onLikeTap = { tapped -> })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,9 +78,9 @@ class SearchFragment : Fragment() {
     private fun openMovieActivity(model: Movie) {
         val intent = Intent(requireActivity(), MovieDetailsActivity::class.java).apply {
             putExtra(Constants.MOVIE_TITLE, model.title)
-            putExtra(Constants.MOVIE_RATING, model.rating)
+            putExtra(Constants.MOVIE_RATING, model.vote_average)
             putExtra(Constants.MOVIE_OVERVIEW, model.overview)
-            putExtra(Constants.MOVIE_POSTER, model.poster)
+            putExtra(Constants.MOVIE_POSTER, model.poster_path)
             putExtra(Constants.MOVIE_ID, model.id.toInt())
         }
 

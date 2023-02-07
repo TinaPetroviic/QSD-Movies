@@ -9,4 +9,6 @@ data class TopRated(
     @SerializedName("relase date") val releaseDate: String?,
     @SerializedName("vote_count") val vote: String,
     @SerializedName("overview") val overview: String,
-)
+) {
+    var favorite = false
+}
