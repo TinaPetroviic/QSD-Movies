@@ -1,12 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_poster"
         android:layout_width="wrap_content"
-        android:layout_height="230dp"
+        android:layout_height="250dp"
         android:backgroundTint="@color/white">
 
         <ImageView
@@ -22,13 +23,25 @@
 
         <CheckBox
             android:id="@+id/check_box"
+            app:useMaterialThemeColors="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:button="@drawable/selector_wishlist"
-            app:useMaterialThemeColors="false" />
+            android:button="@drawable/selector_wishlist" />
 
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/movie_poster_card"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            tools:text="Name"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
 
     </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

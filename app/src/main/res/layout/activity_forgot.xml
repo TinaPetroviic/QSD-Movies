@@ -76,7 +76,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/gotham_book_font"
-        android:text="Enter the email address you used to create your account and we will email you a link to reset yout password"
+        android:text="@string/enter_the_email_address_you_used_to_create_your_account_and_we_will_email_you_a_link_to_reset_yout_password"
         android:textAlignment="center"
         android:textColor="@color/aged_moustache_grey"
         android:textSize="20sp"

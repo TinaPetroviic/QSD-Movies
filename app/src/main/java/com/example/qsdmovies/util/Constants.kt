@@ -26,7 +26,5 @@ object Constants {
 
     // Crew details
     const val CREW_NAME = "extra_crew_name"
-    const val CREW_DESC = "extra_crew_desc"
-    const val CREW_IMAGE = "extra_crew_image"
-    const val CREW_KNOWN_FOR = "extra_crew_known_for"
+
 }

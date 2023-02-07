@@ -15,6 +15,7 @@ import com.example.qsdmovies.util.Constants.MOVIE_POSTER
 import com.example.qsdmovies.util.Constants.MOVIE_RATING
 import com.example.qsdmovies.util.Constants.MOVIE_TITLE
 import com.example.qsdmovies.viewmodels.MovieDetailsViewModel
+import kotlinx.android.synthetic.main.movie_item.*
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
@@ -72,6 +73,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.movieOverview.text = extras.getString(MOVIE_OVERVIEW, "")
         val movieId = extras.getInt(Constants.MOVIE_ID)
         viewModel.getCasts(movieId)
+
     }
 
     private fun setupCasts() {
@@ -84,6 +86,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             .distinctUntilChanged()
             .collect {
                 castAdapter = CastAdapter(it) { crew ->
+                    tv_name.text = Constants.CREW_NAME
 
                 }
                 binding.rvCast.adapter = castAdapter

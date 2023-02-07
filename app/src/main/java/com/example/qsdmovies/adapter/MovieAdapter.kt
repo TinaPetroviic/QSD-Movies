@@ -2,6 +2,7 @@ package com.example.qsdmovies.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ class MovieAdapter(val onMovieTap: (Movie) -> Unit) :
         fun bindMovie(posterPath: Movie) {
             Glide.with(itemView).load((Constants.IMAGE_BASE + posterPath.poster))
                 .into(binding.moviePoster)
-
+            binding.tvName.isVisible = false
             binding.moviePoster.setOnClickListener {
                 onMovieTap.invoke(posterPath)
             }
