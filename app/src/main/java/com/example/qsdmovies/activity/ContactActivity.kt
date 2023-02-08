@@ -34,7 +34,7 @@ class ContactActivity : AppCompatActivity() {
 
         val mIntent = Intent(Intent.ACTION_SEND)
 
-        mIntent.data = Uri.parse("mailto: test@mail.com")
+        mIntent.data = Uri.parse("mailto:test@mail.com")
         mIntent.type = "message/rfc822"
 
 

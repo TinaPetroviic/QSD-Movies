@@ -29,7 +29,7 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    val stateFlow = pager(config = PagingConfig(pageSize = 5)) {
+    private val stateFlow = pager(config = PagingConfig(pageSize = 5)) {
         getFavorites()
     }.flow.cachedIn(lifecycleScope)
 

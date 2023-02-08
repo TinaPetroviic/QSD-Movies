@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.imgGoogleLogin.setOnClickListener {
-            signIn()
+            signInWithGoogle()
         }
 
         binding.btnLogin.setOnClickListener {
@@ -139,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    private fun signIn() {
+    private fun signInWithGoogle() {
         binding.viewLoading.root.show()
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)

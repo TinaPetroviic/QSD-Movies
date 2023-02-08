@@ -22,7 +22,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import timber.log.Timber
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -163,9 +162,9 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun sendData() {
         val firebaseDatabase = FirebaseDatabase.getInstance()
-        val myReference = firebaseDatabase.getReference(auth?.uid.toString())
+        val myReference = firebaseDatabase.getReference(auth.uid.toString())
 
-        val imageRef = storageReference!!.child(Constants.IMAGE_PATH_DB).child(auth!!.uid!!)
+        val imageRef = storageReference!!.child(Constants.IMAGE_PATH_DB).child(auth.uid!!)
         val uploadImage = imageRef.putFile(imagePath!!)
         uploadImage.addOnFailureListener {
             Toast.makeText(this, getString(R.string.error_ocoured), Toast.LENGTH_SHORT).show()
@@ -202,7 +201,8 @@ class RegisterActivity : AppCompatActivity() {
 
         val user = User(firstName, lastName)
 
-        database.child(Constants.USER_PATH_DB).child(FirebaseAuth.getInstance().currentUser!!.uid).setValue(user)
+        database.child(Constants.USER_PATH_DB).child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .setValue(user)
 
     }
 }
