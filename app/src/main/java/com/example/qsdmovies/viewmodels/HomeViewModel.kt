@@ -24,9 +24,7 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel : ViewModel() {
 
-    val stateFlow = pager(config = PagingConfig(pageSize = 5)) {
-        getFavorites()
-    }.flow.cachedIn(viewModelScope)
+    val stateFlow = MutableStateFlow<List<Movie>>(listOf())
 
     val stateFlowTopRated = pager(config = PagingConfig(pageSize = 5)) {
         getTopRatedPaged(it.page)
@@ -108,6 +106,7 @@ class HomeViewModel : ViewModel() {
                     model?.let { list.add(it) }
                 }
 
+                stateFlow.update { list }
                 if (continuation.isActive) continuation.resume(list) {}
             }
         }

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.qsdmovies.activity.MovieDetailsActivity
 import com.example.qsdmovies.adapter.MovieAdapter
+import com.example.qsdmovies.adapter.SimpleMovieAdapter
 import com.example.qsdmovies.databinding.FragmentHomeBinding
 import com.example.qsdmovies.models.Movie
 import com.example.qsdmovies.util.Constants
@@ -30,7 +31,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
 
-    private val movieAdapter = MovieAdapter(
+    private val movieAdapter = SimpleMovieAdapter(
+        list = listOf(),
         onMovieTap = { openMovieActivity(it) },
         onLikeTap = { movie -> handleFavorites(movie) })
     private val topRatedAdapter = MovieAdapter(
@@ -73,8 +75,7 @@ class HomeFragment : Fragment() {
 
     private fun initFlows() {
         viewModel.stateFlow.observe(viewLifecycleOwner) {
-            movieAdapter.submitData(it)
-
+            movieAdapter.setMovies(it)
         }
 
         viewModel.stateFlowTopRated.observe(viewLifecycleOwner) { it ->
