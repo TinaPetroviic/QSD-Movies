@@ -119,13 +119,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            onBackPressedDispatcher.onBackPressed()
+            super.onBackPressed()
         } else {
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.press_back_again_to_exit_app),
-                Toast.LENGTH_SHORT
-            )
+            Toast.makeText(applicationContext, getString(R.string.press_back_again_to_exit_app) , Toast.LENGTH_SHORT)
                 .show()
         }
         backPressedTime = System.currentTimeMillis()

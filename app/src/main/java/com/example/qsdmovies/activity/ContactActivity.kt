@@ -32,10 +32,9 @@ class ContactActivity : AppCompatActivity() {
     @SuppressLint("IntentReset")
     private fun sendEmail(subject: String, message: String) {
 
-        val mIntent = Intent(Intent.ACTION_SEND)
+        val mIntent = Intent(Intent.ACTION_SENDTO)
 
         mIntent.data = Uri.parse("mailto:test@mail.com")
-        mIntent.type = "message/rfc822"
 
 
         if (subject.isEmpty()) {
